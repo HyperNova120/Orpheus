@@ -13,7 +13,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
-        //MTE5NjAwMDYwMjQ3NjUzMTcxMg.GApC0-.WpwHyfsR5DS9RolYB0IwVYxqP4dtmD0s9c-M10
         private static DiscordClient Client { get; set; }
         private static CommandsNextExtension Commands { get; set; }
 
