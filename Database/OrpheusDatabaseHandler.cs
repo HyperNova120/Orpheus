@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
 
@@ -105,6 +106,11 @@ namespace Orpheus.Database
                 + $"'{dAttachment.msgID}',"
                 + $"'{dAttachment.url}');";
             return await DBEngine.RunExecuteNonQueryAsync(query);
+        }
+
+        public static string ConvertToUFT8(string s)
+        {
+            return Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(s));
         }
 
         /*

@@ -67,7 +67,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 channelID = args.Channel.Id,
                 userID = args.Author.Id,
                 sendingTime = DateTime.Now,
-                msgText = messageContent,
+                msgText = OrpheusDatabaseHandler.ConvertToUFT8(messageContent),
                 dmsgID = args.Message.Id
             };
             OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
@@ -88,7 +88,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                     serverID = args.Guild.Id,
                     msgID = args.Message.Id,
                     userID = args.Author.Id,
-                    url = attachment.Url
+                    url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url.Replace("'","''"))
                 };
                 await handler.StoreAttachmentAsync(dAttachment);
             }
@@ -124,7 +124,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             };
 
             Client = new DiscordClient(discordConfig);
-
             Client.Ready += Client_Ready;
 
             Client.MessageCreated += async (user, args) =>
