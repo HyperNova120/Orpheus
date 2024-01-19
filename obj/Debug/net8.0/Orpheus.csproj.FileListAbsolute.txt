@@ -62,3 +62,4 @@ c:\Users\amess\OneDrive\Documents\Coding_Projects\Orpheus\Orpheus\obj\Debug\net8
 c:\Users\amess\OneDrive\Documents\Coding_Projects\Orpheus\Orpheus\obj\Debug\net8.0\Orpheus.genruntimeconfig.cache
 c:\Users\amess\OneDrive\Documents\Coding_Projects\Orpheus\Orpheus\obj\Debug\net8.0\ref\Orpheus.dll
 c:\Users\amess\OneDrive\Documents\Coding_Projects\Orpheus\Orpheus\bin\Debug\net8.0\Npgsql.dll
+c:\Users\amess\OneDrive\Documents\Coding_Projects\Orpheus\Orpheus\obj\Debug\net8.0\Orpheus.sourcelink.json

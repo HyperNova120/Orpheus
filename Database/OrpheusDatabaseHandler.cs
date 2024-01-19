@@ -84,13 +84,26 @@ namespace Orpheus.Database
         public async Task<bool> StoreMsgAsync(DMsg msg)
         {
             string query =
-                "INSERT INTO orpheusdata.messages (msgid, serverid, userid, channelid, sendtime, messagetext) VALUES "
+                "INSERT INTO orpheusdata.messages (msgid, serverid, userid, channelid, sendtime, dmsgid, messagetext) VALUES "
                 + $"(default,"
                 + $"'{msg.serverID}',"
                 + $"'{msg.userID}',"
                 + $"'{msg.channelID}',"
                 + $"'{msg.sendingTime}',"
+                + $"'{msg.dmsgID}',"
                 + $"'{msg.msgText}');";
+            return await DBEngine.RunExecuteNonQueryAsync(query);
+        }
+
+        public async Task<bool> StoreAttachmentAsync(DAttachment dAttachment)
+        {
+            string query =
+                "INSERT INTO orpheusdata.attachments (id, serverid, userid, dmsgid, url) VALUES "
+                + $"(default, "
+                + $"'{dAttachment.serverID}',"
+                + $"'{dAttachment.userID}',"
+                + $"'{dAttachment.msgID}',"
+                + $"'{dAttachment.url}');";
             return await DBEngine.RunExecuteNonQueryAsync(query);
         }
 

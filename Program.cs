@@ -59,8 +59,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             {
                 return;
             }
-            string messageContent = args.Message.Content.Replace("'","''");
-            Console.WriteLine();
+            string messageContent = args.Message.Content.Replace("'", "''");
             Console.WriteLine($"STORING:{args.Message.ToString()}");
             DMsg dMsg = new DMsg()
             {
@@ -68,10 +67,31 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 channelID = args.Channel.Id,
                 userID = args.Author.Id,
                 sendingTime = DateTime.Now,
-                msgText = messageContent
+                msgText = messageContent,
+                dmsgID = args.Message.Id
             };
             OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
             await handler.StoreMsgAsync(dMsg);
+
+            //attachment storage handling
+            DiscordAttachment[] attaches = args.Message.Attachments.ToArray();
+            if (attaches.Length > 0)
+            {
+                //await args.Channel.SendMessageAsync($"ATTACHMENT {attaches[0].Url}");
+                Console.WriteLine($"ATTACHMENT {attaches[0].Url}");
+            }
+            foreach (DiscordAttachment attachment in attaches)
+            {
+                DAttachment dAttachment = new DAttachment()
+                {
+                    channelID = args.Channel.Id,
+                    serverID = args.Guild.Id,
+                    msgID = args.Message.Id,
+                    userID = args.Author.Id,
+                    url = attachment.Url
+                };
+                await handler.StoreAttachmentAsync(dAttachment);
+            }
             //await args.Channel.SendMessageAsync("GRABBED:" + s);
         }
 
