@@ -65,23 +65,25 @@ namespace Orpheus.Database
             }
         }
 
-        public static async Task<bool> RunExecuteNonQueryAsync(string query)
+        public static async Task<bool> RunExecuteNonQueryAsync(NpgsqlCommand cmd)
         {
+            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
+            await conn.OpenAsync();
+            NpgsqlTransaction transaction = conn.BeginTransaction();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
-                {
-                    await conn.OpenAsync();
-                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
-                    {
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-                }
+                cmd.Connection = conn;
+                await cmd.PrepareAsync();
+                await cmd.ExecuteNonQueryAsync();
+                transaction.Commit();
+                await conn.CloseAsync();
                 return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                transaction.Rollback();
+                await conn.CloseAsync();
                 return false;
             }
         }

@@ -60,7 +60,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 return;
             }
             string messageContent = args.Message.Content.Replace("'", "''");
-            Console.WriteLine($"STORING:{args.Message.ToString()}");
+            Console.WriteLine($"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}");
             DMsg dMsg = new DMsg()
             {
                 serverID = args.Guild.Id,
@@ -72,6 +72,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             };
             OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
             await handler.StoreMsgAsync(dMsg);
+            Console.WriteLine($"STORED:{args.Message.ToString()}");
 
             //attachment storage handling
             DiscordAttachment[] attaches = args.Message.Attachments.ToArray();
