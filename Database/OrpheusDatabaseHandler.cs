@@ -36,9 +36,10 @@ namespace Orpheus.Database
         public async Task<bool> UpdateUserAsync(DUser user)
         {
             user.username = user.username.Replace("'", "''");
+            string uname = OrpheusDatabaseHandler.ConvertToUFT8(user.username);
             string query =
                 "UPDATE orpheusdata.userinfo SET "
-                + $"username = '{user.username}' "
+                + $"username = '{uname}' "
                 + $"WHERE userid = '{user.userId}';";
             return await DBEngine.RunExecuteNonQueryAsync(query);
         }
@@ -59,10 +60,11 @@ namespace Orpheus.Database
                 //entry already exists
                 return await UpdateServerAsync(server);
             }
+            string sname = OrpheusDatabaseHandler.ConvertToUFT8(server.serverName);
             string query =
                 "INSERT INTO orpheusdata.serverinfo (serverid, servername, jailid, jailroleid, jailcourtid) VALUES "
                 + $"('{server.serverID}',"
-                + $"'{server.serverName}',"
+                + $"'{sname}',"
                 + $"'{server.jailChannelID}',"
                 + $"'{server.JailRoleID}',"
                 + $"'{server.JailCourtID}');";
