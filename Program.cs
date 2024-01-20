@@ -156,7 +156,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
             Client = new DiscordClient(discordConfig);
             Client.Ready += Client_Ready;
-
             Client.MessageCreated += async (user, args) =>
             {
                 handleMessageCreated(user, args);

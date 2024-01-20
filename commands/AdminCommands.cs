@@ -231,8 +231,15 @@ namespace Orpheus.commands
                 return;
             }
             DiscordRole jailrole = ctx.Guild.GetRole(channelid);
-            await user.GrantRoleAsync(jailrole);
-            ctx.Channel.SendMessageAsync($"{user.Username} has been sent to jail!");
+            try
+            {
+                await user.GrantRoleAsync(jailrole);
+                await ctx.Channel.SendMessageAsync($"{user.Username} has been sent to jail!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
             await ctx.Message.DeleteAsync();
         }
 
@@ -298,10 +305,7 @@ namespace Orpheus.commands
         [Command("leave")]
         public async Task LeaveVoiceChannel(CommandContext ctx)
         {
-            if (
-                isNotValidCommand(ctx)
-                || !Convert.ToBoolean(await doesUserHavePerms(ctx))
-            )
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
             {
                 return;
             }
@@ -325,7 +329,9 @@ namespace Orpheus.commands
             return await DBEngine.DoesEntryExist(
                 "orpheusdata.admininfo",
                 "userid",
-                ctx.Member.Id.ToString()
+                "serverid",
+                ctx.Member.Id.ToString(),
+                ctx.Member.Guild.Id.ToString()
             );
         }
     }
