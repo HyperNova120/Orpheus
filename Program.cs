@@ -47,7 +47,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         private static async Task runRegisterServerIfNeeded(GuildCreateEventArgs args)
         {
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
 
             //register or update server
             AdminCommands temp = new AdminCommands();
@@ -62,7 +61,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                     continue;
                 }
                 DUser dUser = new DUser() { userId = member.Id, username = member.Username, };
-                await handler.StoreUserAsync(dUser);
+                await OrpheusDatabaseHandler.StoreUserAsync(dUser);
             }
         }
 
@@ -88,8 +87,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 msgText = OrpheusDatabaseHandler.ConvertToUFT8(messageContent),
                 dmsgID = args.Message.Id
             };
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
-            await handler.StoreMsgAsync(dMsg);
+            await OrpheusDatabaseHandler.StoreMsgAsync(dMsg);
             Console.WriteLine($"STORED:{args.Message.ToString()}");
 
             //attachment storage handling
@@ -109,17 +107,16 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                     userID = args.Author.Id,
                     url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url.Replace("'", "''"))
                 };
-                await handler.StoreAttachmentAsync(dAttachment);
+                await OrpheusDatabaseHandler.StoreAttachmentAsync(dAttachment);
             }
             //await args.Channel.SendMessageAsync("GRABBED:" + s);
         }
 
         private static async Task handleUserJoined(DiscordClient user, GuildMemberAddEventArgs args)
         {
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
             DUser dUser = new DUser() { userId = args.Member.Id, username = args.Member.Username, };
 
-            bool isStored = await handler.StoreUserAsync(dUser);
+            bool isStored = await OrpheusDatabaseHandler.StoreUserAsync(dUser);
             if (isStored)
             {
                 Console.WriteLine("Succesfully stored in Database");

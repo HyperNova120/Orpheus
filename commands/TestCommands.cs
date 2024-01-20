@@ -30,8 +30,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
-            ulong channelid = await handler.GetJailIDInfo(ctx.Guild.Id, "jailid");
+            ulong channelid = await OrpheusDatabaseHandler.GetJailIDInfo(ctx.Guild.Id, "jailid");
             if (channelid == 0)
             {
                 await ctx.Channel.SendMessageAsync("Failed; JailChannel has not been registered");
@@ -47,8 +46,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
-            ulong channelid = await handler.GetJailIDInfo(ctx.Guild.Id, "jailroleid");
+            ulong channelid = await OrpheusDatabaseHandler.GetJailIDInfo(ctx.Guild.Id, "jailroleid");
             if (channelid == 0)
             {
                 await ctx.Channel.SendMessageAsync("Send Failed; JailRole has not been registered");
@@ -65,10 +63,9 @@ namespace Orpheus.commands
             {
                 return;
             }
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
             DUser dUser = new DUser() { userId = ctx.User.Id, username = ctx.User.Username, };
 
-            bool isStored = await handler.StoreUserAsync(dUser);
+            bool isStored = await OrpheusDatabaseHandler.StoreUserAsync(dUser);
             if (isStored)
             {
                 await ctx.Channel.SendMessageAsync("Succesfully stored in Database");

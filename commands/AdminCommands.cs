@@ -51,8 +51,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
-            await handler.UpdateServerJailChannelID(jailChannel.Guild.Id, jailChannel.Id);
+            await OrpheusDatabaseHandler.UpdateServerJailChannelID(jailChannel.Guild.Id, jailChannel.Id);
             ctx.Channel.SendMessageAsync(
                 $"Registered {jailChannel.Name} ID:{jailChannel.Id} as server jail"
             );
@@ -70,8 +69,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
-            await handler.UpdateServerJailCourtID(jailCourtChannel.Guild.Id, jailCourtChannel.Id);
+            await OrpheusDatabaseHandler.UpdateServerJailCourtID(jailCourtChannel.Guild.Id, jailCourtChannel.Id);
             ctx.Channel.SendMessageAsync(
                 $"Registered {jailCourtChannel.Name} ID:{jailCourtChannel.Id} as server jail court"
             );
@@ -90,8 +88,7 @@ namespace Orpheus.commands
                 return;
             }
             
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
-            await handler.UpdateServerJailRoleID(ctx.Guild.Id, jailRole.Id);
+            await OrpheusDatabaseHandler.UpdateServerJailRoleID(ctx.Guild.Id, jailRole.Id);
             ctx.Channel.SendMessageAsync($"Registered {jailRole.Name} ID:{jailRole.Id} as server jail role");
             await ctx.Message.DeleteAsync();
         }
@@ -130,7 +127,6 @@ namespace Orpheus.commands
 
         public async Task RegisterServer(DServer dServer)
         {
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
 
             if (
                 Convert.ToBoolean(
@@ -143,12 +139,12 @@ namespace Orpheus.commands
             )
             {
                 //if server already exists
-                await handler.UpdateServerAsync(dServer);
-                Console.WriteLine("UPDATED SERVER");
+                await OrpheusDatabaseHandler.UpdateServerAsync(dServer);
+                Console.WriteLine($"UPDATED SERVER:{dServer.serverName}");
                 return;
             }
 
-            bool isStored = await handler.StoreServerAsync(dServer);
+            bool isStored = await OrpheusDatabaseHandler.StoreServerAsync(dServer);
             if (isStored)
             {
                 Console.WriteLine("Succesfully stored in Database");
@@ -164,7 +160,6 @@ namespace Orpheus.commands
         [Command("registerAdmin")]
         public async Task RegisterAdmin(CommandContext ctx, DiscordMember memberToAdmin)
         {
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
             if (
                 isNotValidCommand(ctx)
                 || !Convert.ToBoolean(await doesUserHavePerms(ctx))
@@ -183,13 +178,12 @@ namespace Orpheus.commands
             }
             DAdmin dAdmin = new DAdmin() { userID = memberToAdmin.Id, serverID = ctx.Guild.Id };
             await ctx.Message.DeleteAsync();
-            await handler.StoreAdminAsync(dAdmin);
+            await OrpheusDatabaseHandler.StoreAdminAsync(dAdmin);
         }
 
         [Command("removeAdmin")]
         public async Task RemoveAdmin(CommandContext ctx, DiscordMember memberToRemoveAdmin)
         {
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
             if (
                 isNotValidCommand(ctx)
                 || !Convert.ToBoolean(await doesUserHavePerms(ctx))
@@ -211,7 +205,7 @@ namespace Orpheus.commands
                 userID = memberToRemoveAdmin.Id,
                 serverID = ctx.Guild.Id
             };
-            handler.RemoveAdminAsync(dAdmin);
+            OrpheusDatabaseHandler.RemoveAdminAsync(dAdmin);
             await ctx.Message.DeleteAsync();
         }
 
@@ -223,8 +217,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
-            ulong channelid = await handler.GetJailIDInfo(ctx.Guild.Id, "jailroleid");
+            ulong channelid = await OrpheusDatabaseHandler.GetJailIDInfo(ctx.Guild.Id, "jailroleid");
             if (channelid == 0)
             {
                 await ctx.Channel.SendMessageAsync("Send Failed; JailRole has not been registered");

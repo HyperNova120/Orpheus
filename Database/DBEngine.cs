@@ -45,6 +45,7 @@ namespace Orpheus.Database
             string testForValue
         )
         {
+            Console.WriteLine("DoesEntryExist CALLED");
             try
             {
                 using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
@@ -74,6 +75,7 @@ namespace Orpheus.Database
             string testForValue2
         )
         {
+            Console.WriteLine("DoesEntryExist CALLED");
             try
             {
                 using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
@@ -97,6 +99,7 @@ namespace Orpheus.Database
 
         public static async Task<bool> RunExecuteNonQueryAsync(NpgsqlCommand cmd)
         {
+            Console.WriteLine("RunExecuteNonQueryAsync CALLED");
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             await conn.OpenAsync();
             NpgsqlTransaction transaction = conn.BeginTransaction();
@@ -120,6 +123,7 @@ namespace Orpheus.Database
 
         public static async Task<NpgsqlDataReader> RunExecuteReaderAsync(NpgsqlCommand cmd)
         {
+            Console.WriteLine("RunExecuteReaderAsync CALLED");
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             await conn.OpenAsync();
             NpgsqlTransaction transaction = conn.BeginTransaction();
@@ -140,8 +144,10 @@ namespace Orpheus.Database
                 return null;
             }
         }
+
         public static async Task<Object> RunExecuteScalarAsync(NpgsqlCommand cmd)
         {
+            Console.WriteLine("RunExecuteScalarAsync CALLED");
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             await conn.OpenAsync();
             NpgsqlTransaction transaction = conn.BeginTransaction();
@@ -149,7 +155,7 @@ namespace Orpheus.Database
             {
                 cmd.Connection = conn;
                 await cmd.PrepareAsync();
-                Object obj  = await cmd.ExecuteScalarAsync();
+                Object obj = await cmd.ExecuteScalarAsync();
                 transaction.Commit();
                 await conn.CloseAsync();
                 return obj;

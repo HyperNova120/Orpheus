@@ -10,9 +10,9 @@ using NpgsqlTypes;
 
 namespace Orpheus.Database
 {
-    public class OrpheusDatabaseHandler
+    public static class OrpheusDatabaseHandler
     {
-        public async Task<bool> StoreUserAsync(DUser user)
+        public static async Task<bool> StoreUserAsync(DUser user)
         {
             if (
                 Convert.ToBoolean(
@@ -24,10 +24,10 @@ namespace Orpheus.Database
                 )
             )
             {
-                Console.WriteLine($"UPDATING:{user.username}");
+                Console.WriteLine($"UPDATING USER:{user.username}");
                 return await UpdateUserAsync(user);
             }
-            Console.WriteLine($"STORING:{user.username}");
+            Console.WriteLine($"STORING USER:{user.username}");
             NpgsqlCommand cmd = new NpgsqlCommand(
                 "INSERT INTO orpheusdata.userinfo (id, userid, username) VALUES (default,$1,$2)"
             )
@@ -41,7 +41,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> UpdateUserAsync(DUser user)
+        public static async Task<bool> UpdateUserAsync(DUser user)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 $"UPDATE orpheusdata.userinfo SET username=$1 WHERE userid={user.userId}"
@@ -56,7 +56,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> StoreAdminAsync(DAdmin user)
+        public static async Task<bool> StoreAdminAsync(DAdmin user)
         {
             if (
                 Convert.ToBoolean(
@@ -85,7 +85,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> RemoveAdminAsync(DAdmin user)
+        public static async Task<bool> RemoveAdminAsync(DAdmin user)
         {
             if (
                 !Convert.ToBoolean(
@@ -114,7 +114,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> StoreServerAsync(DServer server)
+        public static async Task<bool> StoreServerAsync(DServer server)
         {
             if (
                 Convert.ToBoolean(
@@ -145,7 +145,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> UpdateServerAsync(DServer server)
+        public static async Task<bool> UpdateServerAsync(DServer server)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 $"UPDATE orpheusdata.serverinfo SET servername=$1 WHERE serverid={server.serverID}"
@@ -159,7 +159,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> UpdateServerJailRoleID(ulong serverid, ulong id)
+        public static async Task<bool> UpdateServerJailRoleID(ulong serverid, ulong id)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 $"UPDATE orpheusdata.serverinfo SET jailroleid=$1 WHERE serverid={serverid}"
@@ -170,7 +170,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> UpdateServerJailChannelID(ulong serverid, ulong id)
+        public static async Task<bool> UpdateServerJailChannelID(ulong serverid, ulong id)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 $"UPDATE orpheusdata.serverinfo SET jailid=$1 WHERE serverid={serverid}"
@@ -181,7 +181,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> UpdateServerJailCourtID(ulong serverid, ulong id)
+        public static async Task<bool> UpdateServerJailCourtID(ulong serverid, ulong id)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 $"UPDATE orpheusdata.serverinfo SET jailcourtid=$1 WHERE serverid={serverid}"
@@ -192,7 +192,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<ulong> GetJailIDInfo(ulong serverid, string columnName)
+        public static async Task<ulong> GetJailIDInfo(ulong serverid, string columnName)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 $"SELECT {columnName} FROM orpheusdata.serverinfo WHERE serverid={serverid}"
@@ -200,7 +200,7 @@ namespace Orpheus.Database
             return Convert.ToUInt64(await DBEngine.RunExecuteScalarAsync(cmd));
         }
 
-        public async Task<bool> StoreMsgAsync(DMsg msg)
+        public static async Task<bool> StoreMsgAsync(DMsg msg)
         {
             //Console.WriteLine("MSG ID:"+msg.dmsgID);
             NpgsqlCommand cmd = new NpgsqlCommand(
@@ -221,7 +221,7 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
-        public async Task<bool> StoreAttachmentAsync(DAttachment dAttachment)
+        public static async Task<bool> StoreAttachmentAsync(DAttachment dAttachment)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 "INSERT INTO orpheusdata.attachments (id, serverid, userid, dmsgid, url) VALUES "
