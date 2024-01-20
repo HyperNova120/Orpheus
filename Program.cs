@@ -47,7 +47,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         private static async Task runRegisterServerIfNeeded(GuildCreateEventArgs args)
         {
-
             //register or update server
             AdminCommands temp = new AdminCommands();
             await temp.RegisterServer(args);
@@ -63,6 +62,14 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 DUser dUser = new DUser() { userId = member.Id, username = member.Username, };
                 await OrpheusDatabaseHandler.StoreUserAsync(dUser);
             }
+        }
+
+        public static async Task SetDiscordStatus(
+            DiscordActivity discordActivity,
+            UserStatus userStatus
+        )
+        {
+            await Client.UpdateStatusAsync(discordActivity, userStatus);
         }
 
         private static async Task handleMessageCreated(
@@ -144,16 +151,16 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
             Client.MessageCreated += async (user, args) =>
             {
-                await handleMessageCreated(user, args);
+                handleMessageCreated(user, args);
             };
 
             Client.GuildAvailable += async (c, args) =>
             {
-                await runRegisterServerIfNeeded(args);
+                runRegisterServerIfNeeded(args);
             };
             Client.GuildMemberAdded += async (user, args) =>
             {
-                await handleUserJoined(user, args);
+                handleUserJoined(user, args);
             };
 
             CommandsNextConfiguration commandsConfig = new CommandsNextConfiguration()

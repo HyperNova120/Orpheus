@@ -15,7 +15,6 @@ namespace Orpheus.commands
 {
     public class AdminCommands : BaseCommandModule
     {
-
         [Command("embed")]
         public async Task EmbedMessage(CommandContext ctx)
         {
@@ -51,7 +50,10 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await OrpheusDatabaseHandler.UpdateServerJailChannelID(jailChannel.Guild.Id, jailChannel.Id);
+            await OrpheusDatabaseHandler.UpdateServerJailChannelID(
+                jailChannel.Guild.Id,
+                jailChannel.Id
+            );
             ctx.Channel.SendMessageAsync(
                 $"Registered {jailChannel.Name} ID:{jailChannel.Id} as server jail"
             );
@@ -69,7 +71,10 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await OrpheusDatabaseHandler.UpdateServerJailCourtID(jailCourtChannel.Guild.Id, jailCourtChannel.Id);
+            await OrpheusDatabaseHandler.UpdateServerJailCourtID(
+                jailCourtChannel.Guild.Id,
+                jailCourtChannel.Id
+            );
             ctx.Channel.SendMessageAsync(
                 $"Registered {jailCourtChannel.Name} ID:{jailCourtChannel.Id} as server jail court"
             );
@@ -87,9 +92,11 @@ namespace Orpheus.commands
             {
                 return;
             }
-            
+
             await OrpheusDatabaseHandler.UpdateServerJailRoleID(ctx.Guild.Id, jailRole.Id);
-            ctx.Channel.SendMessageAsync($"Registered {jailRole.Name} ID:{jailRole.Id} as server jail role");
+            ctx.Channel.SendMessageAsync(
+                $"Registered {jailRole.Name} ID:{jailRole.Id} as server jail role"
+            );
             await ctx.Message.DeleteAsync();
         }
 
@@ -127,7 +134,6 @@ namespace Orpheus.commands
 
         public async Task RegisterServer(DServer dServer)
         {
-
             if (
                 Convert.ToBoolean(
                     await DBEngine.DoesEntryExist(
@@ -154,8 +160,6 @@ namespace Orpheus.commands
                 Console.WriteLine("Failed to store in Database");
             }
         }
-
-
 
         [Command("registerAdmin")]
         public async Task RegisterAdmin(CommandContext ctx, DiscordMember memberToAdmin)
@@ -209,7 +213,6 @@ namespace Orpheus.commands
             await ctx.Message.DeleteAsync();
         }
 
-        
         [Command("jail")]
         public async Task Jail(CommandContext ctx, DiscordMember user)
         {
@@ -217,7 +220,10 @@ namespace Orpheus.commands
             {
                 return;
             }
-            ulong channelid = await OrpheusDatabaseHandler.GetJailIDInfo(ctx.Guild.Id, "jailroleid");
+            ulong channelid = await OrpheusDatabaseHandler.GetJailIDInfo(
+                ctx.Guild.Id,
+                "jailroleid"
+            );
             if (channelid == 0)
             {
                 await ctx.Channel.SendMessageAsync("Send Failed; JailRole has not been registered");
@@ -226,6 +232,39 @@ namespace Orpheus.commands
             DiscordRole jailrole = ctx.Guild.GetRole(channelid);
             await user.GrantRoleAsync(jailrole);
             ctx.Channel.SendMessageAsync($"{user.Username} has been sent to jail!");
+            await ctx.Message.DeleteAsync();
+        }
+
+        [Command("on")]
+        public async Task StatusOnline(CommandContext ctx)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Program.SetDiscordStatus(new DiscordActivity("In Testing on"), UserStatus.Online);
+            await ctx.Message.DeleteAsync();
+        }
+
+        [Command("off")]
+        public async Task StatusOffline(CommandContext ctx)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Program.SetDiscordStatus(new DiscordActivity("In Testing off"), UserStatus.Offline);
+            await ctx.Message.DeleteAsync();
+        }
+
+        [Command("dnd")]
+        public async Task Statusdnd(CommandContext ctx)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Program.SetDiscordStatus(new DiscordActivity("In Testing dnd"), UserStatus.DoNotDisturb);
             await ctx.Message.DeleteAsync();
         }
 
@@ -238,7 +277,7 @@ namespace Orpheus.commands
         {
             if (ctx.Member.IsOwner)
             {
-                Console.WriteLine("VALID COMMAND, OWNER");
+                Console.Write("VALID COMMAND, OWNER:");
                 return true;
             }
             return await DBEngine.DoesEntryExist(
