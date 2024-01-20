@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Orpheus")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d333e48f5b45382e1b88fc16ab88f719c27496f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9cf250aebe3808ad83661e94b1a51cb7b6e16892")]
 [assembly: System.Reflection.AssemblyProductAttribute("Orpheus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Orpheus")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

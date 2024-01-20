@@ -159,11 +159,32 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                     "https://tenor.com/view/pray-praying-dickies-gangster-gangsta-gif-1281706038007242304"
                 );
             }
-            if (args.Message.Content.Equals("https://tenor.com/view/one-piece-one-piece-zoro-zoro-aight-im-going-to-bed-one-piece-sleep-gif-26290499"))
+            else if (
+                args.Message.Content.Equals(
+                    "https://tenor.com/view/one-piece-one-piece-zoro-zoro-aight-im-going-to-bed-one-piece-sleep-gif-26290499"
+                )
+            )
             {
                 await args.Channel.SendMessageAsync(
                     "https://tenor.com/view/goodnight-fat-cat-gif-25641116"
                 );
+            }
+            else if (
+                args.Message.Content.Equals(
+                    "https://tenor.com/view/gojo-gojo-satoru-gojo-season-2-hip-thrust-reaction-gif-10399129046512126318"
+                )
+            )
+            {
+                await args.Channel.SendMessageAsync(
+                    "https://tenor.com/view/cat-suckin-it-finger-troll-cat-gif-21799760"
+                );
+            }
+            else if (args.Message.Content.Equals("https://tenor.com/view/anime-girl-cute-going-out-shopping-orange-hair-gif-8936739154264241945"))
+            {
+                await args.Channel.SendMessageAsync(
+                    "https://tenor.com/view/luluco-judgment-gun-morphing-gun-transform-magical-girl-gif-26460149"
+                );
+
             }
         }
 

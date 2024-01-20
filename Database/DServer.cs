@@ -12,5 +12,6 @@ namespace Orpheus.Database
         public ulong jailChannelID { get; set; }
         public ulong JailRoleID { get; set; }
         public ulong JailCourtID { get; set; }
+        public ulong JailCourtRoleID { get; set; }
     }
 }

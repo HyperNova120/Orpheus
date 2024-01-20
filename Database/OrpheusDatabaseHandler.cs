@@ -130,7 +130,7 @@ namespace Orpheus.Database
                 return await UpdateServerAsync(server);
             }
             NpgsqlCommand cmd = new NpgsqlCommand(
-                "INSERT INTO orpheusdata.serverinfo (id, serverid, servername, jailid, jailroleid, jailcourtid) VALUES (default,$1, $2, $3, $4, $5)"
+                "INSERT INTO orpheusdata.serverinfo (id, serverid, servername, jailid, jailroleid, jailcourtid, jailcourtroleid) VALUES (default,$1, $2, $3, $4, $5, $6)"
             )
             {
                 Parameters =
@@ -139,7 +139,8 @@ namespace Orpheus.Database
                     new NpgsqlParameter() { Value = server.serverName },
                     new NpgsqlParameter() { Value = Convert.ToDecimal(server.jailChannelID) },
                     new NpgsqlParameter() { Value = Convert.ToDecimal(server.JailRoleID) },
-                    new NpgsqlParameter() { Value = Convert.ToDecimal(server.JailCourtID) }
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(server.JailCourtID) },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(server.JailCourtRoleID) }
                 }
             };
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
@@ -151,10 +152,7 @@ namespace Orpheus.Database
                 $"UPDATE orpheusdata.serverinfo SET servername=$1 WHERE serverid={server.serverID}"
             )
             {
-                Parameters =
-                {
-                    new NpgsqlParameter() { Value = server.serverName }
-                }
+                Parameters = { new NpgsqlParameter() { Value = server.serverName } }
             };
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
@@ -185,6 +183,17 @@ namespace Orpheus.Database
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
                 $"UPDATE orpheusdata.serverinfo SET jailcourtid=$1 WHERE serverid={serverid}"
+            )
+            {
+                Parameters = { new NpgsqlParameter() { Value = Convert.ToDecimal(id) } }
+            };
+            return await DBEngine.RunExecuteNonQueryAsync(cmd);
+        }
+
+        public static async Task<bool> UpdateServerJailCourtRoleID(ulong serverid, ulong id)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                $"UPDATE orpheusdata.serverinfo SET jailcourtroleid=$1 WHERE serverid={serverid}"
             )
             {
                 Parameters = { new NpgsqlParameter() { Value = Convert.ToDecimal(id) } }
