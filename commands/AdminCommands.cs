@@ -232,6 +232,7 @@ namespace Orpheus.commands
             }
             DiscordRole jailrole = ctx.Guild.GetRole(channelid);
             await user.GrantRoleAsync(jailrole);
+            ctx.Channel.SendMessageAsync($"{user.Username} has been sent to jail!");
             await ctx.Message.DeleteAsync();
         }
 

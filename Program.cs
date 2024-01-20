@@ -13,6 +13,22 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
+        /*
+        [x]- !say
+        [x]-!dm
+        []-rand gif
+        [x]-!send
+        []-!join
+        []-!leave
+        []-!play
+        []-!pause
+        []-!stop
+        []-!on
+        []-!off
+        []-!dnd
+        */
+
+
         private static DiscordClient Client { get; set; }
         private static CommandsNextExtension Commands { get; set; }
 
@@ -60,7 +76,9 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 return;
             }
             string messageContent = args.Message.Content.Replace("'", "''");
-            Console.WriteLine($"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}");
+            Console.WriteLine(
+                $"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}"
+            );
             DMsg dMsg = new DMsg()
             {
                 serverID = args.Guild.Id,
@@ -89,7 +107,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                     serverID = args.Guild.Id,
                     msgID = args.Message.Id,
                     userID = args.Author.Id,
-                    url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url.Replace("'","''"))
+                    url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url.Replace("'", "''"))
                 };
                 await handler.StoreAttachmentAsync(dAttachment);
             }
