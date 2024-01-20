@@ -8,6 +8,7 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSharpPlus.VoiceNext;
 using NpgsqlTypes;
 using Orpheus.Database;
 
@@ -253,7 +254,10 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Program.SetDiscordStatus(new DiscordActivity("In Testing off"), UserStatus.Offline);
+            await Program.SetDiscordStatus(
+                new DiscordActivity("In Testing off"),
+                UserStatus.Offline
+            );
             await ctx.Message.DeleteAsync();
         }
 
@@ -264,7 +268,42 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Program.SetDiscordStatus(new DiscordActivity("In Testing dnd"), UserStatus.DoNotDisturb);
+            await Program.SetDiscordStatus(
+                new DiscordActivity("In Testing dnd"),
+                UserStatus.DoNotDisturb
+            );
+            await ctx.Message.DeleteAsync();
+        }
+
+        [Command("join")]
+        public async Task JoinVoiceChannel(CommandContext ctx)
+        {
+            if (
+                isNotValidCommand(ctx)
+                || !Convert.ToBoolean(await doesUserHavePerms(ctx))
+                || ctx.Channel.Type != DSharpPlus.ChannelType.Voice
+            )
+            {
+                return;
+            }
+            await ctx.Channel.ConnectAsync();
+            Console.WriteLine("CONNECT TO CHANNEL:" + ctx.Channel.Name);
+            await ctx.Message.DeleteAsync();
+        }
+
+        [Command("leave")]
+        public async Task LeaveVoiceChannel(CommandContext ctx)
+        {
+            if (
+                isNotValidCommand(ctx)
+                || !Convert.ToBoolean(await doesUserHavePerms(ctx))
+                || ctx.Channel.Type != DSharpPlus.ChannelType.Voice
+            )
+            {
+                return;
+            }
+            Program.GetVoiceNextExtension().GetConnection(ctx.Guild).Disconnect();
+            Console.WriteLine("LEAVE CHANNEL:" + ctx.Channel.Name);
             await ctx.Message.DeleteAsync();
         }
 

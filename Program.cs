@@ -6,6 +6,7 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
+using DSharpPlus.VoiceNext;
 using Orpheus.commands;
 using Orpheus.Database;
 
@@ -23,21 +24,28 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         []-!play
         []-!pause
         []-!stop
-        []-!on
-        []-!off
-        []-!dnd
+        [x]-!on
+        [x]-!off
+        [x]-!dnd
         */
 
 
         private static DiscordClient Client { get; set; }
         private static CommandsNextExtension Commands { get; set; }
+        private static VoiceNextExtension voiceNextExtension { get; set; }
 
         static async Task Main(string[] args)
         {
             await BotSetup();
 
             await Client.ConnectAsync();
+            voiceNextExtension = Client.UseVoiceNext();
             await Task.Delay(-1);
+        }
+
+        public static VoiceNextExtension GetVoiceNextExtension()
+        {
+            return voiceNextExtension;
         }
 
         private static Task Client_Ready(DiscordClient sender, ReadyEventArgs args)
