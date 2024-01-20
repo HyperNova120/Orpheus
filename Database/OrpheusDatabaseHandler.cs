@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
 using Npgsql.PostgresTypes;
+using NpgsqlTypes;
 
 namespace Orpheus.Database
 {
@@ -33,16 +34,8 @@ namespace Orpheus.Database
             {
                 Parameters =
                 {
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(user.userId)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
-                        Value = user.username
-                    }
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(user.userId) },
+                    new NpgsqlParameter() { Value = user.username }
                 }
             };
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
@@ -56,16 +49,66 @@ namespace Orpheus.Database
             {
                 Parameters =
                 {
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
-                        Value = user.username
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(user.userId)
-                    }
+                    new NpgsqlParameter() { Value = user.username },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(user.userId) }
+                }
+            };
+            return await DBEngine.RunExecuteNonQueryAsync(cmd);
+        }
+
+        public async Task<bool> StoreAdminAsync(DAdmin user)
+        {
+            if (
+                Convert.ToBoolean(
+                    await DBEngine.DoesEntryExist(
+                        "orpheusdata.admininfo",
+                        "userid",
+                        user.userID.ToString()
+                    )
+                )
+            )
+            {
+                Console.WriteLine($"ADMIN ALREADY EXIST:{user.userID}");
+                return false;
+            }
+            Console.WriteLine($"SETTING ADMIN:{user.userID}");
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                "INSERT INTO orpheusdata.admininfo (adminid, serverid, userid) VALUES (default,$1,$2)"
+            )
+            {
+                Parameters =
+                {
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(user.serverID) },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(user.userID) }
+                }
+            };
+            return await DBEngine.RunExecuteNonQueryAsync(cmd);
+        }
+
+        public async Task<bool> RemoveAdminAsync(DAdmin user)
+        {
+            if (
+                !Convert.ToBoolean(
+                    await DBEngine.DoesEntryExist(
+                        "orpheusdata.admininfo",
+                        "userid",
+                        user.userID.ToString()
+                    )
+                )
+            )
+            {
+                Console.WriteLine($"ADMIN DOES NOT EXIST:{user.userID}");
+                return false;
+            }
+            Console.WriteLine($"REMOVING ADMIN:{user.userID}");
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                "DELETE FROM orpheusdata.admininfo WHERE serverid=$1 AND userid=$2"
+            )
+            {
+                Parameters =
+                {
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(user.serverID) },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(user.userID) }
                 }
             };
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
@@ -92,31 +135,11 @@ namespace Orpheus.Database
             {
                 Parameters =
                 {
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(server.serverID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
-                        Value = server.serverName
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(server.jailChannelID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(server.JailRoleID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(server.JailCourtID)
-                    }
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(server.serverID) },
+                    new NpgsqlParameter() { Value = server.serverName },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(server.jailChannelID) },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(server.JailRoleID) },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(server.JailCourtID) }
                 }
             };
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
@@ -125,39 +148,61 @@ namespace Orpheus.Database
         public async Task<bool> UpdateServerAsync(DServer server)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
-                $"UPDATE orpheusdata.serverinfo SET servername=$1,jailid=$2,jailroleid=$3,jailcourtid=$4 WHERE serverid={server.serverID}"
+                $"UPDATE orpheusdata.serverinfo SET servername=$1 WHERE serverid={server.serverID}"
             )
             {
                 Parameters =
                 {
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
-                        Value = server.serverName
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(server.jailChannelID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(server.JailRoleID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(server.JailCourtID)
-                    }
+                    new NpgsqlParameter() { Value = server.serverName }
                 }
             };
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
+        public async Task<bool> UpdateServerJailRoleID(ulong serverid, ulong id)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                $"UPDATE orpheusdata.serverinfo SET jailroleid=$1 WHERE serverid={serverid}"
+            )
+            {
+                Parameters = { new NpgsqlParameter() { Value = Convert.ToDecimal(id) } }
+            };
+            return await DBEngine.RunExecuteNonQueryAsync(cmd);
+        }
+
+        public async Task<bool> UpdateServerJailChannelID(ulong serverid, ulong id)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                $"UPDATE orpheusdata.serverinfo SET jailid=$1 WHERE serverid={serverid}"
+            )
+            {
+                Parameters = { new NpgsqlParameter() { Value = Convert.ToDecimal(id) } }
+            };
+            return await DBEngine.RunExecuteNonQueryAsync(cmd);
+        }
+
+        public async Task<bool> UpdateServerJailCourtID(ulong serverid, ulong id)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                $"UPDATE orpheusdata.serverinfo SET jailcourtid=$1 WHERE serverid={serverid}"
+            )
+            {
+                Parameters = { new NpgsqlParameter() { Value = Convert.ToDecimal(id) } }
+            };
+            return await DBEngine.RunExecuteNonQueryAsync(cmd);
+        }
+
+        public async Task<ulong> GetJailIDInfo(ulong serverid, string columnName)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                $"SELECT {columnName} FROM orpheusdata.serverinfo WHERE serverid={serverid}"
+            );
+            return Convert.ToUInt64(await DBEngine.RunExecuteScalarAsync(cmd));
+        }
+
         public async Task<bool> StoreMsgAsync(DMsg msg)
         {
-            Console.WriteLine("MSG ID:"+msg.dmsgID);
+            //Console.WriteLine("MSG ID:"+msg.dmsgID);
             NpgsqlCommand cmd = new NpgsqlCommand(
                 "INSERT INTO orpheusdata.messages (msgid, serverid, userid, channelid, sendtime, dmsgid, messagetext) VALUES "
                     + "(default,$1,$2,$3,$4,$5,$6)"
@@ -165,36 +210,12 @@ namespace Orpheus.Database
             {
                 Parameters =
                 {
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(msg.serverID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(msg.userID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(msg.channelID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Timestamp,
-                        Value = msg.sendingTime
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
-                        Value = Convert.ToDecimal(msg.dmsgID)
-                    },
-                    new NpgsqlParameter()
-                    {
-                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
-                        Value = msg.msgText
-                    }
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(msg.serverID) },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(msg.userID) },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(msg.channelID) },
+                    new NpgsqlParameter() { Value = msg.sendingTime },
+                    new NpgsqlParameter() { Value = Convert.ToDecimal(msg.dmsgID) },
+                    new NpgsqlParameter() { Value = msg.msgText }
                 }
             };
             return await DBEngine.RunExecuteNonQueryAsync(cmd);

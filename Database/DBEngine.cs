@@ -22,6 +22,7 @@ namespace Orpheus.Database
         //TODO: layers only touch next lower layer, never more
 
 
+        //TODO use this to get all admins of a server "SELECT username FROM orpheusdata.admininfo INNER JOIN orpheusdata.userinfo ON orpheusdata.admininfo.userid=orpheusdata.userinfo.userid WHERE orpheusdata.admininfo.serverid='{serverid}';"
 
         public static void SetConnectionStrings(
             string host,
@@ -65,6 +66,35 @@ namespace Orpheus.Database
             }
         }
 
+        public static async Task<bool> DoesEntryExist(
+            string table,
+            string columnName,
+            string columnName2,
+            string testForValue,
+            string testForValue2
+        )
+        {
+            try
+            {
+                using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+                    string query =
+                        $"SELECT EXISTS(SELECT 1 FROM {table} WHERE {columnName}='{testForValue}' AND {columnName2}='{testForValue2}');";
+                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
+                    {
+                        bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
+                        return temp;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+        }
+
         public static async Task<bool> RunExecuteNonQueryAsync(NpgsqlCommand cmd)
         {
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
@@ -85,6 +115,51 @@ namespace Orpheus.Database
                 transaction.Rollback();
                 await conn.CloseAsync();
                 return false;
+            }
+        }
+
+        public static async Task<NpgsqlDataReader> RunExecuteReaderAsync(NpgsqlCommand cmd)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
+            await conn.OpenAsync();
+            NpgsqlTransaction transaction = conn.BeginTransaction();
+            try
+            {
+                cmd.Connection = conn;
+                await cmd.PrepareAsync();
+                NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
+                transaction.Commit();
+                await conn.CloseAsync();
+                return reader;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                transaction.Rollback();
+                await conn.CloseAsync();
+                return null;
+            }
+        }
+        public static async Task<Object> RunExecuteScalarAsync(NpgsqlCommand cmd)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
+            await conn.OpenAsync();
+            NpgsqlTransaction transaction = conn.BeginTransaction();
+            try
+            {
+                cmd.Connection = conn;
+                await cmd.PrepareAsync();
+                Object obj  = await cmd.ExecuteScalarAsync();
+                transaction.Commit();
+                await conn.CloseAsync();
+                return obj;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                transaction.Rollback();
+                await conn.CloseAsync();
+                return null;
             }
         }
     }

@@ -26,11 +26,36 @@ namespace Orpheus.commands
         [Command("testJail")]
         public async Task TestJail(CommandContext ctx)
         {
-            if (ctx.Member == null || ctx.User.IsBot || AdminCommands.RegisteredJail == null)
+            if (ctx.Member == null || ctx.User.IsBot)
             {
                 return;
             }
-            await AdminCommands.RegisteredJail.SendMessageAsync("Jail Test");
+            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
+            ulong channelid = await handler.GetJailIDInfo(ctx.Guild.Id, "jailid");
+            if (channelid == 0)
+            {
+                await ctx.Channel.SendMessageAsync("Failed; JailChannel has not been registered");
+                return;
+            }
+            await ctx.Guild.GetChannel(channelid).SendMessageAsync("Jail Test");
+        }
+
+        [Command("testSend")]
+        public async Task testSend(CommandContext ctx, DiscordMember user)
+        {
+            if (ctx.Member == null || ctx.User.IsBot)
+            {
+                return;
+            }
+            OrpheusDatabaseHandler handler = new OrpheusDatabaseHandler();
+            ulong channelid = await handler.GetJailIDInfo(ctx.Guild.Id, "jailroleid");
+            if (channelid == 0)
+            {
+                await ctx.Channel.SendMessageAsync("Send Failed; JailRole has not been registered");
+                return;
+            }
+            DiscordRole jailrole = ctx.Guild.GetRole(channelid);
+            await user.GrantRoleAsync(jailrole);
         }
 
         [Command("storeUser")]
