@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Data.Common;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
+using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
+using Npgsql.Replication;
 using Orpheus.commands;
 using Orpheus.Database;
 
@@ -124,6 +127,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 };
                 await OrpheusDatabaseHandler.StoreAttachmentAsync(dAttachment);
             }
+            FunnyBotResponses(args);
             //await args.Channel.SendMessageAsync("GRABBED:" + s);
         }
 
@@ -139,6 +143,27 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             else
             {
                 Console.WriteLine("Failed to store in Database");
+            }
+        }
+
+        private static async Task FunnyBotResponses(MessageCreateEventArgs args)
+        {
+            if (
+                args.Author.Id == 465663563336384512
+                && args.Message.Content.Equals(
+                    "https://tenor.com/view/did-you-pray-today-gif-5116018886993652813"
+                )
+            )
+            {
+                await args.Channel.SendMessageAsync(
+                    "https://tenor.com/view/pray-praying-dickies-gangster-gangsta-gif-1281706038007242304"
+                );
+            }
+            if (args.Message.Content.Equals("https://tenor.com/view/one-piece-one-piece-zoro-zoro-aight-im-going-to-bed-one-piece-sleep-gif-26290499"))
+            {
+                await args.Channel.SendMessageAsync(
+                    "https://tenor.com/view/goodnight-fat-cat-gif-25641116"
+                );
             }
         }
 
@@ -158,16 +183,20 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             Client.Ready += Client_Ready;
             Client.MessageCreated += async (user, args) =>
             {
-                handleMessageCreated(user, args);
+                await handleMessageCreated(user, args);
             };
 
             Client.GuildAvailable += async (c, args) =>
             {
-                runRegisterServerIfNeeded(args);
+                await runRegisterServerIfNeeded(args);
             };
             Client.GuildMemberAdded += async (user, args) =>
             {
-                handleUserJoined(user, args);
+                await handleUserJoined(user, args);
+            };
+            Client.GuildCreated += async (c, args) =>
+            {
+                await runRegisterServerIfNeeded(args);
             };
 
             CommandsNextConfiguration commandsConfig = new CommandsNextConfiguration()

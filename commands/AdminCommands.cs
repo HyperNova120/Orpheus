@@ -28,6 +28,7 @@ namespace Orpheus.commands
                     .WithTitle("Test Embed")
                     .WithDescription($"Excecuted by {ctx.User.Username}")
             );
+            await Task.Delay(250);
             await ctx.Channel.SendMessageAsync(message);
 
             DiscordEmbedBuilder message2 = new DiscordEmbedBuilder
@@ -36,7 +37,8 @@ namespace Orpheus.commands
                 Description = $"Excecuted by {ctx.User.Username}",
                 Color = DiscordColor.Blue
             };
-            ctx.Channel.SendMessageAsync(embed: message2);
+            await ctx.Channel.SendMessageAsync(embed: message2);
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -55,9 +57,10 @@ namespace Orpheus.commands
                 jailChannel.Guild.Id,
                 jailChannel.Id
             );
-            ctx.Channel.SendMessageAsync(
+            await ctx.Channel.SendMessageAsync(
                 $"Registered {jailChannel.Name} ID:{jailChannel.Id} as server jail"
             );
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -76,9 +79,10 @@ namespace Orpheus.commands
                 jailCourtChannel.Guild.Id,
                 jailCourtChannel.Id
             );
-            ctx.Channel.SendMessageAsync(
+            await ctx.Channel.SendMessageAsync(
                 $"Registered {jailCourtChannel.Name} ID:{jailCourtChannel.Id} as server jail court"
             );
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -91,13 +95,16 @@ namespace Orpheus.commands
                 || jailRole == null
             )
             {
+                Console.WriteLine($"JAILROLE FAIL isNotValidCommand:{isNotValidCommand(ctx)} doesUserHavePerms:{Convert.ToBoolean(await doesUserHavePerms(ctx))} jailRole NULL:{jailRole == null}");
                 return;
             }
 
             await OrpheusDatabaseHandler.UpdateServerJailRoleID(ctx.Guild.Id, jailRole.Id);
-            ctx.Channel.SendMessageAsync(
+            Console.WriteLine($"Registered {jailRole.Name} ID:{jailRole.Id} as server jail role");
+            await ctx.Channel.SendMessageAsync(
                 $"Registered {jailRole.Name} ID:{jailRole.Id} as server jail role"
             );
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -116,7 +123,8 @@ namespace Orpheus.commands
                 JailCourtID = 0,
                 JailRoleID = 0,
             };
-            RegisterServer(dServer);
+            await RegisterServer(dServer);
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -182,6 +190,7 @@ namespace Orpheus.commands
                 return;
             }
             DAdmin dAdmin = new DAdmin() { userID = memberToAdmin.Id, serverID = ctx.Guild.Id };
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
             await OrpheusDatabaseHandler.StoreAdminAsync(dAdmin);
         }
@@ -210,7 +219,8 @@ namespace Orpheus.commands
                 userID = memberToRemoveAdmin.Id,
                 serverID = ctx.Guild.Id
             };
-            OrpheusDatabaseHandler.RemoveAdminAsync(dAdmin);
+            await OrpheusDatabaseHandler.RemoveAdminAsync(dAdmin);
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -240,6 +250,7 @@ namespace Orpheus.commands
             {
                 Console.WriteLine(e.ToString());
             }
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -251,6 +262,7 @@ namespace Orpheus.commands
                 return;
             }
             await Program.SetDiscordStatus(new DiscordActivity("In Testing on"), UserStatus.Online);
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -265,6 +277,7 @@ namespace Orpheus.commands
                 new DiscordActivity("In Testing off"),
                 UserStatus.Offline
             );
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -279,6 +292,7 @@ namespace Orpheus.commands
                 new DiscordActivity("In Testing dnd"),
                 UserStatus.DoNotDisturb
             );
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -299,6 +313,7 @@ namespace Orpheus.commands
                 await ctx.Channel.ConnectAsync();
             }
             Console.WriteLine("CONNECT TO CHANNEL:" + ctx.Channel.Name);
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -311,6 +326,7 @@ namespace Orpheus.commands
             }
             Program.GetVoiceNextExtension().GetConnection(ctx.Guild).Disconnect();
             Console.WriteLine("LEAVE CHANNEL:" + ctx.Channel.Name);
+            await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -323,15 +339,15 @@ namespace Orpheus.commands
         {
             if (ctx.Member.IsOwner)
             {
-                Console.Write("VALID COMMAND, OWNER:");
+                Console.WriteLine("VALID COMMAND, OWNER:");
                 return true;
             }
             return await DBEngine.DoesEntryExist(
                 "orpheusdata.admininfo",
-                "userid",
                 "serverid",
-                ctx.Member.Id.ToString(),
-                ctx.Member.Guild.Id.ToString()
+                "userid",
+                ctx.Member.Guild.Id.ToString(),
+                ctx.Member.Id.ToString()
             );
         }
     }
