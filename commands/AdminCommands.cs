@@ -278,15 +278,19 @@ namespace Orpheus.commands
         [Command("join")]
         public async Task JoinVoiceChannel(CommandContext ctx)
         {
-            if (
-                isNotValidCommand(ctx)
-                || !Convert.ToBoolean(await doesUserHavePerms(ctx))
-                || ctx.Channel.Type != DSharpPlus.ChannelType.Voice
-            )
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
             {
                 return;
             }
-            await ctx.Channel.ConnectAsync();
+            //connect to channel user is in if applicable, else connect to channel msg was sent in if applicable
+            if (ctx.Member.VoiceState != null && ctx.Member.VoiceState.Channel != null)
+            {
+                await ctx.Member.VoiceState.Channel.ConnectAsync();
+            }
+            else if (ctx.Channel.Type == DSharpPlus.ChannelType.Voice)
+            {
+                await ctx.Channel.ConnectAsync();
+            }
             Console.WriteLine("CONNECT TO CHANNEL:" + ctx.Channel.Name);
             await ctx.Message.DeleteAsync();
         }
@@ -297,7 +301,6 @@ namespace Orpheus.commands
             if (
                 isNotValidCommand(ctx)
                 || !Convert.ToBoolean(await doesUserHavePerms(ctx))
-                || ctx.Channel.Type != DSharpPlus.ChannelType.Voice
             )
             {
                 return;

@@ -19,8 +19,8 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         [x]-!dm
         []-rand gif
         [x]-!send
-        []-!join
-        []-!leave
+        [x]-!join
+        [x]-!leave
         []-!play
         []-!pause
         []-!stop
