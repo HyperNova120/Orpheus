@@ -7,7 +7,7 @@ namespace Orpheus.Database
 {
     public class DUser
     {
-        public string username { get; set; }
+        public required string username { get; set; }
         public ulong userId { get; set; }
     }
 }

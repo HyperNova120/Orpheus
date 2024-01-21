@@ -35,19 +35,19 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         public static DiscordClient Client { get; private set; }
         private static CommandsNextExtension Commands { get; set; }
-        private static VoiceNextExtension voiceNextExtension { get; set; }
+        private static VoiceNextExtension VoiceNextExtension { get; set; }
 
         static async Task Main(string[] args)
         {
             await BotSetup();
             await Client.ConnectAsync();
-            voiceNextExtension = Client.UseVoiceNext();
+            VoiceNextExtension = Client.UseVoiceNext();
             await Task.Delay(-1);
         }
 
         public static VoiceNextExtension GetVoiceNextExtension()
         {
-            return voiceNextExtension;
+            return VoiceNextExtension;
         }
 
         private static Task Client_Ready(DiscordClient sender, ReadyEventArgs args)

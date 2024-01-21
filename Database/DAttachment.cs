@@ -11,6 +11,6 @@ namespace Orpheus.Database
         public ulong userID { get; set; }
         public ulong serverID { get; set; }
         public ulong channelID { get; set; }
-        public string url { get; set; }
+        public required string Url { get; set; }
     }
 }

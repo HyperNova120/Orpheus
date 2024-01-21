@@ -75,7 +75,7 @@ namespace Orpheus
                     serverID = args.Guild.Id,
                     msgID = args.Message.Id,
                     userID = args.Author.Id,
-                    url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url)
+                    Url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url)
                 };
                 await OrpheusDatabaseHandler.StoreAttachmentAsync(dAttachment);
             }

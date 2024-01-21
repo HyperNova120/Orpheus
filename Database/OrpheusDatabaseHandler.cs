@@ -257,7 +257,7 @@ namespace Orpheus.Database
                     new NpgsqlParameter()
                     {
                         NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
-                        Value = dAttachment.url
+                        Value = dAttachment.Url
                     }
                 }
             };

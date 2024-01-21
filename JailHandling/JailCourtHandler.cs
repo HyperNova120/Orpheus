@@ -8,6 +8,7 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.VoiceNext;
 using NpgsqlTypes;
+using Orpheus.ApiStuff;
 using Orpheus.commands;
 using Orpheus.Database;
 using Orpheus.Voting;
@@ -19,13 +20,16 @@ namespace Orpheus.JailHandling
         public static async Task HandleJailCourtMessage(MessageCreateEventArgs args)
         {
             CountdownTimer countdownTimer = new CountdownTimer(6, 0, 0);
-            DiscordMember jailedUser = await args.Guild.GetMemberAsync(args.Author.Id);
+            DiscordMember jailedUser = await OrpheusAPIHandler.GetMemberAsync(
+                args.Guild,
+                args.Author.Id
+            );
 
             ulong jailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
                 args.Guild.Id,
                 "jailroleid"
             );
-            DiscordRole jailRole = args.Guild.GetRole(jailRoleID);
+            DiscordRole jailRole = await OrpheusAPIHandler.GetRoleAsync(args.Guild, jailRoleID);
 
             bool didVoteSucceed = await HandleVote.StartVote(
                 args.Channel,
@@ -44,12 +48,13 @@ namespace Orpheus.JailHandling
                 await jailedUser.RevokeRoleAsync(jailRole);
                 try
                 {
-                    DiscordRole courtrole = args.Guild.GetRole(
+                    DiscordRole courtrole = await OrpheusAPIHandler.GetRoleAsync(
+                        args.Guild,
                         await OrpheusDatabaseHandler.GetJailIDInfo(args.Guild.Id, "jailcourtroleid")
                     );
                     await jailedUser.RevokeRoleAsync(courtrole);
                 }
-                catch (Exception e)
+                catch
                 {
                     Console.WriteLine("FREE ERROR, JAIL COURT ROLE DOES NOT EXIST");
                 }
@@ -62,7 +67,10 @@ namespace Orpheus.JailHandling
         )
         {
             bool returner = true;
-            discordMember = await discordMember.Guild.GetMemberAsync(discordMember.Id);
+            discordMember = await OrpheusAPIHandler.GetMemberAsync(
+                discordMember.Guild,
+                discordMember.Id
+            );
             foreach (DiscordRole role in discordMember.Roles)
             {
                 if (role.Id == checkIfHasRole.Id)

@@ -145,7 +145,7 @@ namespace Orpheus.Database
             }
         }
 
-        public static async Task<Object> RunExecuteScalarAsync(NpgsqlCommand cmd)
+        public static async Task<object> RunExecuteScalarAsync(NpgsqlCommand cmd)
         {
             //Console.WriteLine("RunExecuteScalarAsync CALLED");
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
@@ -155,7 +155,7 @@ namespace Orpheus.Database
             {
                 cmd.Connection = conn;
                 await cmd.PrepareAsync();
-                Object obj = await cmd.ExecuteScalarAsync();
+                object? obj = await cmd.ExecuteScalarAsync();
                 transaction.Commit();
                 await conn.CloseAsync();
                 return obj;

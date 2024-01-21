@@ -284,8 +284,8 @@ namespace Orpheus.commands
                     "Send Court Failed; JailCourtRole has not been registered"
                 );
             }
-            DiscordRole jailrole = ctx.Guild.GetRole(JailRoleID);
-            DiscordRole jailCourtrole = ctx.Guild.GetRole(CourtRoleID);
+            DiscordRole jailrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, JailRoleID);
+            DiscordRole jailCourtrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, CourtRoleID);
             try
             {
                 await user.GrantRoleAsync(jailrole);
@@ -332,8 +332,8 @@ namespace Orpheus.commands
             {
                 Console.WriteLine("Free Court Failed; JailCourtRole has not been registered");
             }
-            DiscordRole jailrole = ctx.Guild.GetRole(JailRoleID);
-            DiscordRole jailcourtrole = ctx.Guild.GetRole(JailCourtRoleID);
+            DiscordRole jailrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, JailRoleID);
+            DiscordRole jailcourtrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, JailCourtRoleID);
             await user.RevokeRoleAsync(jailrole);
             try
             {

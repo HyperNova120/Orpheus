@@ -11,7 +11,7 @@ namespace Orpheus.Database
         public ulong userID { get; set; }
         public ulong channelID { get; set; }
         public DateTime sendingTime { get; set; }
-        public string msgText { get; set; }
+        public required string msgText { get; set; }
         public ulong dmsgID { get; set; }
     }
 }

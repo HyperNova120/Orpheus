@@ -32,11 +32,11 @@ namespace Orpheus
 
     internal sealed class JSONStructure
     {
-        public string token { get; set; }
-        public string prefix { get; set; }
-        public string host { get; set; }
-        public string database { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public required string token { get; set; }
+        public required string prefix { get; set; }
+        public required string host { get; set; }
+        public required string database { get; set; }
+        public required string username { get; set; }
+        public required string password { get; set; }
     }
 }
