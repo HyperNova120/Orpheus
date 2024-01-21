@@ -18,7 +18,7 @@ namespace Orpheus.JailHandling
     {
         public static async Task HandleJailCourtMessage(MessageCreateEventArgs args)
         {
-            CountdownTimer countdownTimer = new CountdownTimer(24, 0, 0);
+            CountdownTimer countdownTimer = new CountdownTimer(6, 0, 0);
             DiscordMember jailedUser = await args.Guild.GetMemberAsync(args.Author.Id);
 
             ulong jailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(

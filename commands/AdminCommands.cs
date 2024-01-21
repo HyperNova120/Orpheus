@@ -330,9 +330,7 @@ namespace Orpheus.commands
             }
             if (JailCourtRoleID == 0)
             {
-                Console.WriteLine(
-                    "Free Court Failed; JailCourtRole has not been registered"
-                );
+                Console.WriteLine("Free Court Failed; JailCourtRole has not been registered");
             }
             DiscordRole jailrole = ctx.Guild.GetRole(JailRoleID);
             DiscordRole jailcourtrole = ctx.Guild.GetRole(JailCourtRoleID);
