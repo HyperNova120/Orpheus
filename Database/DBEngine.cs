@@ -45,7 +45,7 @@ namespace Orpheus.Database
             string testForValue
         )
         {
-            Console.WriteLine("DoesEntryExist CALLED");
+            //Console.WriteLine("DoesEntryExist CALLED");
             try
             {
                 using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
@@ -75,7 +75,7 @@ namespace Orpheus.Database
             string testForValue2
         )
         {
-            Console.WriteLine("DoesEntryExist CALLED");
+            //Console.WriteLine("DoesEntryExist CALLED");
             try
             {
                 using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
@@ -99,7 +99,7 @@ namespace Orpheus.Database
 
         public static async Task<bool> RunExecuteNonQueryAsync(NpgsqlCommand cmd)
         {
-            Console.WriteLine("RunExecuteNonQueryAsync CALLED");
+            //Console.WriteLine("RunExecuteNonQueryAsync CALLED");
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             await conn.OpenAsync();
             NpgsqlTransaction transaction = conn.BeginTransaction();
@@ -123,7 +123,7 @@ namespace Orpheus.Database
 
         public static async Task<NpgsqlDataReader> RunExecuteReaderAsync(NpgsqlCommand cmd)
         {
-            Console.WriteLine("RunExecuteReaderAsync CALLED");
+            //Console.WriteLine("RunExecuteReaderAsync CALLED");
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             await conn.OpenAsync();
             NpgsqlTransaction transaction = conn.BeginTransaction();
@@ -147,7 +147,7 @@ namespace Orpheus.Database
 
         public static async Task<Object> RunExecuteScalarAsync(NpgsqlCommand cmd)
         {
-            Console.WriteLine("RunExecuteScalarAsync CALLED");
+            //Console.WriteLine("RunExecuteScalarAsync CALLED");
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             await conn.OpenAsync();
             NpgsqlTransaction transaction = conn.BeginTransaction();

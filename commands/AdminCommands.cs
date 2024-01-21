@@ -11,6 +11,7 @@ using DSharpPlus.EventArgs;
 using DSharpPlus.VoiceNext;
 using NpgsqlTypes;
 using Orpheus.Database;
+using Orpheus.JailHandling;
 
 namespace Orpheus.commands
 {
@@ -125,8 +126,13 @@ namespace Orpheus.commands
                 return;
             }
 
-            await OrpheusDatabaseHandler.UpdateServerJailCourtRoleID(ctx.Guild.Id, jailCourtRole.Id);
-            Console.WriteLine($"Registered {jailCourtRole.Name} ID:{jailCourtRole.Id} as server jail role");
+            await OrpheusDatabaseHandler.UpdateServerJailCourtRoleID(
+                ctx.Guild.Id,
+                jailCourtRole.Id
+            );
+            Console.WriteLine(
+                $"Registered {jailCourtRole.Name} ID:{jailCourtRole.Id} as server jail role"
+            );
             await ctx.Channel.SendMessageAsync(
                 $"Registered {jailCourtRole.Name} ID:{jailCourtRole.Id} as server jail role"
             );
@@ -274,20 +280,30 @@ namespace Orpheus.commands
             }
             if (CourtRoleID == 0)
             {
-                await ctx.Channel.SendMessageAsync("Send Court Failed; JailCourtRole has not been registered");
+                await ctx.Channel.SendMessageAsync(
+                    "Send Court Failed; JailCourtRole has not been registered"
+                );
             }
             DiscordRole jailrole = ctx.Guild.GetRole(JailRoleID);
             DiscordRole jailCourtrole = ctx.Guild.GetRole(CourtRoleID);
             try
             {
                 await user.GrantRoleAsync(jailrole);
-                await user.GrantRoleAsync(jailCourtrole);
-                await ctx.Channel.SendMessageAsync($"{user.Username} has been sent to jail!");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+
+            try
+            {
+                await user.GrantRoleAsync(jailCourtrole);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            await ctx.Channel.SendMessageAsync($"{user.Username} has been sent to jail!");
             await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
@@ -314,20 +330,22 @@ namespace Orpheus.commands
             }
             if (JailCourtRoleID == 0)
             {
-                await ctx.Channel.SendMessageAsync("Free Court Failed; JailCourtRole has not been registered");
+                Console.WriteLine(
+                    "Free Court Failed; JailCourtRole has not been registered"
+                );
             }
             DiscordRole jailrole = ctx.Guild.GetRole(JailRoleID);
             DiscordRole jailcourtrole = ctx.Guild.GetRole(JailCourtRoleID);
+            await user.RevokeRoleAsync(jailrole);
             try
             {
-                await user.RevokeRoleAsync(jailrole);
                 await user.RevokeRoleAsync(jailcourtrole);
-                await ctx.Channel.SendMessageAsync($"{user.Username} has been freed from jail!");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+            await ctx.Channel.SendMessageAsync($"{user.Username} has been freed from jail!");
             await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
@@ -408,12 +426,12 @@ namespace Orpheus.commands
             await ctx.Message.DeleteAsync();
         }
 
-        public bool isNotValidCommand(CommandContext ctx)
+        public static bool isNotValidCommand(CommandContext ctx)
         {
             return (ctx.Member == null || ctx.User.IsBot);
         }
 
-        public async Task<bool> doesUserHavePerms(CommandContext ctx)
+        public static async Task<bool> doesUserHavePerms(CommandContext ctx)
         {
             if (ctx.Member.IsOwner)
             {
