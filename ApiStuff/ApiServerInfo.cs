@@ -11,6 +11,7 @@ namespace Orpheus.ApiStuff
         public DiscordGuild trackedServer { get; private set; }
         DiscordMember[] Members { get; set; }
         DiscordRole[] Roles { get; set; }
+        bool isStale = false;
 
         public async Task StartTrack(DiscordGuild discordGuild)
         {
@@ -24,14 +25,27 @@ namespace Orpheus.ApiStuff
         {
             while (true)
             {
-                await Task.Delay(5000);
-                Members = (await trackedServer.GetAllMembersAsync()).ToArray();
-                Roles = trackedServer.Roles.Values.ToArray();
+                if (!isStale)
+                {
+                    await Task.Delay(10000);
+                    isStale = true;
+                }
             }
         }
 
-        public DiscordMember GetMember(ulong id)
+        private async Task callUpdate()
         {
+            Members = (await trackedServer.GetAllMembersAsync()).ToArray();
+            Roles = trackedServer.Roles.Values.ToArray();
+            isStale = false;
+        }
+
+        public async Task<DiscordMember> GetMember(ulong id)
+        {
+            if (isStale)
+            {
+                await callUpdate();
+            }
             DiscordMember returner = null;
             foreach (DiscordMember mem in Members)
             {
@@ -45,8 +59,12 @@ namespace Orpheus.ApiStuff
             return returner;
         }
 
-        public DiscordRole GetRole(ulong id)
+        public async Task<DiscordRole> GetRole(ulong id)
         {
+            if (isStale)
+            {
+                await callUpdate();
+            }
             DiscordRole returner = null;
             foreach (DiscordRole mem in Roles)
             {

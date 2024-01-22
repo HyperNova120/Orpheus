@@ -19,12 +19,12 @@ namespace Orpheus.ApiStuff
             {
                 if (info.trackedServer.Id == discordGuild.Id)
                 {
-                    return info.GetMember(userID);
+                    return await info.GetMember(userID);
                 }
             }
             //new server to track
             ApiServerInfo newServerTrack = await AddServerToTracking(discordGuild);
-            return newServerTrack.GetMember(userID);
+            return await newServerTrack.GetMember(userID);
         }
 
         public static async Task<DiscordRole> GetRoleAsync(
@@ -35,12 +35,12 @@ namespace Orpheus.ApiStuff
             {
                 if (info.trackedServer.Id == discordGuild.Id)
                 {
-                    return info.GetRole(roleID);
+                    return await info.GetRole(roleID);
                 }
             }
             //new server to track
             ApiServerInfo newServerTrack = await AddServerToTracking(discordGuild);
-            return newServerTrack.GetRole(roleID);
+            return await newServerTrack.GetRole(roleID);
         }
 
         public static async Task<ApiServerInfo> AddServerToTracking(DiscordGuild discordGuild)

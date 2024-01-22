@@ -12,6 +12,7 @@ using DSharpPlus.VoiceNext;
 using NpgsqlTypes;
 using Orpheus.Database;
 using Orpheus.JailHandling;
+using Orpheus.registerCommands;
 
 namespace Orpheus.commands
 {
@@ -54,15 +55,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await OrpheusDatabaseHandler.UpdateServerJailChannelID(
-                jailChannel.Guild.Id,
-                jailChannel.Id
-            );
-            await ctx.Channel.SendMessageAsync(
-                $"Registered {jailChannel.Name} ID:{jailChannel.Id} as server jail"
-            );
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Registration.registerJail(ctx, jailChannel);
         }
 
         [Command("registerJailCourt")]
@@ -76,19 +69,11 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await OrpheusDatabaseHandler.UpdateServerJailCourtID(
-                jailCourtChannel.Guild.Id,
-                jailCourtChannel.Id
-            );
-            await ctx.Channel.SendMessageAsync(
-                $"Registered {jailCourtChannel.Name} ID:{jailCourtChannel.Id} as server jail court"
-            );
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Registration.registerJailCourt(ctx, jailCourtChannel);
         }
 
         [Command("registerJailRole")]
-        public async Task registerJailCourt(CommandContext ctx, DiscordRole jailRole)
+        public async Task registerJailRole(CommandContext ctx, DiscordRole jailRole)
         {
             if (
                 isNotValidCommand(ctx)
@@ -102,13 +87,7 @@ namespace Orpheus.commands
                 return;
             }
 
-            await OrpheusDatabaseHandler.UpdateServerJailRoleID(ctx.Guild.Id, jailRole.Id);
-            Console.WriteLine($"Registered {jailRole.Name} ID:{jailRole.Id} as server jail role");
-            await ctx.Channel.SendMessageAsync(
-                $"Registered {jailRole.Name} ID:{jailRole.Id} as server jail role"
-            );
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Registration.registerJailRole(ctx, jailRole);
         }
 
         [Command("registerJailCourtRole")]
@@ -126,18 +105,7 @@ namespace Orpheus.commands
                 return;
             }
 
-            await OrpheusDatabaseHandler.UpdateServerJailCourtRoleID(
-                ctx.Guild.Id,
-                jailCourtRole.Id
-            );
-            Console.WriteLine(
-                $"Registered {jailCourtRole.Name} ID:{jailCourtRole.Id} as server jail role"
-            );
-            await ctx.Channel.SendMessageAsync(
-                $"Registered {jailCourtRole.Name} ID:{jailCourtRole.Id} as server jail role"
-            );
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Registration.registerJailCourtRole(ctx, jailCourtRole);
         }
 
         [Command("registerServer")]
@@ -147,18 +115,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            DServer dServer = new DServer()
-            {
-                serverID = ctx.Guild.Id,
-                serverName = ctx.Guild.Name,
-                jailChannelID = 0,
-                JailCourtID = 0,
-                JailRoleID = 0,
-                JailCourtRoleID = 0
-            };
-            await RegisterServer(dServer);
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Registration.RegisterServer(ctx);
         }
 
         public async Task RegisterServer(GuildCreateEventArgs args)
@@ -172,36 +129,7 @@ namespace Orpheus.commands
                 JailRoleID = 0,
                 JailCourtRoleID = 0
             };
-            await RegisterServer(dServer);
-        }
-
-        public async Task RegisterServer(DServer dServer)
-        {
-            if (
-                Convert.ToBoolean(
-                    await DBEngine.DoesEntryExist(
-                        "orpheusdata.serverinfo",
-                        "serverid",
-                        dServer.serverID.ToString()
-                    )
-                )
-            )
-            {
-                //if server already exists
-                await OrpheusDatabaseHandler.UpdateServerAsync(dServer);
-                Console.WriteLine($"UPDATED SERVER:{dServer.serverName}");
-                return;
-            }
-
-            bool isStored = await OrpheusDatabaseHandler.StoreServerAsync(dServer);
-            if (isStored)
-            {
-                Console.WriteLine("Succesfully stored in Database");
-            }
-            else
-            {
-                Console.WriteLine("Failed to store in Database");
-            }
+            await Registration.RegisterServer(dServer);
         }
 
         [Command("registerAdmin")]
@@ -223,10 +151,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            DAdmin dAdmin = new DAdmin() { userID = memberToAdmin.Id, serverID = ctx.Guild.Id };
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
-            await OrpheusDatabaseHandler.StoreAdminAsync(dAdmin);
+            await Registration.RegisterAdmin(ctx, memberToAdmin);
         }
 
         [Command("removeAdmin")]
@@ -248,14 +173,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            DAdmin dAdmin = new DAdmin()
-            {
-                userID = memberToRemoveAdmin.Id,
-                serverID = ctx.Guild.Id
-            };
-            await OrpheusDatabaseHandler.RemoveAdminAsync(dAdmin);
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Registration.RemoveAdmin(ctx, memberToRemoveAdmin);
         }
 
         [Command("jail")]
@@ -265,47 +183,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            ulong JailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailroleid"
-            );
-            ulong CourtRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailcourtroleid"
-            );
-            if (JailRoleID == 0)
-            {
-                await ctx.Channel.SendMessageAsync("Send Failed; JailRole has not been registered");
-                return;
-            }
-            if (CourtRoleID == 0)
-            {
-                await ctx.Channel.SendMessageAsync(
-                    "Send Court Failed; JailCourtRole has not been registered"
-                );
-            }
-            DiscordRole jailrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, JailRoleID);
-            DiscordRole jailCourtrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, CourtRoleID);
-            try
-            {
-                await user.GrantRoleAsync(jailrole);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
-            try
-            {
-                await user.GrantRoleAsync(jailCourtrole);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            await ctx.Channel.SendMessageAsync($"{user.Username} has been sent to jail!");
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await JailCommands.Jail(ctx, user);
         }
 
         [Command("free")]
@@ -315,37 +193,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            ulong JailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailroleid"
-            );
-            ulong JailCourtRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailcourtroleid"
-            );
-            if (JailRoleID == 0)
-            {
-                await ctx.Channel.SendMessageAsync("Free Failed; JailRole has not been registered");
-                return;
-            }
-            if (JailCourtRoleID == 0)
-            {
-                Console.WriteLine("Free Court Failed; JailCourtRole has not been registered");
-            }
-            DiscordRole jailrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, JailRoleID);
-            DiscordRole jailcourtrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, JailCourtRoleID);
-            await user.RevokeRoleAsync(jailrole);
-            try
-            {
-                await user.RevokeRoleAsync(jailcourtrole);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            await ctx.Channel.SendMessageAsync($"{user.Username} has been freed from jail!");
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await JailCommands.JailFREE(ctx, user);
         }
 
         [Command("on")]
@@ -397,18 +245,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            //connect to channel user is in if applicable, else connect to channel msg was sent in if applicable
-            if (ctx.Member.VoiceState != null && ctx.Member.VoiceState.Channel != null)
-            {
-                await ctx.Member.VoiceState.Channel.ConnectAsync();
-            }
-            else if (ctx.Channel.Type == DSharpPlus.ChannelType.Voice)
-            {
-                await ctx.Channel.ConnectAsync();
-            }
-            Console.WriteLine("CONNECT TO CHANNEL:" + ctx.Channel.Name);
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Audio_System.AudioCommands.JoinVoiceChannel(ctx);
         }
 
         [Command("leave")]
@@ -418,10 +255,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            Program.GetVoiceNextExtension().GetConnection(ctx.Guild).Disconnect();
-            Console.WriteLine("LEAVE CHANNEL:" + ctx.Channel.Name);
-            await Task.Delay(250);
-            await ctx.Message.DeleteAsync();
+            await Audio_System.AudioCommands.LeaveVoiceChannel(ctx);
         }
 
         public static bool isNotValidCommand(CommandContext ctx)
