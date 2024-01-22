@@ -13,7 +13,7 @@ namespace Orpheus.Database
         private static string username = "";
         private static string password = "";
         private static string connectionString = "";
-        private static List<ConnectionInfo> CachedConnections = new List<ConnectionInfo>();
+        private static List<ConnectionInfo> ConnectionPool = new List<ConnectionInfo>();
 
         private static int connectionLimit = 5;
 
@@ -35,14 +35,14 @@ namespace Orpheus.Database
 
         private static void setupConnections()
         {
-            foreach (ConnectionInfo conn in CachedConnections)
+            foreach (ConnectionInfo conn in ConnectionPool)
             {
                 conn.closeMe();
             }
-            CachedConnections.Clear();
+            ConnectionPool.Clear();
             for (int i = 0; i < connectionLimit; i++)
             {
-                CachedConnections.Add(new ConnectionInfo(connectionString));
+                ConnectionPool.Add(new ConnectionInfo(connectionString));
             }
         }
 
@@ -52,13 +52,13 @@ namespace Orpheus.Database
             {
                 for (int i = 0; i < connectionLimit; i++)
                 {
-                    lock (CachedConnections[i])
+                    lock (ConnectionPool[i])
                     {
-                        if (!CachedConnections[i].isInUse)
+                        if (!ConnectionPool[i].isInUse)
                         {
                             //is free
-                            CachedConnections[i].isInUse = true;
-                            return CachedConnections[i];
+                            ConnectionPool[i].isInUse = true;
+                            return ConnectionPool[i];
                         }
                     }
                 }

@@ -33,9 +33,8 @@ namespace Orpheus.JailHandling
             }
             if (CourtRoleID == 0)
             {
-                await ctx.Channel.SendMessageAsync(
-                    "Send Court Failed; JailCourtRole has not been registered"
-                );
+                //await ctx.Channel.SendMessageAsync("Send Court Failed; JailCourtRole has not been registered");
+                Console.WriteLine("Send Court Failed; JailCourtRole has not been registered");
             }
             DiscordRole jailrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, JailRoleID);
             DiscordRole jailCourtrole = await ApiStuff.OrpheusAPIHandler.GetRoleAsync(ctx.Guild, CourtRoleID);

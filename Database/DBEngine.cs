@@ -11,7 +11,6 @@ namespace Orpheus.Database
 {
     public static class DBEngine
     {
-        private static NpgsqlConnection CachedConnection = null;
 
         private static async Task<DBConnectionHandler.ConnectionInfo> GetConnection()
         {
