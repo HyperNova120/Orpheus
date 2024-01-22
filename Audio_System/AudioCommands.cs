@@ -18,14 +18,32 @@ namespace Orpheus.Audio_System
     {
         public static async Task JoinVoiceChannel(CommandContext ctx)
         {
-            //connect to channel user is in if applicable, else connect to channel msg was sent in if applicable
+            DiscordChannel ChannelToJoin = null;
             if (ctx.Member.VoiceState != null && ctx.Member.VoiceState.Channel != null)
             {
-                await ctx.Member.VoiceState.Channel.ConnectAsync();
+                ChannelToJoin = ctx.Member.VoiceState.Channel;
             }
             else if (ctx.Channel.Type == DSharpPlus.ChannelType.Voice)
             {
-                await ctx.Channel.ConnectAsync();
+                ChannelToJoin = ctx.Channel;
+            }
+            //check if in channel and need to leave
+            if (
+                Program.GetVoiceNextExtension().GetConnection(ctx.Guild) != null
+                && Program.GetVoiceNextExtension().GetConnection(ctx.Guild).TargetChannel.Id
+                    != ChannelToJoin.Id
+            )
+            {
+                await LeaveVoiceChannel(ctx);
+            }
+            //connect to channel user is in if applicable, else connect to channel msg was sent in if applicable
+            if (ctx.Member.VoiceState != null && ctx.Member.VoiceState.Channel != null)
+            {
+                await ChannelToJoin.ConnectAsync();
+            }
+            else if (ctx.Channel.Type == DSharpPlus.ChannelType.Voice)
+            {
+                await ChannelToJoin.ConnectAsync();
             }
             Console.WriteLine("CONNECT TO CHANNEL:" + ctx.Channel.Name);
             await Task.Delay(250);

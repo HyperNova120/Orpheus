@@ -11,18 +11,12 @@ namespace Orpheus.Database
 {
     public static class DBEngine
     {
-        private static string host = "";
-        private static string database = "";
-        private static string username = "";
-        private static string password = "";
-        private static string connectionString = "";
+        private static NpgsqlConnection CachedConnection = null;
 
-        //TODO: refactor DBEngine to include only general methods for future projects, move orpheus specific code to another class
-        //TODO: Future DBEngine specification; layered approach, library as core, DBEngine as intermediate layer, applicaiton as user
-        //TODO: layers only touch next lower layer, never more
-
-
-        //TODO use this to get all admins of a server "SELECT username FROM orpheusdata.admininfo INNER JOIN orpheusdata.userinfo ON orpheusdata.admininfo.userid=orpheusdata.userinfo.userid WHERE orpheusdata.admininfo.serverid='{serverid}';"
+        private static async Task<DBConnectionHandler.ConnectionInfo> GetConnection()
+        {
+            return await DBConnectionHandler.GetConnection();
+        }
 
         public static void SetConnectionStrings(
             string host,
@@ -31,12 +25,7 @@ namespace Orpheus.Database
             string password
         )
         {
-            DBEngine.host = host;
-            DBEngine.database = database;
-            DBEngine.username = username;
-            DBEngine.password = password;
-            connectionString =
-                $"Host={host};Username={username};Password={password};Database={database}";
+            DBConnectionHandler.SetConnectionStrings(host, database, username, password);
         }
 
         public static async Task<bool> DoesEntryExist(
@@ -45,24 +34,21 @@ namespace Orpheus.Database
             string testForValue
         )
         {
-            //Console.WriteLine("DoesEntryExist CALLED");
+            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
-                {
-                    await conn.OpenAsync();
-                    string query =
-                        $"SELECT EXISTS(SELECT 1 FROM {table} WHERE {columnName}='{testForValue}');";
-                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
-                    {
-                        bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
-                        return temp;
-                    }
-                }
+                string query =
+                    $"SELECT EXISTS(SELECT 1 FROM {table} WHERE {columnName}='{testForValue}');";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conninfo.npgsqlConnection);
+
+                bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
+                conninfo.isInUse = false;
+                return temp;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                conninfo.isInUse = false;
                 return false;
             }
         }
@@ -75,24 +61,23 @@ namespace Orpheus.Database
             string testForValue2
         )
         {
+            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
             //Console.WriteLine("DoesEntryExist CALLED");
             try
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+                string query =
+                    $"SELECT EXISTS(SELECT 1 FROM {table} WHERE {columnName}='{testForValue}' AND {columnName2}='{testForValue2}');";
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conninfo.npgsqlConnection))
                 {
-                    await conn.OpenAsync();
-                    string query =
-                        $"SELECT EXISTS(SELECT 1 FROM {table} WHERE {columnName}='{testForValue}' AND {columnName2}='{testForValue2}');";
-                    using (NpgsqlCommand cmd = new NpgsqlCommand(query, conn))
-                    {
-                        bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
-                        return temp;
-                    }
+                    bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
+                    conninfo.isInUse = false;
+                    return temp;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                conninfo.isInUse = false;
                 return false;
             }
         }
@@ -100,23 +85,27 @@ namespace Orpheus.Database
         public static async Task<bool> RunExecuteNonQueryAsync(NpgsqlCommand cmd)
         {
             //Console.WriteLine("RunExecuteNonQueryAsync CALLED");
-            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
-            await conn.OpenAsync();
-            NpgsqlTransaction transaction = conn.BeginTransaction();
+            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
-                cmd.Connection = conn;
+                cmd.Connection = conninfo.npgsqlConnection;
                 await cmd.PrepareAsync();
                 await cmd.ExecuteNonQueryAsync();
                 transaction.Commit();
-                await conn.CloseAsync();
+                transaction.Dispose();
+                conninfo.isInUse = false;
                 return true;
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ERROR:" + cmd.CommandText);
+                Console.ResetColor();
                 Console.WriteLine(e.ToString());
                 transaction.Rollback();
-                await conn.CloseAsync();
+                transaction.Dispose();
+                conninfo.isInUse = false;
                 return false;
             }
         }
@@ -124,23 +113,24 @@ namespace Orpheus.Database
         public static async Task<NpgsqlDataReader> RunExecuteReaderAsync(NpgsqlCommand cmd)
         {
             //Console.WriteLine("RunExecuteReaderAsync CALLED");
-            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
-            await conn.OpenAsync();
-            NpgsqlTransaction transaction = conn.BeginTransaction();
+            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
-                cmd.Connection = conn;
+                cmd.Connection = conninfo.npgsqlConnection;
                 await cmd.PrepareAsync();
                 NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
                 transaction.Commit();
-                await conn.CloseAsync();
+                transaction.Dispose();
+                conninfo.isInUse = false;
                 return reader;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 transaction.Rollback();
-                await conn.CloseAsync();
+                transaction.Dispose();
+                conninfo.isInUse = false;
                 return null;
             }
         }
@@ -148,23 +138,24 @@ namespace Orpheus.Database
         public static async Task<object> RunExecuteScalarAsync(NpgsqlCommand cmd)
         {
             //Console.WriteLine("RunExecuteScalarAsync CALLED");
-            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
-            await conn.OpenAsync();
-            NpgsqlTransaction transaction = conn.BeginTransaction();
+            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
-                cmd.Connection = conn;
+                cmd.Connection = conninfo.npgsqlConnection;
                 await cmd.PrepareAsync();
                 object? obj = await cmd.ExecuteScalarAsync();
                 transaction.Commit();
-                await conn.CloseAsync();
+                transaction.Dispose();
+                conninfo.isInUse = false;
                 return obj;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 transaction.Rollback();
-                await conn.CloseAsync();
+                transaction.Dispose();
+                conninfo.isInUse = false;
                 return null;
             }
         }
