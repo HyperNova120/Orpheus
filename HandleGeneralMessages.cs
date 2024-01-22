@@ -45,9 +45,9 @@ namespace Orpheus
 
         private static async Task StoreInDatabase(MessageCreateEventArgs args)
         {
-            Console.WriteLine(
-                $"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}"
-            );
+            //Console.WriteLine(
+             //   $"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}"
+            //);
             DMsg dMsg = new DMsg()
             {
                 serverID = args.Guild.Id,

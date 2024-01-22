@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Npgsql;
-using Npgsql.Replication;
 
 namespace Orpheus.Database
 {
