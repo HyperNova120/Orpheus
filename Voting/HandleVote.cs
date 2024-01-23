@@ -47,7 +47,11 @@ namespace Orpheus.Voting
             {
                 Console.WriteLine("STORE TEMP FAIL:"+e.ToString());
             }
-
+            await message.CreateReactionAsync(DiscordEmoji.FromName(Program.Client, ":thumbsup:"));
+            await Task.Delay(250);
+            await message.CreateReactionAsync(
+                DiscordEmoji.FromName(Program.Client, ":thumbsdown:")
+            );
             return await StartVoteFromAlreadySentMessage(message, countdownTimer, Title, Description, referencedUser, CancelCondition, secondsBetweenCancelChecks);
         }
 
@@ -61,13 +65,7 @@ namespace Orpheus.Voting
             int secondsBetweenCancelChecks
         )
         {
-            await message.CreateReactionAsync(DiscordEmoji.FromName(Program.Client, ":thumbsup:"));
-            await Task.Delay(250);
-            await message.CreateReactionAsync(
-                DiscordEmoji.FromName(Program.Client, ":thumbsdown:")
-            );
 
-            Console.WriteLine("AAAAAAAAAAA");
             StoredVoteMessage storedVoteMessage = new StoredVoteMessage()
             {
                 serverID = message.Channel.Guild.Id,
@@ -75,9 +73,6 @@ namespace Orpheus.Voting
                 messageID = message.Id,
                 userID = referencedUser
             };
-
-            Console.WriteLine("BBBBBBBBBBB");
-
             _ = countdownTimer.startCountDown();
             int currentSecondsSinceCancelCheck = 0;
             while (countdownTimer.getTotalSecondsRemaining() > 0)

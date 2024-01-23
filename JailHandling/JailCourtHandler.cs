@@ -67,7 +67,7 @@ namespace Orpheus.JailHandling
                     hr = int.Parse(valueAmount[0]);
             }
             CountdownTimer countdownTimer = new CountdownTimer(hr, min, sec);
-            Console.WriteLine($"RESTART COURT MESSAGE REMAINING TIME {text}:{valueAmount[0]}:{hr} HOURS {min} MINUTES {sec} SECONDS");
+            Console.WriteLine($"RESTART COURT MESSAGE REMAINING TIME {countdownTimer.toQuickTime()}");
             _ = startCourtVote(discordmessage, jailedUser, countdownTimer);
         }
 
