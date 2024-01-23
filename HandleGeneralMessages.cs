@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
@@ -28,8 +29,8 @@ namespace Orpheus
             {
                 return;
             }
-            await StoreInDatabase(args);
-            await FunnyBotResponses(args);
+            _ = StoreInDatabase(args);
+            _ = FunnyBotResponses(args);
 
             if (
                 await DBEngine.DoesEntryExist(
@@ -39,14 +40,14 @@ namespace Orpheus
                 )
             )
             {
-                await HandleCourtMessage(args);
+                _ = HandleCourtMessage(args);
             }
         }
 
         private static async Task StoreInDatabase(MessageCreateEventArgs args)
         {
             //Console.WriteLine(
-             //   $"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}"
+            //   $"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}"
             //);
             DMsg dMsg = new DMsg()
             {
@@ -77,7 +78,7 @@ namespace Orpheus
                     userID = args.Author.Id,
                     Url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url)
                 };
-                await OrpheusDatabaseHandler.StoreAttachmentAsync(dAttachment);
+                _ = OrpheusDatabaseHandler.StoreAttachmentAsync(dAttachment);
             }
         }
 
@@ -87,7 +88,7 @@ namespace Orpheus
             {
                 return;
             }
-            await JailCourtHandler.HandleJailCourtMessage(args);
+            _ = JailCourtHandler.HandleJailCourtMessage(args);
         }
 
         private static async Task FunnyBotResponses(MessageCreateEventArgs args)

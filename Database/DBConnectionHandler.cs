@@ -62,7 +62,8 @@ namespace Orpheus.Database
                         }
                     }
                 }
-                await Task.Delay(200);
+                Console.WriteLine("SERVER CONNECTION POOL FULL, WAITING");
+                await Task.Delay(5);
             }
         }
 

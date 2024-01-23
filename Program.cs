@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
@@ -42,6 +43,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             await BotSetup();
             await Client.ConnectAsync();
             VoiceNextExtension = Client.UseVoiceNext();
+            TempStorageHandler.RestartFromTempStorage();
             await Task.Delay(-1);
         }
 
@@ -70,7 +72,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                     continue;
                 }
                 DUser dUser = new DUser() { userId = member.Id, username = member.Username, };
-                await OrpheusDatabaseHandler.StoreUserAsync(dUser);
+                _ = OrpheusDatabaseHandler.StoreUserAsync(dUser);
             }
         }
 
@@ -81,8 +83,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         {
             await Client.UpdateStatusAsync(discordActivity, userStatus);
         }
-
-        
 
         private static async Task handleUserJoined(DiscordClient user, GuildMemberAddEventArgs args)
         {
@@ -98,8 +98,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 Console.WriteLine("Failed to store in Database");
             }
         }
-
-        
 
         private static async Task BotSetup()
         {
@@ -117,7 +115,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             Client.Ready += Client_Ready;
             Client.MessageCreated += async (user, args) =>
             {
-                await HandleGeneralMessages.handleMessageCreated(user, args);
+                _ = HandleGeneralMessages.handleMessageCreated(user, args);
             };
 
             Client.GuildAvailable += async (c, args) =>

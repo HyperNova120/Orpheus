@@ -14,8 +14,10 @@ namespace Orpheus.Voting
         public static async Task<bool> StartVote(
             DiscordChannel channelToVote,
             CountdownTimer countdownTimer,
+            string voteType,
             string Title,
             string Description,
+            ulong referencedUser,
             Func<Task<bool>> CancelCondition,
             int secondsBetweenCancelChecks
         )
@@ -28,11 +30,53 @@ namespace Orpheus.Voting
                     DiscordColor.Azure
                 )
             );
+
+            StoredVoteMessage storedVoteMessage = new StoredVoteMessage()
+            {
+                serverID = channelToVote.Guild.Id,
+                channelID = channelToVote.Id,
+                messageID = message.Id,
+                userID = referencedUser,
+                voteType = voteType
+            };
+            try
+            {
+                TempStorageHandler.StoreVoteMessage(storedVoteMessage);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("STORE TEMP FAIL:"+e.ToString());
+            }
+
+            return await StartVoteFromAlreadySentMessage(message, countdownTimer, Title, Description, referencedUser, CancelCondition, secondsBetweenCancelChecks);
+        }
+
+        public static async Task<bool> StartVoteFromAlreadySentMessage(
+            DiscordMessage message,
+            CountdownTimer countdownTimer,
+            string Title,
+            string Description,
+            ulong referencedUser,
+            Func<Task<bool>> CancelCondition,
+            int secondsBetweenCancelChecks
+        )
+        {
             await message.CreateReactionAsync(DiscordEmoji.FromName(Program.Client, ":thumbsup:"));
             await Task.Delay(250);
             await message.CreateReactionAsync(
                 DiscordEmoji.FromName(Program.Client, ":thumbsdown:")
             );
+
+            Console.WriteLine("AAAAAAAAAAA");
+            StoredVoteMessage storedVoteMessage = new StoredVoteMessage()
+            {
+                serverID = message.Channel.Guild.Id,
+                channelID = message.ChannelId,
+                messageID = message.Id,
+                userID = referencedUser
+            };
+
+            Console.WriteLine("BBBBBBBBBBB");
 
             _ = countdownTimer.startCountDown();
             int currentSecondsSinceCancelCheck = 0;
@@ -66,6 +110,7 @@ namespace Orpheus.Voting
                                 DiscordColor.Black
                             )
                         );
+                        TempStorageHandler.RemoveVoteMessage(storedVoteMessage);
                         return false;
                     }
                 }
@@ -100,8 +145,10 @@ namespace Orpheus.Voting
                     )
                 );
             }
+            TempStorageHandler.RemoveVoteMessage(storedVoteMessage);
             return yesVote > noVote;
         }
+
 
         private static DiscordEmbed createActiveCountdownEmbed(
             CountdownTimer countdownTimer,

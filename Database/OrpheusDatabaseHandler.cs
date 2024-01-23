@@ -44,7 +44,7 @@ namespace Orpheus.Database
         public static async Task<bool> UpdateUserAsync(DUser user)
         {
             NpgsqlCommand cmd = new NpgsqlCommand(
-                $"UPDATE orpheusdata.userinfo SET username=$1 WHERE userid={user.userId}"
+                $"UPDATE orpheusdata.userinfo SET username=$1 WHERE userid=$2"
             )
             {
                 Parameters =
