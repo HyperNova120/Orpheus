@@ -59,17 +59,13 @@ namespace Orpheus
                 dmsgID = args.Message.Id
             };
             await OrpheusDatabaseHandler.StoreMsgAsync(dMsg);
-            Console.WriteLine($"STORED:{args.Message.ToString()}");
+            Console.WriteLine($"STORED FROM USER {args.Author.Username}:{args.Message.ToString()}");
 
             //attachment storage handling
             DiscordAttachment[] attaches = args.Message.Attachments.ToArray();
-            if (attaches.Length > 0)
-            {
-                //await args.Channel.SendMessageAsync($"ATTACHMENT {attaches[0].Url}");
-                Console.WriteLine($"ATTACHMENT {attaches[0].Url}");
-            }
             foreach (DiscordAttachment attachment in attaches)
             {
+                Console.WriteLine($"ATTACHMENT {attachment.Url}");
                 DAttachment dAttachment = new DAttachment()
                 {
                     channelID = args.Channel.Id,

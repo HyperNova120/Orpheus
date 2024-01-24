@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
+using DSharpPlus.Interactivity.Extensions;
 using Orpheus.JailHandling;
 
 namespace Orpheus.Voting
@@ -41,18 +42,34 @@ namespace Orpheus.Voting
             };
             try
             {
-                TempStorageHandler.StoreVoteMessage(storedVoteMessage);
+                RecoveryStorageHandler.StoreVoteMessage(storedVoteMessage);
             }
             catch (Exception e)
             {
-                Console.WriteLine("STORE TEMP FAIL:"+e.ToString());
+                Console.WriteLine("STORE RECOVERY FAIL:" + e.ToString());
             }
-            await message.CreateReactionAsync(DiscordEmoji.FromName(Program.Client, ":thumbsup:"));
-            await Task.Delay(250);
             await message.CreateReactionAsync(
-                DiscordEmoji.FromName(Program.Client, ":thumbsdown:")
+                DiscordEmoji.FromName(
+                    Program.Client.GetShard(storedVoteMessage.serverID),
+                    ":thumbsup:"
+                )
             );
-            return await StartVoteFromAlreadySentMessage(message, countdownTimer, Title, Description, referencedUser, CancelCondition, secondsBetweenCancelChecks);
+            //await Task.Delay(250);
+            await message.CreateReactionAsync(
+                DiscordEmoji.FromName(
+                    Program.Client.GetShard(storedVoteMessage.serverID),
+                    ":thumbsdown:"
+                )
+            );
+            return await StartVoteFromAlreadySentMessage(
+                message,
+                countdownTimer,
+                Title,
+                Description,
+                referencedUser,
+                CancelCondition,
+                secondsBetweenCancelChecks
+            );
         }
 
         public static async Task<bool> StartVoteFromAlreadySentMessage(
@@ -65,7 +82,6 @@ namespace Orpheus.Voting
             int secondsBetweenCancelChecks
         )
         {
-
             StoredVoteMessage storedVoteMessage = new StoredVoteMessage()
             {
                 serverID = message.Channel.Guild.Id,
@@ -105,18 +121,28 @@ namespace Orpheus.Voting
                                 DiscordColor.Black
                             )
                         );
-                        TempStorageHandler.RemoveVoteMessage(storedVoteMessage);
+                        RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
                         return false;
                     }
                 }
             }
 
             int yesVote = message
-                .GetReactionsAsync(DiscordEmoji.FromName(Program.Client, ":thumbsup:"))
+                .GetReactionsAsync(
+                    DiscordEmoji.FromName(
+                        Program.Client.GetShard(storedVoteMessage.serverID),
+                        ":thumbsup:"
+                    )
+                )
                 .Result.Count;
             await Task.Delay(250);
             int noVote = message
-                .GetReactionsAsync(DiscordEmoji.FromName(Program.Client, ":thumbsdown:"))
+                .GetReactionsAsync(
+                    DiscordEmoji.FromName(
+                        Program.Client.GetShard(storedVoteMessage.serverID),
+                        ":thumbsdown:"
+                    )
+                )
                 .Result.Count;
             if (yesVote > noVote)
             {
@@ -140,10 +166,9 @@ namespace Orpheus.Voting
                     )
                 );
             }
-            TempStorageHandler.RemoveVoteMessage(storedVoteMessage);
+            RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
             return yesVote > noVote;
         }
-
 
         private static DiscordEmbed createActiveCountdownEmbed(
             CountdownTimer countdownTimer,

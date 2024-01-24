@@ -31,7 +31,7 @@ namespace Orpheus.JailHandling
 
         public static async Task RestartJailCourtMessage(StoredVoteMessage storedVoteMessage)
         {
-            DiscordGuild server = await Program.Client.GetGuildAsync(storedVoteMessage.serverID);
+            DiscordGuild server = await Program.Client.GetShard(storedVoteMessage.serverID).GetGuildAsync(storedVoteMessage.serverID);
             DiscordChannel channel = server.GetChannel(storedVoteMessage.channelID);
             DiscordMember jailedUser = await server.GetMemberAsync(storedVoteMessage.userID);
             DiscordMessage discordmessage = await channel.GetMessageAsync(
@@ -43,7 +43,7 @@ namespace Orpheus.JailHandling
             if (text.Equals("This Vote Has Been Cancelled"))
             {
                 //vote already ended
-                TempStorageHandler.RemoveVoteMessage(storedVoteMessage);
+                RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
                 return;
             }
             else
@@ -119,7 +119,7 @@ namespace Orpheus.JailHandling
             {
                 messageID = message.Id
             };
-            TempStorageHandler.RemoveVoteMessage(storedVoteMessage);
+            RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
         }
 
         private static async Task startCourtVote(

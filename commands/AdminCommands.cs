@@ -258,9 +258,62 @@ namespace Orpheus.commands
             await Audio_System.AudioCommands.LeaveVoiceChannel(ctx);
         }
 
+        [Command("play")]
+        public async Task Play(CommandContext ctx, [RemainingText] string searchText)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Audio_System.AudioCommands.PlayMusic(ctx, searchText);
+        }
+
+        [Command("play")]
+        public async Task Play(CommandContext ctx, Uri url)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Audio_System.AudioCommands.PlayMusic(ctx, url);
+        }
+
+        [Command("resume")]
+        public async Task Play(CommandContext ctx)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Audio_System.AudioCommands.ResumeMusic(ctx);
+        }
+
+        [Command("pause")]
+        public async Task Pause(CommandContext ctx)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Audio_System.AudioCommands.pauseMusic(ctx);
+        }
+
+        [Command("stop")]
+        public async Task Stop(CommandContext ctx)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Audio_System.AudioCommands.StopMusic(ctx);
+        }
+
+
+
+
         public static bool isNotValidCommand(CommandContext ctx)
         {
-            return (ctx.Member == null || ctx.User.IsBot);
+            return ctx.Member == null || ctx.User.IsBot;
         }
 
         public static async Task<bool> doesUserHavePerms(CommandContext ctx)

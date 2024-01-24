@@ -2,12 +2,15 @@
 using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Serialization.Json;
 using System.Security.Cryptography;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
+using DSharpPlus.Lavalink;
+using DSharpPlus.Net;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
 using Npgsql.Replication;
@@ -25,31 +28,83 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         [x]-!send
         [x]-!join
         [x]-!leave
-        []-!play
-        []-!pause
-        []-!stop
+        [X]-!play
+        [X]-!pause
+        [X]-!stop
         [x]-!on
         [x]-!off
         [x]-!dnd
         */
 
 
-        public static DiscordClient Client { get; private set; }
-        private static CommandsNextExtension Commands { get; set; }
-        private static VoiceNextExtension VoiceNextExtension { get; set; }
+        public static DiscordShardedClient Client { get; private set; }
+        private static Dictionary<int, CommandsNextExtension> Commands =
+            new Dictionary<int, CommandsNextExtension>();
+        private static Dictionary<int, VoiceNextExtension> voiceNextExtension =
+            new Dictionary<int, VoiceNextExtension>();
+        private static Dictionary<int, LavalinkExtension> lavaLinkExtension =
+            new Dictionary<int, LavalinkExtension>();
+        private static Dictionary<int, LavalinkNodeConnection> lavaLinkNodeConnection =
+            new Dictionary<int, LavalinkNodeConnection>();
 
         static async Task Main(string[] args)
         {
             await BotSetup();
-            await Client.ConnectAsync();
-            VoiceNextExtension = Client.UseVoiceNext();
-            TempStorageHandler.RestartFromTempStorage();
+            await Client.StartAsync();
+            //VoiceNextExtension = ;
+            VoiceNextConfiguration voiceConfiguration = new VoiceNextConfiguration()
+            {
+                EnableIncoming = false,
+            };
+            
+            foreach (
+                KeyValuePair<
+                    int,
+                    VoiceNextExtension
+                > keyValuePair in await Client.UseVoiceNextAsync(voiceConfiguration)
+            )
+            {
+                voiceNextExtension.Add(keyValuePair.Key, keyValuePair.Value);
+            }
+            await setupLavalink();
+
+            RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
+        }
+
+        private static async Task setupLavalink()
+        {
+            JSONReader jsonReader = new JSONReader();
+            await jsonReader.ReadJson();
+            ConnectionEndpoint connectionEndpoint = new ConnectionEndpoint()
+            {
+                Hostname = jsonReader.lavalinkConfig.hostName,
+                Port = jsonReader.lavalinkConfig.port
+            };
+
+            LavalinkConfiguration lavalinkConfiguration = new LavalinkConfiguration()
+            {
+                Password = jsonReader.lavalinkConfig.password,
+                RestEndpoint = connectionEndpoint,
+                SocketEndpoint = connectionEndpoint,
+            };
+
+
+            foreach (KeyValuePair<int, LavalinkExtension> temp in await Client.UseLavalinkAsync())
+            {
+                lavaLinkExtension.Add(temp.Key, temp.Value);
+            }
+
+            foreach (KeyValuePair<int, LavalinkExtension> temp in lavaLinkExtension)
+            {
+                lavaLinkNodeConnection.Add(temp.Key, await temp.Value.ConnectAsync(lavalinkConfiguration));
+            }
         }
 
         public static VoiceNextExtension GetVoiceNextExtension()
         {
-            return VoiceNextExtension;
+            voiceNextExtension.TryGetValue(0, out VoiceNextExtension tempVoiceNextExtension);
+            return tempVoiceNextExtension;
         }
 
         private static Task Client_Ready(DiscordClient sender, ReadyEventArgs args)
@@ -111,7 +166,8 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 AutoReconnect = true
             };
 
-            Client = new DiscordClient(discordConfig);
+            Client = new DiscordShardedClient(discordConfig);
+
             Client.Ready += Client_Ready;
             Client.MessageCreated += async (user, args) =>
             {
@@ -138,7 +194,19 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 EnableDms = true,
                 EnableDefaultHelp = false,
             };
-            Commands = Client.UseCommandsNext(commandsConfig);
+            foreach (
+                KeyValuePair<
+                    int,
+                    CommandsNextExtension
+                > values in await Client.UseCommandsNextAsync(commandsConfig)
+            )
+            {
+                if (values.Value == null)
+                {
+                    continue;
+                }
+                Commands.Add(values.Key, values.Value);
+            }
             Commands.RegisterCommands<TestCommands>();
             Commands.RegisterCommands<AdminCommands>();
             Commands.RegisterCommands<UserCommands>();
