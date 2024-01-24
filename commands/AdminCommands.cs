@@ -268,7 +268,7 @@ namespace Orpheus.commands
             await Audio_System.AudioCommands.PlayMusic(ctx, searchText);
         }
 
-        [Command("play")]
+        [Command("playDirect")]
         public async Task Play(CommandContext ctx, Uri url)
         {
             if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))

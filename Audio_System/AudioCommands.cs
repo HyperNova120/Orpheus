@@ -153,7 +153,7 @@ namespace Orpheus.Audio_System
                 || result.LoadResultType == LavalinkLoadResultType.NoMatches
             )
             {
-                await ctx.RespondAsync($"Track search failed for {url}.");
+                await ctx.RespondAsync($"URL search failed for {url}.");
                 return;
             }
             LavalinkTrack track = result.Tracks.First();
