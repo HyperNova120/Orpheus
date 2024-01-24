@@ -124,7 +124,11 @@ namespace Orpheus.Audio_System
             LavalinkNodeConnection node = lava.ConnectedNodes.Values.First();
             LavalinkGuildConnection conn = node.GetGuildConnection(ctx.Member.VoiceState.Guild);
 
-            string Author = searchString.ToLower().Split("by")[1].Trim();
+            string Author = "";
+            if (searchString.ToLower().Contains("by"))
+            {
+                Author = searchString.ToLower().Split("by")[1].Trim();
+            }
             string Title = searchString.ToLower().Split("by")[0].Trim();
 
             if (conn == null)
@@ -132,7 +136,10 @@ namespace Orpheus.Audio_System
                 await ctx.Channel.SendMessageAsync("Lavalink is not connected.");
                 return;
             }
-            LavalinkLoadResult result = await node.Rest.GetTracksAsync(searchString, lavalinkSearchType);
+            LavalinkLoadResult result = await node.Rest.GetTracksAsync(
+                searchString,
+                lavalinkSearchType
+            );
             //If something went wrong on Lavalink's end
             if (
                 result.LoadResultType == LavalinkLoadResultType.LoadFailed
@@ -147,7 +154,7 @@ namespace Orpheus.Audio_System
             LavalinkTrack[] tracks = result.Tracks.ToArray();
 
             LavalinkTrack track = null;
-            int acceptedError = 10;
+            int acceptedError = 50;
             long currentTitleDist = long.MaxValue;
             long currentAuthorDist = long.MaxValue;
             foreach (LavalinkTrack trackToSearch in tracks)
@@ -168,28 +175,46 @@ namespace Orpheus.Audio_System
                 );
                 Console.ResetColor();
                 long acceptedErrorLong = acceptedError;
-                if (AuthorDistance <= 3)
+                if (Author.Length != 0)
                 {
-                    if (TitleDistance <= currentTitleDist)
+                    if (AuthorDistance <= 3)
                     {
-                        Console.WriteLine("TRACK FOUND AUTHOR: " + trackToSearch.Title);
-                        track = trackToSearch;
-                        currentAuthorDist = AuthorDistance;
-                        currentTitleDist = TitleDistance;
+                        if (TitleDistance <= currentTitleDist)
+                        {
+                            Console.WriteLine("TRACK FOUND AUTHOR: " + trackToSearch.Title);
+                            track = trackToSearch;
+                            currentAuthorDist = AuthorDistance;
+                            currentTitleDist = TitleDistance;
+                        }
+                        else
+                        {
+                            Console.WriteLine(
+                                $"BETTER AUTHOR: {trackToSearch.Author} WORSE TITLE OLD:{currentTitleDist} NEW: {TitleDistance}"
+                            );
+                        }
                     }
-                    else{
-                        
-                        Console.WriteLine($"BETTER AUTHOR: {trackToSearch.Author} WORSE TITLE OLD:{currentTitleDist} NEW: {TitleDistance}");
+                    else if (TitleDistance + AuthorDistance <= acceptedErrorLong)
+                    {
+                        if (TitleDistance < currentTitleDist && AuthorDistance <= currentAuthorDist)
+                        {
+                            Console.WriteLine("TRACK FOUND TOTAL: " + trackToSearch.Title);
+                            track = trackToSearch;
+                            currentAuthorDist = AuthorDistance;
+                            currentTitleDist = TitleDistance;
+                        }
                     }
                 }
-                else if (TitleDistance + AuthorDistance <= acceptedErrorLong)
+                else
                 {
-                    if (TitleDistance < currentTitleDist && AuthorDistance <= currentAuthorDist)
+                    if (TitleDistance <= acceptedErrorLong)
                     {
-                        Console.WriteLine("TRACK FOUND TOTAL: " + trackToSearch.Title);
-                        track = trackToSearch;
-                        currentAuthorDist = AuthorDistance;
-                        currentTitleDist = TitleDistance;
+                        if (TitleDistance < currentTitleDist)
+                        {
+                            Console.WriteLine("TRACK FOUND TITLE: " + trackToSearch.Title);
+                            track = trackToSearch;
+                            currentAuthorDist = AuthorDistance;
+                            currentTitleDist = TitleDistance;
+                        }
                     }
                 }
             }
