@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.Common;
+using System.Diagnostics;
+using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization.Json;
@@ -56,7 +58,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             {
                 EnableIncoming = false,
             };
-            
+
             foreach (
                 KeyValuePair<
                     int,
@@ -89,7 +91,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 SocketEndpoint = connectionEndpoint,
             };
 
-
             foreach (KeyValuePair<int, LavalinkExtension> temp in await Client.UseLavalinkAsync())
             {
                 lavaLinkExtension.Add(temp.Key, temp.Value);
@@ -97,7 +98,10 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
             foreach (KeyValuePair<int, LavalinkExtension> temp in lavaLinkExtension)
             {
-                lavaLinkNodeConnection.Add(temp.Key, await temp.Value.ConnectAsync(lavalinkConfiguration));
+                lavaLinkNodeConnection.Add(
+                    temp.Key,
+                    await temp.Value.ConnectAsync(lavalinkConfiguration)
+                );
             }
         }
 

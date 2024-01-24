@@ -245,7 +245,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioCommands.JoinVoiceChannel(ctx);
+            await Audio_System.AudioHandler.JoinVoiceChannel(ctx);
         }
 
         [Command("leave")]
@@ -255,7 +255,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioCommands.LeaveVoiceChannel(ctx);
+            await Audio_System.AudioHandler.LeaveVoiceChannel(ctx);
         }
 
         [Command("play")]
@@ -265,7 +265,17 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioCommands.PlayMusic(ctx, searchText);
+            await Audio_System.AudioHandler.PlayMusic(ctx, searchText, DSharpPlus.Lavalink.LavalinkSearchType.SoundCloud);
+        }
+
+        [Command("playYT")]
+        public async Task PlayYT(CommandContext ctx, [RemainingText] string searchText)
+        {
+            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
+            {
+                return;
+            }
+            await Audio_System.AudioHandler.PlayMusic(ctx, searchText, DSharpPlus.Lavalink.LavalinkSearchType.Youtube);
         }
 
         [Command("playDirect")]
@@ -275,7 +285,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioCommands.PlayMusic(ctx, url);
+            await Audio_System.AudioHandler.PlayMusic(ctx, url);
         }
 
         [Command("resume")]
@@ -285,7 +295,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioCommands.ResumeMusic(ctx);
+            await Audio_System.AudioHandler.ResumeMusic(ctx);
         }
 
         [Command("pause")]
@@ -295,7 +305,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioCommands.pauseMusic(ctx);
+            await Audio_System.AudioHandler.pauseMusic(ctx);
         }
 
         [Command("stop")]
@@ -305,7 +315,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioCommands.StopMusic(ctx);
+            await Audio_System.AudioHandler.StopMusic(ctx);
         }
 
 

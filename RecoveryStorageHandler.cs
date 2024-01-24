@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
+using Microsoft.Win32.SafeHandles;
 using Newtonsoft.Json;
+using Orpheus.Audio_System;
 using Orpheus.JailHandling;
 
 namespace Orpheus
@@ -12,14 +14,36 @@ namespace Orpheus
     public static class RecoveryStorageHandler
     {
         private static RecoveryStorageJson? storageJson = new RecoveryStorageJson();
+        private static isSavingToRecovery isSaving = new isSavingToRecovery()
+        {
+            isSavingToRecoveryTrue = false
+        };
         private static string FileName = "recoveryStorage.json";
 
         private static void updateRecoveryStorage()
         {
+            while (true)
+            {
+                lock (isSaving)
+                {
+                    if (!isSaving.isSavingToRecoveryTrue)
+                    {
+                        isSaving.isSavingToRecoveryTrue = true;
+                        break;
+                    }
+                }
+            }
             string jsonString = JsonConvert.SerializeObject(storageJson);
             //Console.Write("STORE TEMPSTORAGE:");
             File.WriteAllText(FileName, jsonString);
             //Console.WriteLine(File.Exists("tempStorage.txt"));
+            lock (isSaving)
+            {
+                if (isSaving.isSavingToRecoveryTrue)
+                {
+                    isSaving.isSavingToRecoveryTrue = false;
+                }
+            }
         }
 
         public static void InitiateRecovery()
@@ -29,25 +53,39 @@ namespace Orpheus
                 storageJson = new RecoveryStorageJson();
                 return;
             }
-            storageJson = JsonConvert.DeserializeObject<RecoveryStorageJson>(
-                File.ReadAllText(FileName)
-            );
-            if (storageJson == null)
+            RecoveryStorageJson? recoveredStorageJson =
+                JsonConvert.DeserializeObject<RecoveryStorageJson>(File.ReadAllText(FileName));
+            if (recoveredStorageJson == null)
             {
                 storageJson = new RecoveryStorageJson();
                 return;
             }
-            recoverVoteMessages();
+            storageJson = new RecoveryStorageJson();
+            recoverVoteMessages(recoveredStorageJson);
+            recoverAudioActions(recoveredStorageJson);
         }
 
-        private static void recoverVoteMessages()
+        private static void recoverVoteMessages(RecoveryStorageJson? recoveredStorageJson)
         {
-            foreach (StoredVoteMessage storedVoteMessage in storageJson.voteMessages)
+            foreach (StoredVoteMessage storedVoteMessage in recoveredStorageJson.voteMessages)
             {
                 if (storedVoteMessage.voteType.Equals("CourtVote"))
                 {
                     _ = JailCourtHandler.RestartJailCourtMessage(storedVoteMessage);
                 }
+            }
+        }
+
+        private static void recoverAudioActions(RecoveryStorageJson? recoveredStorageJson)
+        {
+            foreach (StoredAudioAction storedAudioAction in recoveredStorageJson.audioActions)
+            {
+                Uri uri = new Uri(storedAudioAction.Url);
+                _ = AudioHandler.PlayMusic(
+                    storedAudioAction.serverID,
+                    storedAudioAction.channelID,
+                    uri
+                );
             }
         }
 
@@ -69,11 +107,38 @@ namespace Orpheus
                 }
             }
         }
+
+        public static void StoreAudioAction(StoredAudioAction audioAction)
+        {
+            Console.WriteLine($"ADD AUDIO {audioAction.Url}");
+            storageJson.audioActions.Add(audioAction);
+            updateRecoveryStorage();
+        }
+
+        public static void RemoveAudioAction(StoredAudioAction audioAction)
+        {
+            Console.WriteLine($"REMOVE AUDIO {audioAction.Url}");
+            for (int i = 0; i < storageJson.audioActions.Count; i++)
+            {
+                if (storageJson.audioActions[i].equals(audioAction))
+                {
+                    storageJson.audioActions.RemoveAt(i);
+                    updateRecoveryStorage();
+                    return;
+                }
+            }
+        }
+    }
+
+    internal sealed class isSavingToRecovery
+    {
+        public bool isSavingToRecoveryTrue { get; set; }
     }
 
     internal sealed class RecoveryStorageJson
     {
         public List<StoredVoteMessage> voteMessages = new List<StoredVoteMessage>();
+        public List<StoredAudioAction> audioActions = new List<StoredAudioAction>();
     }
 
     public struct StoredVoteMessage
@@ -87,6 +152,22 @@ namespace Orpheus
         public bool equals(StoredVoteMessage other)
         {
             return other.messageID == messageID;
+        }
+    }
+
+    public struct StoredAudioAction
+    {
+        public ulong serverID;
+        public ulong channelID;
+        public string Url;
+
+        public bool equals(StoredAudioAction other)
+        {
+            if (other.Url == null || other.Url.Length == 0)
+            {
+                return other.serverID == serverID;
+            }
+            return other.serverID == serverID && other.Url == Url;
         }
     }
 }
