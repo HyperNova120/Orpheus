@@ -27,6 +27,12 @@ namespace Orpheus.Audio_System
             await JoinVoiceChannel(getChannelToEnterAsync(ctx));
         }
 
+        /// <summary>
+        /// joins the voice channel ChannelToJoin. 
+        /// the bot will disconnect from any voice channel it is currently in and connect to the given one
+        /// </summary>
+        /// <param name="ChannelToJoin"></param>
+        /// <returns></returns>
         public static async Task JoinVoiceChannel(DiscordChannel ChannelToJoin)
         {
             if (ChannelToJoin == null)
@@ -60,6 +66,13 @@ namespace Orpheus.Audio_System
             Console.WriteLine("CONNECT TO CHANNEL:" + ChannelToJoin.Name);
         }
 
+        /// <summary>
+        /// returns the discord channel to join. if user who send the command is in a voice channel already will return that channel. 
+        /// otherwise joins the channel the message is sent in if it is a voice channel.
+        /// otherwise returns null.
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
         private static DiscordChannel getChannelToEnterAsync(CommandContext ctx)
         {
             if (ctx.Member.VoiceState != null && ctx.Member.VoiceState.Channel != null)
@@ -72,10 +85,16 @@ namespace Orpheus.Audio_System
             }
             else
             {
+                Console.WriteLine("NO CHANNEL TO ENTER");
                 return null;
             }
         }
 
+        /// <summary>
+        /// disconnects from the voice channel the bot is in. does nothing if not connected
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
         public static async Task LeaveVoiceChannel(CommandContext ctx)
         {
             LavalinkExtension lava = ctx.Client.GetLavalink();
@@ -108,6 +127,14 @@ namespace Orpheus.Audio_System
             await ctx.Message.DeleteAsync();
         }
 
+        /// <summary>
+        /// joins appropriate voice channel, then searches soundcloud for the best match. 
+        /// if no match is found it will search youtube and return the best match 
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="searchString"></param>
+        /// <param name="lavalinkSearchType"></param>
+        /// <returns></returns>
         public static async Task PlayMusic(
             CommandContext ctx,
             string searchString,
@@ -120,9 +147,10 @@ namespace Orpheus.Audio_System
                 return;
             }
             await JoinVoiceChannel(getChannelToEnterAsync(ctx));
-            LavalinkExtension lava = ctx.Client.GetLavalink();
+            Console.WriteLine("CTX.CLIENT:" + ctx.Client.ToString());
+            LavalinkExtension lava = Program.Client.GetShard(ctx.Guild.Id).GetLavalink();
             LavalinkNodeConnection node = lava.ConnectedNodes.Values.First();
-            LavalinkGuildConnection conn = node.GetGuildConnection(ctx.Member.VoiceState.Guild);
+            LavalinkGuildConnection conn = node.GetGuildConnection(ctx.Member.Guild);
 
             string Author = "";
             if (searchString.ToLower().Contains("by"))
@@ -136,6 +164,7 @@ namespace Orpheus.Audio_System
                 await ctx.Channel.SendMessageAsync("Lavalink is not connected.");
                 return;
             }
+
             LavalinkLoadResult result = await node.Rest.GetTracksAsync(
                 searchString,
                 lavalinkSearchType
@@ -150,9 +179,72 @@ namespace Orpheus.Audio_System
                 return;
             }
 
-            //TODO search through results until either best match is found or no match is found
             LavalinkTrack[] tracks = result.Tracks.ToArray();
 
+            LavalinkTrack track = getBestTrackMatch(tracks, lavalinkSearchType, Title, Author);
+            await HandleReturnedTrack(track, lavalinkSearchType, searchString, ctx);
+        }
+
+        /// <summary>
+        /// decides what to do with best match track, 
+        /// if is searching soundcloud and track is not a good enough match searches youtube,
+        /// if searching youtube calls playMusic(ctx, url)
+        /// </summary>
+        /// <param name="track"></param>
+        /// <param name="lavalinkSearchType"></param>
+        /// <param name="searchString"></param>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
+        private static async Task HandleReturnedTrack(
+            LavalinkTrack track,
+            LavalinkSearchType lavalinkSearchType,
+            string searchString,
+            CommandContext ctx
+        )
+        {
+            if (track == null && lavalinkSearchType == LavalinkSearchType.SoundCloud)
+            {
+                Console.WriteLine(
+                    $"Track search \"{searchString}\" not found on soundcloud, searching youtube"
+                );
+                await PlayMusic(ctx, searchString, LavalinkSearchType.Youtube);
+            }
+            else if (track == null && lavalinkSearchType == LavalinkSearchType.Youtube)
+            {
+                await ctx.Channel.SendMessageAsync(
+                    $"Track search \"{searchString}\" could not find a match"
+                );
+                return;
+            }
+            else
+            {
+                _ = ctx.Channel.SendMessageAsync(
+                    $"Track search \"{searchString}\" found song \"{track.Title}\" by \"{track.Author}\""
+                );
+                await PlayMusic(ctx, track.Uri);
+            }
+        }
+
+        /// <summary>
+        /// returns the best match to the title and author from a track list
+        /// prioritizes author correctness over title. 
+        /// if tracks are searching soundcloud requires author to be within 3 errors to match
+        /// if tracks are searching youtube returns a track if the author + title errors are less than accepted error margin
+        /// otherwise returns null
+        /// </summary>
+        /// <param name="tracks"></param>
+        /// <param name="lavalinkSearchType"></param>
+        /// <param name="Title"></param>
+        /// <param name="Author"></param>
+        /// <returns></returns>
+        private static LavalinkTrack getBestTrackMatch(
+            LavalinkTrack[] tracks,
+            LavalinkSearchType lavalinkSearchType,
+            string Title,
+            string Author
+        )
+        {
+            Console.WriteLine("TRACK RESULT SIZE:" + tracks.Length);
             LavalinkTrack track = null;
             int acceptedError = 50;
             long currentTitleDist = long.MaxValue;
@@ -175,9 +267,20 @@ namespace Orpheus.Audio_System
                 );
                 Console.ResetColor();
                 long acceptedErrorLong = acceptedError;
+
                 if (Author.Length != 0)
                 {
-                    if (AuthorDistance <= 3)
+                    if (lavalinkSearchType == LavalinkSearchType.SoundCloud)
+                    {
+                        if (TitleDistance < currentTitleDist && AuthorDistance <= 3)
+                        {
+                            Console.WriteLine("TRACK FOUND TOTAL: " + trackToSearch.Title);
+                            track = trackToSearch;
+                            currentAuthorDist = AuthorDistance;
+                            currentTitleDist = TitleDistance;
+                        }
+                    } //youtube
+                    else if (AuthorDistance <= 3)
                     {
                         if (TitleDistance <= currentTitleDist)
                         {
@@ -193,7 +296,7 @@ namespace Orpheus.Audio_System
                             );
                         }
                     }
-                    else if (TitleDistance + AuthorDistance <= acceptedErrorLong)
+                    else if (TitleDistance <= acceptedErrorLong)
                     {
                         if (TitleDistance < currentTitleDist && AuthorDistance <= currentAuthorDist)
                         {
@@ -218,70 +321,63 @@ namespace Orpheus.Audio_System
                     }
                 }
             }
-
-            if (track == null && lavalinkSearchType == LavalinkSearchType.SoundCloud)
-            {
-                Console.WriteLine(
-                    $"Track search \"{searchString}\" not found on soundcloud, searching youtube"
-                );
-                await PlayMusic(ctx, searchString, LavalinkSearchType.Youtube);
-            }
-            else if (track == null && lavalinkSearchType == LavalinkSearchType.Youtube)
-            {
-                await ctx.Channel.SendMessageAsync(
-                    $"Track search \"{searchString}\" could not find a match"
-                );
-                return;
-            }
-            else
-            {
-                _ = ctx.Channel.SendMessageAsync(
-                    $"Track search \"{searchString}\" found song \"{track.Title}\" by \"{track.Author}\""
-                );
-                await PlayMusic(ctx, track.Uri);
-            }
+            return track;
         }
 
+        /// <summary>
+        /// gets the serverID, channelID, url
+        /// and calls play music
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public static async Task PlayMusic(CommandContext ctx, Uri url)
         {
-            await PlayMusic(ctx.Guild.Id, getChannelToEnterAsync(ctx).Id, url);
+            await PlayMusic(ctx.Guild.Id, getChannelToEnterAsync(ctx).Id, url, TimeSpan.Zero);
         }
 
-        //PRIMARY PLAY MUSIC METHOD
-        public static async Task PlayMusic(ulong serverid, ulong channelid, Uri url)
+        /// <summary>
+        /// PRIMARY PLAYMUSIC METHOD
+        /// gets the server, channel, and timespan
+        /// connects to given voice channel and plays the sound from the given URL
+        /// updates recovery storage with the current track and timestamp
+        /// removes audio from recovery storage when done playing
+        /// </summary>
+        /// <param name="serverid"></param>
+        /// <param name="channelid"></param>
+        /// <param name="url"></param>
+        /// <param name="timeSpan"></param>
+        /// <returns></returns>
+        public static async Task PlayMusic(
+            ulong serverid,
+            ulong channelid,
+            Uri url,
+            TimeSpan timeSpan
+        )
         {
             Console.WriteLine($"PLAY MUSIC URL");
-            try
+            StoredAudioAction storedAudioActionRemove = new StoredAudioAction()
             {
-                StoredAudioAction storedAudioActionRemove = new StoredAudioAction()
-                {
-                    serverID = serverid,
-                };
-                RecoveryStorageHandler.RemoveAudioAction(storedAudioActionRemove);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"END SERVER AUDIO RECOVERY FAIL:" + e.ToString());
-            }
-            Console.WriteLine($"PLAY MUSIC URL 2");
+                serverID = serverid,
+            };
+            RecoveryStorageHandler.RemoveAudioAction(storedAudioActionRemove);
+
             //join if needed
-            Console.WriteLine($"HERE");
             DiscordGuild server = await Program.Client.GetShard(serverid).GetGuildAsync(serverid);
             DiscordChannel discordChannel = server.GetChannel(channelid);
             DiscordClient client = Program.Client.GetShard(serverid);
-            await JoinVoiceChannel(discordChannel);
 
-            Console.WriteLine($"HERE 2");
+            await JoinVoiceChannel(discordChannel);
             LavalinkExtension lava = client.GetLavalink();
             LavalinkNodeConnection node = lava.ConnectedNodes.Values.First();
             LavalinkGuildConnection conn = node.GetGuildConnection(server);
 
-            Console.WriteLine($"HERE 3");
             if (conn == null)
             {
                 Console.WriteLine("Lavalink is not connected.");
                 return;
             }
+
             LavalinkLoadResult result = await node.Rest.GetTracksAsync(url);
             //If something went wrong on Lavalink's end
             if (
@@ -293,43 +389,52 @@ namespace Orpheus.Audio_System
                 return;
             }
             Console.WriteLine($"URL search FOUND {url}.");
-            await conn.StopAsync();
-            LavalinkTrack track = result.Tracks.First();
-            await conn.PlayAsync(track);
 
-            conn.TrackException += async (guildConn, ExceptionArgs) =>
-            {
-                await HandlePlayError(guildConn, ExceptionArgs);
-            };
-            conn.TrackStuck += async (guildConn, StuckArgs) =>
-            {
-                await HandlePlayError(guildConn, StuckArgs);
-            };
+            await conn.StopAsync();
+
             conn.PlaybackFinished += async (guildConn, FinishArgs) =>
             {
-                Console.WriteLine("REASON:" + FinishArgs.Reason);
-                StoredAudioAction storedAudioActionRemove = new StoredAudioAction()
-                {
-                    channelID = channelid,
-                    serverID = serverid,
-                    Url = FinishArgs.Track.Uri.ToString(),
-                };
-                RecoveryStorageHandler.RemoveAudioAction(storedAudioActionRemove);
-                Console.WriteLine("PLAYBACK FINISHED");
-                //_ = discordChannel.SendMessageAsync("Track Finished Playback");
+                await HandleTrackFinishedUpdate(guildConn, FinishArgs, channelid, serverid);
             };
+            conn.PlayerUpdated += async (guildConn, EventArgs) =>
+            {
+                await HandlePlayerUpdate(
+                    guildConn,
+                    EventArgs,
+                    channelid,
+                    serverid,
+                    url.ToString()
+                );
+            };
+
+            LavalinkTrack track = result.Tracks.First();
+            await conn.PlayAsync(track);
+            if (timeSpan.Seconds != 0)
+            {
+                await conn.SeekAsync(timeSpan);
+            }
+            else
+            {
+                Console.WriteLine("SKIP SEEK");
+            }
 
             StoredAudioAction storedAudioAction = new StoredAudioAction()
             {
                 channelID = channelid,
                 serverID = serverid,
                 Url = url.ToString(),
+                position = timeSpan
             };
             RecoveryStorageHandler.StoreAudioAction(storedAudioAction);
 
             Console.WriteLine($"Playing Track {track.Title}");
         }
 
+        /// <summary>
+        /// resumes any currently paused music
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
         public static async Task ResumeMusic(CommandContext ctx)
         {
             LavalinkExtension lava = ctx.Client.GetLavalink();
@@ -345,6 +450,12 @@ namespace Orpheus.Audio_System
             await ctx.Channel.SendMessageAsync($"Resuming Track");
         }
 
+        /// <summary>
+        /// stops playing any current music, un-resumable
+        /// removes it from recovery storage
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
         public static async Task StopMusic(CommandContext ctx)
         {
             LavalinkExtension lava = ctx.Client.GetLavalink();
@@ -365,7 +476,12 @@ namespace Orpheus.Audio_System
             await ctx.Channel.SendMessageAsync($"Stopped Track");
         }
 
-        public static async Task pauseMusic(CommandContext ctx)
+        /// <summary>
+        /// pauses the current music, leaves it in queue to be resumed
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <returns></returns>
+        public static async Task PauseMusic(CommandContext ctx)
         {
             var lava = ctx.Client.GetLavalink();
             var node = lava.ConnectedNodes.Values.First();
@@ -384,22 +500,55 @@ namespace Orpheus.Audio_System
             await ctx.Channel.SendMessageAsync($"Pausing Track");
         }
 
-        private static async Task HandlePlayError(
+        /// <summary>
+        /// removes audio from recovery storage when audio finishes playing
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <param name="args"></param>
+        /// <param name="channelid"></param>
+        /// <param name="serverid"></param>
+        /// <returns></returns>
+        private static async Task HandleTrackFinishedUpdate(
             LavalinkGuildConnection conn,
-            TrackExceptionEventArgs args
+            TrackFinishEventArgs args,
+            ulong channelid,
+            ulong serverid
         )
         {
-            await conn.Channel.SendMessageAsync("AUDIO PLAYBACK ERROR");
-            Console.WriteLine("PLAYBACK ERROR" + args.ToString());
+            StoredAudioAction storedAudioActionRemove = new StoredAudioAction()
+            {
+                channelID = channelid,
+                serverID = serverid,
+                Url = args.Track.Uri.ToString(),
+            };
+            RecoveryStorageHandler.RemoveAudioAction(storedAudioActionRemove);
         }
 
-        private static async Task HandlePlayError(
+        /// <summary>
+        /// updates recovery storage with the current timestamp of the music
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <param name="args"></param>
+        /// <param name="channelid"></param>
+        /// <param name="serverid"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private static async Task HandlePlayerUpdate(
             LavalinkGuildConnection conn,
-            TrackStuckEventArgs args
+            PlayerUpdateEventArgs args,
+            ulong channelid,
+            ulong serverid,
+            string url
         )
         {
-            await conn.Channel.SendMessageAsync("AUDIO PLAYBACK ERROR");
-            Console.WriteLine("PLAYBACK STUCK" + args.ToString());
+            StoredAudioAction storedAudioAction = new StoredAudioAction()
+            {
+                channelID = channelid,
+                serverID = serverid,
+                Url = url.ToString(),
+                position = args.Position
+            };
+            RecoveryStorageHandler.StoreAudioAction(storedAudioAction);
         }
     }
 }

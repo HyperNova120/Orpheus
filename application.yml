@@ -41,5 +41,5 @@ logging:
 
   level:
     root: INFO
-    lavalink: DEBUG
-    lavalink.server.io.SocketContext: TRACE
+    lavalink: INFO
+    lavalink.server.io.SocketContext: INFO

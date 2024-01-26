@@ -51,6 +51,23 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         static async Task Main(string[] args)
         {
+            Console.WriteLine(@$" -jar {AppContext.BaseDirectory}Lavalink.jar");
+            Process myProcess = new Process();
+            myProcess.StartInfo.FileName = "java";
+            myProcess.StartInfo.UseShellExecute = false;
+            myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}Lavalink.jar";
+            myProcess.StartInfo.CreateNoWindow = true;
+            myProcess.StartInfo.ErrorDialog = false;
+            myProcess.Start();
+
+            int waitSec = 5;
+            for (int i = 0; i < waitSec; i++)
+            {
+                Console.WriteLine("STARTING IN " + (waitSec-i));
+                await Task.Delay(1000);
+            }
+
+
             await BotSetup();
             await Client.StartAsync();
             //VoiceNextExtension = ;

@@ -52,7 +52,7 @@ namespace Orpheus.commands
                 return;
             }
             await mentionedUser.SendMessageAsync(args.Trim());
-            await Task.Delay(250);
+            //await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
 
@@ -64,7 +64,7 @@ namespace Orpheus.commands
                 return;
             }
             await ctx.Channel.SendMessageAsync(msg);
-            await Task.Delay(250);
+            //await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
     }

@@ -53,16 +53,26 @@ namespace Orpheus
                 storageJson = new RecoveryStorageJson();
                 return;
             }
+            while (true)
+            {
+                lock (isSaving)
+                {
+                    if (!isSaving.isSavingToRecoveryTrue)
+                    {
+                        isSaving.isSavingToRecoveryTrue = true;
+                        break;
+                    }
+                }
+            }
             RecoveryStorageJson? recoveredStorageJson =
                 JsonConvert.DeserializeObject<RecoveryStorageJson>(File.ReadAllText(FileName));
-            if (recoveredStorageJson == null)
-            {
-                storageJson = new RecoveryStorageJson();
-                return;
-            }
             storageJson = new RecoveryStorageJson();
             recoverVoteMessages(recoveredStorageJson);
             recoverAudioActions(recoveredStorageJson);
+            lock (isSaving)
+            {
+                isSaving.isSavingToRecoveryTrue = false;
+            }
         }
 
         private static void recoverVoteMessages(RecoveryStorageJson? recoveredStorageJson)
@@ -84,7 +94,8 @@ namespace Orpheus
                 _ = AudioHandler.PlayMusic(
                     storedAudioAction.serverID,
                     storedAudioAction.channelID,
-                    uri
+                    uri,
+                    storedAudioAction.position
                 );
             }
         }
@@ -110,14 +121,15 @@ namespace Orpheus
 
         public static void StoreAudioAction(StoredAudioAction audioAction)
         {
-            Console.WriteLine($"ADD AUDIO {audioAction.Url}");
+            //Console.WriteLine($"ADD AUDIO {audioAction.Url}");
+            RemoveAudioAction(audioAction);
             storageJson.audioActions.Add(audioAction);
             updateRecoveryStorage();
         }
 
         public static void RemoveAudioAction(StoredAudioAction audioAction)
         {
-            Console.WriteLine($"REMOVE AUDIO {audioAction.Url}");
+            //Console.WriteLine($"REMOVE AUDIO {audioAction.Url}");
             for (int i = 0; i < storageJson.audioActions.Count; i++)
             {
                 if (storageJson.audioActions[i].equals(audioAction))
@@ -160,6 +172,7 @@ namespace Orpheus
         public ulong serverID;
         public ulong channelID;
         public string Url;
+        public TimeSpan position;
 
         public bool equals(StoredAudioAction other)
         {

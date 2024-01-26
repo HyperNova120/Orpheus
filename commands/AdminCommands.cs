@@ -305,7 +305,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Audio_System.AudioHandler.pauseMusic(ctx);
+            await Audio_System.AudioHandler.PauseMusic(ctx);
         }
 
         [Command("stop")]
