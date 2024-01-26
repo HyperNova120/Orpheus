@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Npgsql;
 
 namespace Orpheus.Database
@@ -51,6 +45,7 @@ namespace Orpheus.Database
             }
         }
 
+       [Obsolete("Use array param version")]
         public static async Task<bool> DoesEntryExist(
             string table,
             string columnName,
@@ -65,6 +60,48 @@ namespace Orpheus.Database
             {
                 string query =
                     $"SELECT EXISTS(SELECT 1 FROM {table} WHERE {columnName}='{testForValue}' AND {columnName2}='{testForValue2}');";
+                using (NpgsqlCommand cmd = new NpgsqlCommand(query, conninfo.npgsqlConnection))
+                {
+                    bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
+                    conninfo.isInUse = false;
+                    return temp;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                conninfo.isInUse = false;
+                return false;
+            }
+        }
+
+        public static async Task<bool> DoesEntryExist(
+            string table,
+            string[] columnNames,
+            string[] testForValues
+        )
+        {
+            if (columnNames.Length != testForValues.Length)
+            {
+                Console.WriteLine("[ERROR] ColumnName testForValues Length Mismatch");
+                return false;
+            }
+            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            //Console.WriteLine("DoesEntryExist CALLED");
+            try
+            {
+                string query =
+                    $"SELECT EXISTS(SELECT 1 FROM {table} WHERE";
+                for (int i = 0; i < columnNames.Length; i++)
+                {
+                    query += $" {columnNames[i]}='{testForValues[i]}'";
+                    if (i != columnNames.Length-1)
+                    {
+                        query += " AND";
+                    }
+                }
+                query += ");";
+
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conninfo.npgsqlConnection))
                 {
                     bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());

@@ -1,10 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DSharpPlus.Entities;
-using Microsoft.Win32.SafeHandles;
 using Newtonsoft.Json;
 using Orpheus.Audio_System;
 using Orpheus.JailHandling;

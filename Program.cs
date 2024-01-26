@@ -1,21 +1,12 @@
-﻿using System;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Net.Mime;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Serialization.Json;
-using System.Security.Cryptography;
+﻿using System.Diagnostics;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using DSharpPlus.Interactivity;
 using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
-using Npgsql.Replication;
 using Orpheus.commands;
 using Orpheus.Database;
 

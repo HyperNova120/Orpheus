@@ -1,18 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using DSharpPlus.Interactivity;
-using DSharpPlus.SlashCommands;
-using DSharpPlus.VoiceNext;
-using Npgsql.Replication;
-using Orpheus.commands;
 using Orpheus.Database;
 using Orpheus.JailHandling;
 
@@ -40,7 +28,7 @@ namespace Orpheus
                 )
             )
             {
-                _ = HandleCourtMessage(args);
+                HandleCourtMessage(args);
             }
         }
 
@@ -78,7 +66,7 @@ namespace Orpheus
             }
         }
 
-        private static async Task HandleCourtMessage(MessageCreateEventArgs args)
+        private static void HandleCourtMessage(MessageCreateEventArgs args)
         {
             if (args.Message.MessageType == MessageType.ChannelPinnedMessage)
             {

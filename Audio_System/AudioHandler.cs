@@ -1,22 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using DSharpPlus.EventArgs;
 using DSharpPlus.Lavalink;
-using DSharpPlus.Lavalink.Entities;
 using DSharpPlus.Lavalink.EventArgs;
-using DSharpPlus.Net;
-using DSharpPlus.VoiceNext;
-using NpgsqlTypes;
-using Orpheus.Database;
-using Orpheus.JailHandling;
-using Orpheus.registerCommands;
 
 namespace Orpheus.Audio_System
 {
@@ -216,7 +202,7 @@ namespace Orpheus.Audio_System
                 );
                 return;
             }
-            else
+            else if (track != null)
             {
                 _ = ctx.Channel.SendMessageAsync(
                     $"Track search \"{searchString}\" found song \"{track.Title}\" by \"{track.Author}\""
@@ -245,7 +231,7 @@ namespace Orpheus.Audio_System
         )
         {
             Console.WriteLine("TRACK RESULT SIZE:" + tracks.Length);
-            LavalinkTrack track = null;
+            LavalinkTrack? track = null;
             int acceptedError = 50;
             long currentTitleDist = long.MaxValue;
             long currentAuthorDist = long.MaxValue;
@@ -263,8 +249,9 @@ namespace Orpheus.Audio_System
                 );
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
-                    $"TITLE:{trackToSearch.Title.ToLower()}\n\tDISTANCE:{TitleDistance}\n  AUTHOR:{trackToSearch.Author.ToLower()}\n\tDISTANCE:{AuthorDistance}"
-                );
+                    $"TITLE:{trackToSearch.Title.ToLower()}\n\tDISTANCE:{TitleDistance}");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($" AUTHOR:{trackToSearch.Author.ToLower()}\n\tDISTANCE:{AuthorDistance}");
                 Console.ResetColor();
                 long acceptedErrorLong = acceptedError;
 
