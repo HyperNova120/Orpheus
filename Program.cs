@@ -7,6 +7,7 @@ using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
+using Orpheus.Audio_System;
 using Orpheus.commands;
 using Orpheus.Database;
 
@@ -58,7 +59,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 await Task.Delay(1000);
             }
 
-
+            _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
             await Client.StartAsync();
             //VoiceNextExtension = ;

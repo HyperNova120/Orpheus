@@ -11,7 +11,8 @@ namespace Orpheus.Database
         private static string connectionString = "";
         private static List<ConnectionInfo> ConnectionPool = new List<ConnectionInfo>();
 
-        private static int connectionLimit = 5;
+        private static int connectionLimit = 100; // max open connections
+        private static int unusedConnectionTimeLimit = 60; //seconds
 
         public static void SetConnectionStrings(
             string host,
@@ -42,6 +43,33 @@ namespace Orpheus.Database
             }
         }
 
+        public static async Task HandleConnections()
+        {
+            while (true)
+            {
+                foreach (ConnectionInfo conn in ConnectionPool)
+                {
+                    lock (conn)
+                    {
+                        if (conn.isInUse)
+                        {
+                            continue;
+                        }
+                        if (
+                            (DateTime.Now - conn.timelastUsed).TotalSeconds
+                                >= unusedConnectionTimeLimit
+                            && conn.npgsqlConnection.State == System.Data.ConnectionState.Open
+                        )
+                        {
+                            Console.WriteLine("CLOSING CONNECTION");
+                            conn.closeMe();
+                        }
+                    }
+                }
+                await Task.Delay(1000);
+            }
+        }
+
         public static async Task<ConnectionInfo> GetConnection()
         {
             while (true)
@@ -54,11 +82,21 @@ namespace Orpheus.Database
                         {
                             //is free
                             ConnectionPool[i].isInUse = true;
+                            if (
+                                ConnectionPool[i].npgsqlConnection.State
+                                == System.Data.ConnectionState.Closed
+                            )
+                            {
+                                Console.WriteLine("OPEN CONNECTION: " + i);
+                                ConnectionPool[i].openMe();
+                            }
+                            Console.WriteLine("RETURN CONNECTION: " + i);
+                            ConnectionPool[i].timelastUsed = DateTime.Now;
                             return ConnectionPool[i];
                         }
                     }
                 }
-                Console.WriteLine("SERVER CONNECTION POOL FULL, WAITING");
+                Console.WriteLine("DATABASE CONNECTION POOL FULL, WAITING");
                 await Task.Delay(10);
             }
         }
@@ -68,16 +106,22 @@ namespace Orpheus.Database
             public NpgsqlConnection npgsqlConnection { get; private set; }
             public bool isInUse { get; set; }
 
+            public DateTime timelastUsed { get; set; }
+
             public ConnectionInfo(string connectionString)
             {
                 npgsqlConnection = new NpgsqlConnection(connectionString);
                 isInUse = false;
-                npgsqlConnection.Open();
             }
 
             public void closeMe()
             {
                 npgsqlConnection.Close();
+            }
+
+            public void openMe()
+            {
+                npgsqlConnection.Open();
             }
         }
     }
