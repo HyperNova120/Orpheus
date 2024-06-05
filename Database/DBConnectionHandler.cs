@@ -81,15 +81,19 @@ namespace Orpheus.Database
                         if (!ConnectionPool[i].isInUse)
                         {
                             //is free
-                            ConnectionPool[i].isInUse = true;
                             if (
                                 ConnectionPool[i].npgsqlConnection.State
                                 == System.Data.ConnectionState.Closed
                             )
                             {
                                 Console.WriteLine("OPEN CONNECTION: " + i);
-                                ConnectionPool[i].openMe();
+                                
+                                if (!ConnectionPool[i].openMe())
+                                {
+                                    continue;
+                                }
                             }
+                            ConnectionPool[i].isInUse = true;
                             Console.WriteLine("RETURN CONNECTION: " + i);
                             ConnectionPool[i].timelastUsed = DateTime.Now;
                             return ConnectionPool[i];
@@ -114,14 +118,32 @@ namespace Orpheus.Database
                 isInUse = false;
             }
 
-            public void closeMe()
+            public bool closeMe()
             {
-                npgsqlConnection.Close();
+                try
+                {
+                    npgsqlConnection.Close();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unable To Close Database Connection");
+                    return false;
+                }
             }
 
-            public void openMe()
+            public bool openMe()
             {
-                npgsqlConnection.Open();
+                try
+                {
+                    npgsqlConnection.Open();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unable To Open Database Connection");
+                    return false;
+                }
             }
         }
     }
