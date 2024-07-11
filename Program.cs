@@ -95,7 +95,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             catch (System.Exception)
             {
                 Console.WriteLine("LAVALINK ERROR: SETUP");
-                throw;
             }
 
             RecoveryStorageHandler.InitiateRecovery();
