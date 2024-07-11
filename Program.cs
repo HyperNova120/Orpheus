@@ -30,6 +30,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         */
 
 
+
         public static DiscordShardedClient Client { get; private set; }
         private static Dictionary<int, CommandsNextExtension> Commands =
             new Dictionary<int, CommandsNextExtension>();
@@ -58,7 +59,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 Console.WriteLine("STARTING IN " + (waitSec - i));
                 await Task.Delay(1000);
             }
-
             _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
             await Client.StartAsync();
@@ -77,6 +77,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             {
                 voiceNextExtension.Add(keyValuePair.Key, keyValuePair.Value);
             }
+
             await setupLavalink();
 
             RecoveryStorageHandler.InitiateRecovery();
