@@ -50,7 +50,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}Lavalink.jar";
             myProcess.StartInfo.CreateNoWindow = true;
             myProcess.StartInfo.ErrorDialog = false;
-
             myProcess.Start();
 
             int waitSec = 6;
