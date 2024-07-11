@@ -17,7 +17,7 @@ namespace Orpheus
 
         public async Task ReadJson()
         {
-            using (StreamReader sr = new StreamReader("config/config.json"))
+            using (StreamReader sr = new StreamReader($"{AppContext.BaseDirectory}/config/config.json"))
             {
                 string json = await sr.ReadToEndAsync();
                 JSONStructure? data = JsonConvert.DeserializeObject<JSONStructure>(json);
