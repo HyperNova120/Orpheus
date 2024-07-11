@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq.Expressions;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
@@ -8,7 +7,6 @@ using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
-using Newtonsoft.Json;
 using Orpheus.commands;
 using Orpheus.Database;
 
@@ -52,17 +50,9 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.CreateNoWindow = true;
             myProcess.StartInfo.ErrorDialog = false;
 
-            try
-            {
-                myProcess.Start();
-            }
-            catch (System.Exception)
-            {
-                myProcess.Kill();
-                Console.WriteLine("LAVALINK ERROR: KILLING");
-            }
+            myProcess.Start();
 
-            int waitSec = 5;
+            int waitSec = 6;
             for (int i = 0; i < waitSec; i++)
             {
                 Console.WriteLine("STARTING IN " + (waitSec - i));
@@ -87,15 +77,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             {
                 voiceNextExtension.Add(keyValuePair.Key, keyValuePair.Value);
             }
-
-            try
-            {
-                await setupLavalink();
-            }
-            catch (System.Exception)
-            {
-                Console.WriteLine("LAVALINK ERROR: SETUP");
-            }
+            await setupLavalink();
 
             RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
@@ -189,7 +171,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         {
             JSONReader jsonReader = new JSONReader();
             await jsonReader.ReadJson();
-            
+
             DiscordConfiguration discordConfig = new DiscordConfiguration()
             {
                 Intents = DiscordIntents.All,
