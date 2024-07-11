@@ -65,6 +65,8 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             await setupVoiceNext();
             await setupLavalink();
 
+
+            Console.WriteLine("ORPHEUS ONLINE");
             RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
         }
@@ -92,6 +94,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         {
             JSONReader jsonReader = new JSONReader();
             await jsonReader.ReadJson();
+            Console.WriteLine($"LAVALINK INFO: HOST:{jsonReader.lavalinkConfig.hostName}    PORT:{jsonReader.lavalinkConfig.port}");
             ConnectionEndpoint connectionEndpoint = new ConnectionEndpoint()
             {
                 Hostname = jsonReader.lavalinkConfig.hostName,
