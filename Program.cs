@@ -19,7 +19,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         [x]-!dm
         []-rand gif
         [x]-!send
-        [x]-!join
+        [x]-!joinPrelo
         [x]-!leave
         [X]-!play
         [X]-!pause
