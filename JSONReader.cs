@@ -1,4 +1,5 @@
 using DSharpPlus.Entities;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Orpheus.Database;
 
@@ -17,6 +18,7 @@ namespace Orpheus
 
         public async Task ReadJson()
         {
+            Console.WriteLine($"CONFIG FOLDER LOCATION: {AppContext.BaseDirectory}/config/config.json");
             using (StreamReader sr = new StreamReader($"{AppContext.BaseDirectory}/config/config.json"))
             {
                 string json = await sr.ReadToEndAsync();
