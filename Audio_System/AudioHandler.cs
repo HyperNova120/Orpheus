@@ -26,7 +26,7 @@ namespace Orpheus.Audio_System
                 Console.WriteLine("Channel To Join Is Invalid");
                 return;
             }
-            LavalinkExtension lava = Program.Client.GetShard(ChannelToJoin.Guild.Id).GetLavalink();
+            LavalinkExtension lava = Program.ShardedClient.GetShard(ChannelToJoin.Guild.Id).GetLavalink();
             if (!lava.ConnectedNodes.Any())
             {
                 Console.WriteLine("The Lavalink connection is not established");
@@ -134,7 +134,7 @@ namespace Orpheus.Audio_System
             }
             await JoinVoiceChannel(getChannelToEnterAsync(ctx));
             Console.WriteLine("CTX.CLIENT:" + ctx.Client.ToString());
-            LavalinkExtension lava = Program.Client.GetShard(ctx.Guild.Id).GetLavalink();
+            LavalinkExtension lava = Program.ShardedClient.GetShard(ctx.Guild.Id).GetLavalink();
             LavalinkNodeConnection node = lava.ConnectedNodes.Values.First();
             LavalinkGuildConnection conn = node.GetGuildConnection(ctx.Member.Guild);
 
@@ -350,9 +350,9 @@ namespace Orpheus.Audio_System
             RecoveryStorageHandler.RemoveAudioAction(storedAudioActionRemove);
 
             //join if needed
-            DiscordGuild server = await Program.Client.GetShard(serverid).GetGuildAsync(serverid);
+            DiscordGuild server = await Program.ShardedClient.GetShard(serverid).GetGuildAsync(serverid);
             DiscordChannel discordChannel = server.GetChannel(channelid);
-            DiscordClient client = Program.Client.GetShard(serverid);
+            DiscordClient client = Program.ShardedClient.GetShard(serverid);
 
             await JoinVoiceChannel(discordChannel);
             LavalinkExtension lava = client.GetLavalink();

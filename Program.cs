@@ -31,7 +31,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
 
 
-        public static DiscordShardedClient Client { get; private set; }
+        public static DiscordShardedClient ShardedClient { get; private set; }
         private static Dictionary<int, CommandsNextExtension> Commands =
             new Dictionary<int, CommandsNextExtension>();
         private static Dictionary<int, VoiceNextExtension> voiceNextExtension =
@@ -52,7 +52,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.ErrorDialog = false;
             myProcess.Start();
 
-            int waitSec = 5;
+            int waitSec = 8;
             for (int i = 0; i < waitSec; i++)
             {
                 Console.WriteLine("STARTING IN " + (waitSec - i));
@@ -60,8 +60,17 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             }
             _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
-            await Client.StartAsync();
-            //VoiceNextExtension = ;
+            await ShardedClient.StartAsync();
+            await setupVoiceNext();
+            await setupLavalink();
+
+            RecoveryStorageHandler.InitiateRecovery();
+            await Task.Delay(-1);
+        }
+
+        private static async Task setupVoiceNext()
+        {
+
             VoiceNextConfiguration voiceConfiguration = new VoiceNextConfiguration()
             {
                 EnableIncoming = false,
@@ -71,16 +80,11 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 KeyValuePair<
                     int,
                     VoiceNextExtension
-                > keyValuePair in await Client.UseVoiceNextAsync(voiceConfiguration)
+                > keyValuePair in await ShardedClient.UseVoiceNextAsync(voiceConfiguration)
             )
             {
                 voiceNextExtension.Add(keyValuePair.Key, keyValuePair.Value);
             }
-
-            await setupLavalink();
-
-            RecoveryStorageHandler.InitiateRecovery();
-            await Task.Delay(-1);
         }
 
         private static async Task setupLavalink()
@@ -100,7 +104,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 SocketEndpoint = connectionEndpoint,
             };
 
-            foreach (KeyValuePair<int, LavalinkExtension> temp in await Client.UseLavalinkAsync())
+            foreach (KeyValuePair<int, LavalinkExtension> temp in await ShardedClient.UseLavalinkAsync())
             {
                 lavaLinkExtension.Add(temp.Key, temp.Value);
             }
@@ -149,7 +153,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             UserStatus userStatus
         )
         {
-            await Client.UpdateStatusAsync(discordActivity, userStatus);
+            await ShardedClient.UpdateStatusAsync(discordActivity, userStatus);
         }
 
         private static async Task handleUserJoined(DiscordClient user, GuildMemberAddEventArgs args)
@@ -180,23 +184,23 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 AutoReconnect = true
             };
 
-            Client = new DiscordShardedClient(discordConfig);
+            ShardedClient = new DiscordShardedClient(discordConfig);
 
-            Client.Ready += Client_Ready;
-            Client.MessageCreated += async (user, args) =>
+            ShardedClient.Ready += Client_Ready;
+            ShardedClient.MessageCreated += async (user, args) =>
             {
                 await HandleGeneralMessages.handleMessageCreated(user, args);
             };
 
-            Client.GuildAvailable += async (c, args) =>
+            ShardedClient.GuildAvailable += async (c, args) =>
             {
                 await runRegisterServerIfNeeded(args);
             };
-            Client.GuildMemberAdded += async (user, args) =>
+            ShardedClient.GuildMemberAdded += async (user, args) =>
             {
                 await handleUserJoined(user, args);
             };
-            Client.GuildCreated += async (c, args) =>
+            ShardedClient.GuildCreated += async (c, args) =>
             {
                 await runRegisterServerIfNeeded(args);
             };
@@ -212,7 +216,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 KeyValuePair<
                     int,
                     CommandsNextExtension
-                > values in await Client.UseCommandsNextAsync(commandsConfig)
+                > values in await ShardedClient.UseCommandsNextAsync(commandsConfig)
             )
             {
                 if (values.Value == null)

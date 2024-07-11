@@ -21,7 +21,7 @@ namespace Orpheus.JailHandling
 
         public static async Task RestartJailCourtMessage(StoredVoteMessage storedVoteMessage)
         {
-            DiscordGuild server = await Program.Client.GetShard(storedVoteMessage.serverID).GetGuildAsync(storedVoteMessage.serverID);
+            DiscordGuild server = await Program.ShardedClient.GetShard(storedVoteMessage.serverID).GetGuildAsync(storedVoteMessage.serverID);
             DiscordChannel channel = server.GetChannel(storedVoteMessage.channelID);
             DiscordMember jailedUser = await server.GetMemberAsync(storedVoteMessage.userID);
             DiscordMessage discordmessage = await channel.GetMessageAsync(

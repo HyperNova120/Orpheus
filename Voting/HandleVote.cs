@@ -50,14 +50,14 @@ namespace Orpheus.Voting
             }
             await message.CreateReactionAsync(
                 DiscordEmoji.FromName(
-                    Program.Client.GetShard(storedVoteMessage.serverID),
+                    Program.ShardedClient.GetShard(storedVoteMessage.serverID),
                     ":thumbsup:"
                 )
             );
             //await Task.Delay(250);
             await message.CreateReactionAsync(
                 DiscordEmoji.FromName(
-                    Program.Client.GetShard(storedVoteMessage.serverID),
+                    Program.ShardedClient.GetShard(storedVoteMessage.serverID),
                     ":thumbsdown:"
                 )
             );
@@ -130,7 +130,7 @@ namespace Orpheus.Voting
             int yesVote = message
                 .GetReactionsAsync(
                     DiscordEmoji.FromName(
-                        Program.Client.GetShard(storedVoteMessage.serverID),
+                        Program.ShardedClient.GetShard(storedVoteMessage.serverID),
                         ":thumbsup:"
                     )
                 )
@@ -139,7 +139,7 @@ namespace Orpheus.Voting
             int noVote = message
                 .GetReactionsAsync(
                     DiscordEmoji.FromName(
-                        Program.Client.GetShard(storedVoteMessage.serverID),
+                        Program.ShardedClient.GetShard(storedVoteMessage.serverID),
                         ":thumbsdown:"
                     )
                 )
