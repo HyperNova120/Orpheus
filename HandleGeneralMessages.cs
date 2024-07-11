@@ -101,6 +101,8 @@ namespace Orpheus
             else if (
                 args.Message.Content.Equals(
                     "https://tenor.com/view/gojo-gojo-satoru-gojo-season-2-hip-thrust-reaction-gif-10399129046512126318"
+                ) || args.Message.Content.Equals(
+                    "https://tenor.com/view/did-you-pray-today-gif-5116018886993652813"
                 )
             )
             {

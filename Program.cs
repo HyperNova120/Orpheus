@@ -7,7 +7,7 @@ using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
-using Orpheus.Audio_System;
+using Newtonsoft.Json;
 using Orpheus.commands;
 using Orpheus.Database;
 
@@ -55,7 +55,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             int waitSec = 5;
             for (int i = 0; i < waitSec; i++)
             {
-                Console.WriteLine("STARTING IN " + (waitSec-i));
+                Console.WriteLine("STARTING IN " + (waitSec - i));
                 await Task.Delay(1000);
             }
 
@@ -171,6 +171,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         {
             JSONReader jsonReader = new JSONReader();
             await jsonReader.ReadJson();
+            
             DiscordConfiguration discordConfig = new DiscordConfiguration()
             {
                 Intents = DiscordIntents.All,

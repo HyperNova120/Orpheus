@@ -11,15 +11,25 @@ namespace Orpheus
         public DiscordUser registeredAdmin { get; private set; }
         public LavalinkConfig lavalinkConfig { get; private set; }
 
+        public static int courtVoteTimeHours {get; private set;}
+        public static int courtVoteTimeMinutes {get; private set;}
+        public static int courtVoteTimeSeconds {get; private set;}
+
         public async Task ReadJson()
         {
-            using (StreamReader sr = new StreamReader("config\\config.json"))
+            using (StreamReader sr = new StreamReader("config/config.json"))
             {
                 string json = await sr.ReadToEndAsync();
-                JSONStructure data = JsonConvert.DeserializeObject<JSONStructure>(json);
+                JSONStructure? data = JsonConvert.DeserializeObject<JSONStructure>(json);
+
+
                 this.token = data.token;
                 this.prefix = data.prefix;
                 lavalinkConfig = data.lavalinkConfig;
+                courtVoteTimeHours = data.courtVoteTimeHours;
+                courtVoteTimeMinutes = data.courtVoteTimeMinutes;
+                courtVoteTimeSeconds = data.courtVoteTimeSeconds;
+
                 DBEngine.SetConnectionStrings(
                     data.host,
                     data.database,
@@ -45,6 +55,9 @@ namespace Orpheus
                 prefix = "",
                 token = "",
                 username = "",
+                courtVoteTimeHours = 3,
+                courtVoteTimeMinutes = 0,
+                courtVoteTimeSeconds = 0,
             };
             string json = JsonConvert.SerializeObject(temp);
             File.WriteAllText("temp.json", json);
@@ -59,6 +72,9 @@ namespace Orpheus
         public required string database { get; set; }
         public required string username { get; set; }
         public required string password { get; set; }
+        public required int courtVoteTimeHours { get; set; }
+        public required int courtVoteTimeMinutes { get; set; }
+        public required int courtVoteTimeSeconds { get; set; }
         public required LavalinkConfig lavalinkConfig { get; set; }
     }
 

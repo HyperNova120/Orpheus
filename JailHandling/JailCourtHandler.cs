@@ -1,17 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using DSharpPlus.VoiceNext;
-using NpgsqlTypes;
+using Newtonsoft.Json;
 using Orpheus.ApiStuff;
-using Orpheus.commands;
 using Orpheus.Database;
 using Orpheus.Voting;
 
@@ -21,7 +11,7 @@ namespace Orpheus.JailHandling
     {
         public static async Task HandleJailCourtMessage(MessageCreateEventArgs args)
         {
-            CountdownTimer countdownTimer = new CountdownTimer(0, 0, 30);
+            CountdownTimer countdownTimer = new CountdownTimer(JSONReader.courtVoteTimeHours, JSONReader.courtVoteTimeMinutes, JSONReader.courtVoteTimeSeconds);
             DiscordMember jailedUser = await OrpheusAPIHandler.GetMemberAsync(
                 args.Guild,
                 args.Author.Id
