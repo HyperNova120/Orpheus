@@ -52,7 +52,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.ErrorDialog = false;
             myProcess.Start();
 
-            int waitSec = 5;
+            int waitSec = 6;
             for (int i = 0; i < waitSec; i++)
             {
                 Console.WriteLine("STARTING IN " + (waitSec - i));
