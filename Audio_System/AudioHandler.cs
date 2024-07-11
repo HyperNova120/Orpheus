@@ -26,7 +26,7 @@ namespace Orpheus.Audio_System
                 Console.WriteLine("Channel To Join Is Invalid");
                 return;
             }
-            LavalinkExtension lava = Program.Client.GetShard(ChannelToJoin.Guild.Id).GetLavalink();
+            LavalinkExtension lava = Program.ShardedClient.GetShard(ChannelToJoin.Guild.Id).GetLavalink();
             if (!lava.ConnectedNodes.Any())
             {
                 Console.WriteLine("The Lavalink connection is not established");
@@ -134,7 +134,7 @@ namespace Orpheus.Audio_System
             }
             await JoinVoiceChannel(getChannelToEnterAsync(ctx));
             Console.WriteLine("CTX.CLIENT:" + ctx.Client.ToString());
-            LavalinkExtension lava = Program.Client.GetShard(ctx.Guild.Id).GetLavalink();
+            LavalinkExtension lava = Program.ShardedClient.GetShard(ctx.Guild.Id).GetLavalink();
             LavalinkNodeConnection node = lava.ConnectedNodes.Values.First();
             LavalinkGuildConnection conn = node.GetGuildConnection(ctx.Member.Guild);
 
@@ -350,9 +350,9 @@ namespace Orpheus.Audio_System
             RecoveryStorageHandler.RemoveAudioAction(storedAudioActionRemove);
 
             //join if needed
-            DiscordGuild server = await Program.Client.GetShard(serverid).GetGuildAsync(serverid);
+            DiscordGuild server = await Program.ShardedClient.GetShard(serverid).GetGuildAsync(serverid);
             DiscordChannel discordChannel = server.GetChannel(channelid);
-            DiscordClient client = Program.Client.GetShard(serverid);
+            DiscordClient client = Program.ShardedClient.GetShard(serverid);
 
             await JoinVoiceChannel(discordChannel);
             LavalinkExtension lava = client.GetLavalink();
@@ -381,11 +381,11 @@ namespace Orpheus.Audio_System
 
             conn.PlaybackFinished += async (guildConn, FinishArgs) =>
             {
-                await HandleTrackFinishedUpdate(guildConn, FinishArgs, channelid, serverid);
+                HandleTrackFinishedUpdate(guildConn, FinishArgs, channelid, serverid);
             };
             conn.PlayerUpdated += async (guildConn, EventArgs) =>
             {
-                await HandlePlayerUpdate(
+                HandlePlayerUpdate(
                     guildConn,
                     EventArgs,
                     channelid,
@@ -495,7 +495,7 @@ namespace Orpheus.Audio_System
         /// <param name="channelid"></param>
         /// <param name="serverid"></param>
         /// <returns></returns>
-        private static async Task HandleTrackFinishedUpdate(
+        private static void HandleTrackFinishedUpdate(
             LavalinkGuildConnection conn,
             TrackFinishEventArgs args,
             ulong channelid,
@@ -520,7 +520,7 @@ namespace Orpheus.Audio_System
         /// <param name="serverid"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        private static async Task HandlePlayerUpdate(
+        private static void HandlePlayerUpdate(
             LavalinkGuildConnection conn,
             PlayerUpdateEventArgs args,
             ulong channelid,

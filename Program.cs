@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq.Expressions;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
@@ -8,7 +7,6 @@ using DSharpPlus.Lavalink;
 using DSharpPlus.Net;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
-using Newtonsoft.Json;
 using Orpheus.commands;
 using Orpheus.Database;
 
@@ -32,7 +30,8 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         */
 
 
-        public static DiscordShardedClient Client { get; private set; }
+
+        public static DiscordShardedClient ShardedClient { get; private set; }
         private static Dictionary<int, CommandsNextExtension> Commands =
             new Dictionary<int, CommandsNextExtension>();
         private static Dictionary<int, VoiceNextExtension> voiceNextExtension =
@@ -51,28 +50,27 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}Lavalink.jar";
             myProcess.StartInfo.CreateNoWindow = true;
             myProcess.StartInfo.ErrorDialog = false;
+            myProcess.Start();
 
-            try
-            {
-                myProcess.Start();
-            }
-            catch (System.Exception)
-            {
-                myProcess.Kill();
-                Console.WriteLine("LAVALINK ERROR: KILLING");
-            }
-
-            int waitSec = 5;
+            int waitSec = 8;
             for (int i = 0; i < waitSec; i++)
             {
                 Console.WriteLine("STARTING IN " + (waitSec - i));
                 await Task.Delay(1000);
             }
-
             _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
-            await Client.StartAsync();
-            //VoiceNextExtension = ;
+            await ShardedClient.StartAsync();
+            await setupVoiceNext();
+            await setupLavalink();
+
+            RecoveryStorageHandler.InitiateRecovery();
+            await Task.Delay(-1);
+        }
+
+        private static async Task setupVoiceNext()
+        {
+
             VoiceNextConfiguration voiceConfiguration = new VoiceNextConfiguration()
             {
                 EnableIncoming = false,
@@ -82,23 +80,11 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 KeyValuePair<
                     int,
                     VoiceNextExtension
-                > keyValuePair in await Client.UseVoiceNextAsync(voiceConfiguration)
+                > keyValuePair in await ShardedClient.UseVoiceNextAsync(voiceConfiguration)
             )
             {
                 voiceNextExtension.Add(keyValuePair.Key, keyValuePair.Value);
             }
-
-            try
-            {
-                await setupLavalink();
-            }
-            catch (System.Exception)
-            {
-                Console.WriteLine("LAVALINK ERROR: SETUP");
-            }
-
-            RecoveryStorageHandler.InitiateRecovery();
-            await Task.Delay(-1);
         }
 
         private static async Task setupLavalink()
@@ -118,7 +104,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 SocketEndpoint = connectionEndpoint,
             };
 
-            foreach (KeyValuePair<int, LavalinkExtension> temp in await Client.UseLavalinkAsync())
+            foreach (KeyValuePair<int, LavalinkExtension> temp in await ShardedClient.UseLavalinkAsync())
             {
                 lavaLinkExtension.Add(temp.Key, temp.Value);
             }
@@ -134,7 +120,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         public static VoiceNextExtension GetVoiceNextExtension()
         {
-            voiceNextExtension.TryGetValue(0, out VoiceNextExtension tempVoiceNextExtension);
+            voiceNextExtension.TryGetValue(0, out VoiceNextExtension? tempVoiceNextExtension);
             return tempVoiceNextExtension;
         }
 
@@ -167,7 +153,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             UserStatus userStatus
         )
         {
-            await Client.UpdateStatusAsync(discordActivity, userStatus);
+            await ShardedClient.UpdateStatusAsync(discordActivity, userStatus);
         }
 
         private static async Task handleUserJoined(DiscordClient user, GuildMemberAddEventArgs args)
@@ -189,7 +175,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         {
             JSONReader jsonReader = new JSONReader();
             await jsonReader.ReadJson();
-            
+
             DiscordConfiguration discordConfig = new DiscordConfiguration()
             {
                 Intents = DiscordIntents.All,
@@ -198,23 +184,23 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 AutoReconnect = true
             };
 
-            Client = new DiscordShardedClient(discordConfig);
+            ShardedClient = new DiscordShardedClient(discordConfig);
 
-            Client.Ready += Client_Ready;
-            Client.MessageCreated += async (user, args) =>
+            ShardedClient.Ready += Client_Ready;
+            ShardedClient.MessageCreated += async (user, args) =>
             {
-                _ = HandleGeneralMessages.handleMessageCreated(user, args);
+                await HandleGeneralMessages.handleMessageCreated(user, args);
             };
 
-            Client.GuildAvailable += async (c, args) =>
+            ShardedClient.GuildAvailable += async (c, args) =>
             {
                 await runRegisterServerIfNeeded(args);
             };
-            Client.GuildMemberAdded += async (user, args) =>
+            ShardedClient.GuildMemberAdded += async (user, args) =>
             {
                 await handleUserJoined(user, args);
             };
-            Client.GuildCreated += async (c, args) =>
+            ShardedClient.GuildCreated += async (c, args) =>
             {
                 await runRegisterServerIfNeeded(args);
             };
@@ -230,7 +216,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 KeyValuePair<
                     int,
                     CommandsNextExtension
-                > values in await Client.UseCommandsNextAsync(commandsConfig)
+                > values in await ShardedClient.UseCommandsNextAsync(commandsConfig)
             )
             {
                 if (values.Value == null)

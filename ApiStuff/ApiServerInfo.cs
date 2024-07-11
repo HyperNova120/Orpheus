@@ -36,13 +36,13 @@ namespace Orpheus.ApiStuff
             isStale = false;
         }
 
-        public async Task<DiscordMember> GetMember(ulong id)
+        public async Task<DiscordMember?> GetMember(ulong id)
         {
             if (isStale)
             {
                 await callUpdate();
             }
-            DiscordMember returner = null;
+            DiscordMember? returner = null;
             foreach (DiscordMember mem in Members)
             {
                 if (mem.Id == id)
@@ -55,13 +55,13 @@ namespace Orpheus.ApiStuff
             return returner;
         }
 
-        public async Task<DiscordRole> GetRole(ulong id)
+        public async Task<DiscordRole?> GetRole(ulong id)
         {
             if (isStale)
             {
                 await callUpdate();
             }
-            DiscordRole returner = null;
+            DiscordRole? returner = null;
             foreach (DiscordRole mem in Roles)
             {
                 if (mem.Id == id)
