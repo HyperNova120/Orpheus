@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq.Expressions;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
@@ -50,7 +51,16 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}Lavalink.jar";
             myProcess.StartInfo.CreateNoWindow = true;
             myProcess.StartInfo.ErrorDialog = false;
-            myProcess.Start();
+
+            try
+            {
+                myProcess.Start();
+            }
+            catch (System.Exception)
+            {
+                myProcess.Kill();
+                Console.WriteLine("LAVALINK ERROR: KILLING");
+            }
 
             int waitSec = 5;
             for (int i = 0; i < waitSec; i++)
