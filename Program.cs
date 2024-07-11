@@ -9,7 +9,6 @@ using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
 using Orpheus.commands;
 using Orpheus.Database;
-
 namespace Orpheus // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -46,7 +45,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             Console.WriteLine(@$" -jar {AppContext.BaseDirectory}Lavalink.jar");
             Process myProcess = new Process();
             myProcess.StartInfo.FileName = "java";
-            myProcess.StartInfo.UseShellExecute = false;
+            myProcess.StartInfo.UseShellExecute = true;
             myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}Lavalink.jar";
             myProcess.StartInfo.CreateNoWindow = true;
             myProcess.StartInfo.ErrorDialog = false;
