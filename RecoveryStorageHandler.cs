@@ -6,7 +6,7 @@ namespace Orpheus
 {
     public static class RecoveryStorageHandler
     {
-        private static RecoveryStorageJson? storageJson = new RecoveryStorageJson();
+        private static RecoveryStorageJson storageJson = new RecoveryStorageJson();
         private static isSavingToRecovery isSaving = new isSavingToRecovery()
         {
             isSavingToRecoveryTrue = false
@@ -70,6 +70,10 @@ namespace Orpheus
 
         private static void recoverVoteMessages(RecoveryStorageJson? recoveredStorageJson)
         {
+            if (recoveredStorageJson == null)
+            {
+                return;
+            }
             foreach (StoredVoteMessage storedVoteMessage in recoveredStorageJson.voteMessages)
             {
                 if (storedVoteMessage.voteType.Equals("CourtVote"))
@@ -81,6 +85,10 @@ namespace Orpheus
 
         private static void recoverAudioActions(RecoveryStorageJson? recoveredStorageJson)
         {
+            if (recoveredStorageJson == null)
+            {
+                return;
+            }
             foreach (StoredAudioAction storedAudioAction in recoveredStorageJson.audioActions)
             {
                 Uri uri = new Uri(storedAudioAction.Url);

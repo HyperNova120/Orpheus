@@ -116,7 +116,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         public static VoiceNextExtension GetVoiceNextExtension()
         {
-            voiceNextExtension.TryGetValue(0, out VoiceNextExtension tempVoiceNextExtension);
+            voiceNextExtension.TryGetValue(0, out VoiceNextExtension? tempVoiceNextExtension);
             return tempVoiceNextExtension;
         }
 
@@ -185,7 +185,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             Client.Ready += Client_Ready;
             Client.MessageCreated += async (user, args) =>
             {
-                _ = HandleGeneralMessages.handleMessageCreated(user, args);
+                await HandleGeneralMessages.handleMessageCreated(user, args);
             };
 
             Client.GuildAvailable += async (c, args) =>

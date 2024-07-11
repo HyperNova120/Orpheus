@@ -125,7 +125,7 @@ namespace Orpheus.Database
                     npgsqlConnection.Close();
                     return true;
                 }
-                catch (Exception e)
+                catch
                 {
                     Console.WriteLine("Unable To Close Database Connection");
                     return false;
@@ -139,7 +139,7 @@ namespace Orpheus.Database
                     npgsqlConnection.Open();
                     return true;
                 }
-                catch (Exception e)
+                catch
                 {
                     Console.WriteLine("Unable To Open Database Connection");
                     return false;

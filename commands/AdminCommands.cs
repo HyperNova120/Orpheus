@@ -133,10 +133,10 @@ namespace Orpheus.commands
                 || Convert.ToBoolean(
                     await DBEngine.DoesEntryExist(
                         "orpheusdata.admininfo",
-                        "userid",
-                        "serverid",
-                        memberToAdmin.Id.ToString(),
-                        ctx.Guild.Id.ToString()
+                        new string[]{"userid",
+                        "serverid"},
+                        new string[]{memberToAdmin.Id.ToString(),
+                        ctx.Guild.Id.ToString()}
                     )
                 )
             )
@@ -155,10 +155,10 @@ namespace Orpheus.commands
                 || !Convert.ToBoolean(
                     await DBEngine.DoesEntryExist(
                         "orpheusdata.admininfo",
-                        "userid",
-                        "serverid",
-                        memberToRemoveAdmin.Id.ToString(),
-                        ctx.Guild.Id.ToString()
+                        new string[]{"userid",
+                        "serverid"},
+                        new string[]{memberToRemoveAdmin.Id.ToString(),
+                        ctx.Guild.Id.ToString()}
                     )
                 )
             )
@@ -327,10 +327,10 @@ namespace Orpheus.commands
             }
             return await DBEngine.DoesEntryExist(
                 "orpheusdata.admininfo",
-                "serverid",
-                "userid",
-                ctx.Member.Guild.Id.ToString(),
-                ctx.Member.Id.ToString()
+                new string[]{"serverid",
+                "userid"},
+                new string[]{ctx.Member.Guild.Id.ToString(),
+                ctx.Member.Id.ToString()}
             );
         }
     }

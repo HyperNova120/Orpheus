@@ -381,11 +381,11 @@ namespace Orpheus.Audio_System
 
             conn.PlaybackFinished += async (guildConn, FinishArgs) =>
             {
-                await HandleTrackFinishedUpdate(guildConn, FinishArgs, channelid, serverid);
+                HandleTrackFinishedUpdate(guildConn, FinishArgs, channelid, serverid);
             };
             conn.PlayerUpdated += async (guildConn, EventArgs) =>
             {
-                await HandlePlayerUpdate(
+                HandlePlayerUpdate(
                     guildConn,
                     EventArgs,
                     channelid,
@@ -495,7 +495,7 @@ namespace Orpheus.Audio_System
         /// <param name="channelid"></param>
         /// <param name="serverid"></param>
         /// <returns></returns>
-        private static async Task HandleTrackFinishedUpdate(
+        private static void HandleTrackFinishedUpdate(
             LavalinkGuildConnection conn,
             TrackFinishEventArgs args,
             ulong channelid,
@@ -520,7 +520,7 @@ namespace Orpheus.Audio_System
         /// <param name="serverid"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        private static async Task HandlePlayerUpdate(
+        private static void HandlePlayerUpdate(
             LavalinkGuildConnection conn,
             PlayerUpdateEventArgs args,
             ulong channelid,
