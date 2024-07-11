@@ -87,7 +87,16 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             {
                 voiceNextExtension.Add(keyValuePair.Key, keyValuePair.Value);
             }
-            await setupLavalink();
+
+            try
+            {
+                await setupLavalink();
+            }
+            catch (System.Exception)
+            {
+                Console.WriteLine("LAVALINK ERROR: SETUP");
+                throw;
+            }
 
             RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
