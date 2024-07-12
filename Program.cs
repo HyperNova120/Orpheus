@@ -9,6 +9,9 @@ using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
 using Orpheus.commands;
 using Orpheus.Database;
+using Lavalink4NET.DSharpPlus;
+using Microsoft.Extensions.DependencyInjection;
+using Lavalink4NET.Extensions;
 namespace Orpheus // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -61,10 +64,26 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
             await ShardedClient.StartAsync();
+
+            ServiceCollection services = new ServiceCollection();
+            services.AddSingleton(ShardedClient);
+
+            services.AddLavalink();
+            services.ConfigureLavalink(config =>
+            {
+                config.BaseAddress = new Uri("https://localhost:2333");
+                config.WebSocketUri = new Uri("ws://localhost:2333/v4/websocket");
+                config.ReadyTimeout = TimeSpan.FromSeconds(10);
+                config.Label = "Node 1";
+                config.Passphrase = "youshallnotpass";
+                config.HttpClientName = "LavalinkHttpClient";
+            });
+            
+
+            /*
             await setupVoiceNext();
             await setupLavalink();
-
-
+            */
             Console.WriteLine("ORPHEUS ONLINE");
             RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
