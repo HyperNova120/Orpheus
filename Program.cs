@@ -12,6 +12,9 @@ using Orpheus.Database;
 using Lavalink4NET.DSharpPlus;
 using Microsoft.Extensions.DependencyInjection;
 using Lavalink4NET.Extensions;
+using Lavalink4NET.DSharpPlus;
+using Microsoft.Extensions.DependencyInjection;
+using Lavalink4NET.Extensions;
 namespace Orpheus // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -21,6 +24,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         [x]-!dm
         []-rand gif
         [x]-!send
+        [x]-!joinPrelo
         [x]-!joinPrelo
         [x]-!leave
         [X]-!play
