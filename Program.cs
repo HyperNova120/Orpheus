@@ -52,18 +52,23 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.ErrorDialog = false;
             myProcess.Start();
 
-            int waitSec = 8;
-            
+            int waitSec = 0;
+
             for (int i = 0; i < waitSec; i++)
             {
                 Console.WriteLine("STARTING IN " + (waitSec - i));
                 await Task.Delay(1000);
             }
+
+
+            JSONReader jsonReader = new JSONReader();
+            await jsonReader.ReadJson();
+
             _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
             await ShardedClient.StartAsync();
-            await setupVoiceNext();
-            await setupLavalink();
+            // await setupVoiceNext();
+            //await setupLavalink();
 
             RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
