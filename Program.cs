@@ -69,8 +69,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
             JSONReader jsonReader = new JSONReader();
             await jsonReader.ReadJson();
-
-            _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
             await ShardedClient.StartAsync();
             // await setupVoiceNext();
