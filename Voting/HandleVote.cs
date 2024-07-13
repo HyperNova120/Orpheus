@@ -1,15 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading;
-using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
-using DSharpPlus.Interactivity.Extensions;
-using Npgsql.Replication;
 using Orpheus.JailHandling;
 
 namespace Orpheus.Voting
@@ -17,6 +7,17 @@ namespace Orpheus.Voting
     public static class HandleVote
     {
 
+        /// <summary>
+        /// creates a discord message for voting using the given params
+        /// </summary>
+        /// <param name="channel"> the discord channel the vote should be in</param>
+        /// <param name="countdownTimer"> the timer for how long the vote should be</param>
+        /// <param name="voteType"> what type of vote this is, example: CourtVote</param>
+        /// <param name="title"> the title of the vote</param>
+        /// <param name="description"> the description of the vote</param>
+        /// <param name="referencedUser"> what user the vote should reference when complete</param>
+        /// <param name="cancelCondition"> func to check if the vote needs to be canceled</param>
+        /// <returns></returns>
         public static async Task<bool> StartVote_V2(DiscordChannel channel, CountdownTimer countdownTimer, string voteType, string title, string description, ulong referencedUser, Func<Task<bool>> cancelCondition)
         {
             //create vars
@@ -33,7 +34,7 @@ namespace Orpheus.Voting
                 Color = DiscordColor.Azure
             };*/
 
-            
+
             messageBuilder.AddEmbed(createActiveCountdownEmbed(countdownTimer, title, description, DiscordColor.Azure));
             DiscordMessage message = await messageBuilder.SendAsync(channel);
             _ = message.CreateReactionAsync(thumbUp);
@@ -53,6 +54,17 @@ namespace Orpheus.Voting
             return await UpdateVoteAsync(message, countdownTimer, voteType, title, description, referencedUser, cancelCondition);
         }
 
+        /// <summary>
+        /// handles end state of the vote and calls handleActiveVoteAsync while the vote is active
+        /// </summary>
+        /// <param name="message">the discord message to update</param>
+        /// <param name="countdownTimer"> the timer for how long the vote should be</param>
+        /// <param name="voteType"> what type of vote this is, example: CourtVote</param>
+        /// <param name="title"> the title of the vote</param>
+        /// <param name="description"> the description of the vote</param>
+        /// <param name="referencedUser"> what user the vote should reference when complete</param>
+        /// <param name="cancelCondition"> func to check if the vote needs to be canceled</param>
+        /// <returns></returns>
         public static async Task<bool> UpdateVoteAsync(DiscordMessage message, CountdownTimer countdownTimer, string voteType, string title, string description, ulong referencedUser, Func<Task<bool>> cancelCondition)
         {
             Console.WriteLine("UpdateVoteAsync");
@@ -73,9 +85,11 @@ namespace Orpheus.Voting
             {
                 //if vote has been canceled
                 Console.WriteLine("Vote Canceled");
+                RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
                 return false;
             }
-            else{
+            else
+            {
                 Console.WriteLine("Vote Finished");
             }
 
@@ -109,6 +123,17 @@ namespace Orpheus.Voting
             return (yes > no);
         }
 
+        /// <summary>
+        /// handles updading the discord message used for the vote, calls recoveryStorageHandler to update the relevant recovery msg every 5 seconds
+        /// </summary>
+        /// <param name="message">the discord message to update</param>
+        /// <param name="countdownTimer"> the timer for how long the vote should be</param>
+        /// <param name="voteType"> what type of vote this is, example: CourtVote</param>
+        /// <param name="title"> the title of the vote</param>
+        /// <param name="description"> the description of the vote</param>
+        /// <param name="referencedUser"> what user the vote should reference when complete</param>
+        /// <param name="cancelCondition"> func to check if the vote needs to be canceled</param>
+        /// <returns></returns>
         private static async Task<bool> handleActiveVoteAsync(DiscordMessage message, CountdownTimer countdownTimer, string voteType, string title, string description, ulong referencedUser, Func<Task<bool>> cancelCondition, StoredVoteMessage storedVoteMessage)
         {
             _ = countdownTimer.startCountDown();
@@ -159,11 +184,7 @@ namespace Orpheus.Voting
 
 
 
-
-
-
-
-
+        #region old
         [Obsolete("Use StartVote_V2")]
         public static async Task<bool> StartVote(
             DiscordChannel channelToVote,
@@ -339,6 +360,9 @@ namespace Orpheus.Voting
             RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
             return yesVote > noVote;
         }
+
+        #endregion old
+
 
         private static DiscordEmbed createActiveCountdownEmbed(
             CountdownTimer countdownTimer,
