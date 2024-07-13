@@ -11,6 +11,8 @@ namespace Orpheus.Database
 
         private static int connectionLimit = 5; // max open connections
 
+        public static bool CanConnect { get; private set; }
+
         public static void SetConnectionStrings(
             string host,
             string database,
@@ -34,10 +36,24 @@ namespace Orpheus.Database
             {
                 ConnectionPool.Add(new ConnectionInfo(connectionString));
             }
+            CanConnect = ConnectionPool[0].openMe();
+            if (CanConnect)
+            {
+                Console.WriteLine("Database Connection Success");
+                ConnectionPool[0].closeMe();
+            }
+            else
+            {
+                Console.WriteLine("Database Connection Fail");
+            }
         }
 
         public static async Task<ConnectionInfo> GetConnection()
         {
+            if (!CanConnect)
+            {
+                return null;
+            }
             while (true)
             {
                 int index = -1;
@@ -45,7 +61,7 @@ namespace Orpheus.Database
                 {
                     lock (ConnectionPool[i])
                     {
-                        if (!ConnectionPool[i].isInUse)
+                        if (ConnectionPool[i].isConnectionOpen && !ConnectionPool[i].isInUse)
                         {
                             ConnectionPool[i].isInUse = true;
                             index = i;
@@ -59,7 +75,8 @@ namespace Orpheus.Database
                     Console.WriteLine($"Returning Connection {index}");
                     return ConnectionPool[index];
                 }
-                else{
+                else
+                {
                     Console.WriteLine($"Connection Pool Full, Waiting");
                 }
                 await Task.Delay(5);
@@ -70,6 +87,8 @@ namespace Orpheus.Database
         {
             public NpgsqlConnection npgsqlConnection { get; private set; }
             public bool isInUse { get; set; }
+
+            public bool isConnectionOpen = false;
 
             public DateTime timelastUsed { get; set; }
 
@@ -84,6 +103,7 @@ namespace Orpheus.Database
                 try
                 {
                     isInUse = false;
+                    isConnectionOpen = false;
                     npgsqlConnection.Close();
                     return true;
                 }
@@ -99,6 +119,7 @@ namespace Orpheus.Database
                 try
                 {
                     npgsqlConnection.Open();
+                    isConnectionOpen = true;
                     return true;
                 }
                 catch

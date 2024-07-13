@@ -20,6 +20,10 @@ namespace Orpheus.Database
         )
         {
             DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            if (conninfo == null)
+            {
+                return false;
+            }
 
             try
             {
@@ -49,6 +53,11 @@ namespace Orpheus.Database
          )
         {
             DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return false;
+            }
             //Console.WriteLine("DoesEntryExist CALLED");
             try
             {
@@ -81,6 +90,11 @@ namespace Orpheus.Database
                 return false;
             }
             DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return false;
+            }
             //Console.WriteLine("DoesEntryExist CALLED");
             try
             {
@@ -113,8 +127,16 @@ namespace Orpheus.Database
 
         public static async Task<bool> RunExecuteNonQueryAsync(NpgsqlCommand cmd)
         {
+            
             //Console.WriteLine("RunExecuteNonQueryAsync CALLED");
             DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+
+            
+            if (conninfo == null)
+            {
+                return false;
+            }
+
             NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
@@ -143,6 +165,12 @@ namespace Orpheus.Database
         {
             //Console.WriteLine("RunExecuteReaderAsync CALLED");
             DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return null;
+            }
+
             NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
@@ -168,6 +196,11 @@ namespace Orpheus.Database
         {
             //Console.WriteLine("RunExecuteScalarAsync CALLED");
             DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return null;
+            }
             NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
