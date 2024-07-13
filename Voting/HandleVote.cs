@@ -34,7 +34,7 @@ namespace Orpheus.Voting
             };*/
 
             
-            messageBuilder.AddEmbed(createActiveCountdownEmbed(countdownTimer, title, description, DiscordColor.Green));
+            messageBuilder.AddEmbed(createActiveCountdownEmbed(countdownTimer, title, description, DiscordColor.Azure));
             DiscordMessage message = await messageBuilder.SendAsync(channel);
             _ = message.CreateReactionAsync(thumbUp);
             await message.CreateReactionAsync(thumbDown);
