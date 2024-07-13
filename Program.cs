@@ -9,7 +9,9 @@ using DSharpPlus.SlashCommands;
 using DSharpPlus.VoiceNext;
 using Orpheus.commands;
 using Orpheus.Database;
-
+using Lavalink4NET.DSharpPlus;
+using Microsoft.Extensions.DependencyInjection;
+using Lavalink4NET.Extensions;
 namespace Orpheus // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -19,7 +21,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         [x]-!dm
         []-rand gif
         [x]-!send
-        [x]-!join
+        [x]-!joinPrelo
         [x]-!leave
         [X]-!play
         [X]-!pause
@@ -97,6 +99,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         {
             JSONReader jsonReader = new JSONReader();
             await jsonReader.ReadJson();
+            Console.WriteLine($"LAVALINK INFO: HOST:{jsonReader.lavalinkConfig.hostName}    PORT:{jsonReader.lavalinkConfig.port}");
             ConnectionEndpoint connectionEndpoint = new ConnectionEndpoint()
             {
                 Hostname = jsonReader.lavalinkConfig.hostName,
