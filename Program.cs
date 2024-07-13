@@ -12,6 +12,9 @@ using Orpheus.Database;
 using Lavalink4NET.DSharpPlus;
 using Microsoft.Extensions.DependencyInjection;
 using Lavalink4NET.Extensions;
+using Lavalink4NET.DSharpPlus;
+using Microsoft.Extensions.DependencyInjection;
+using Lavalink4NET.Extensions;
 namespace Orpheus // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -21,6 +24,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         [x]-!dm
         []-rand gif
         [x]-!send
+        [x]-!joinPrelo
         [x]-!joinPrelo
         [x]-!leave
         [X]-!play
@@ -54,37 +58,24 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             myProcess.StartInfo.ErrorDialog = false;
             myProcess.Start();
 
-            int waitSec = 8;
-            
+            int waitSec = 0;
+
             for (int i = 0; i < waitSec; i++)
             {
                 Console.WriteLine("STARTING IN " + (waitSec - i));
                 await Task.Delay(1000);
             }
+
+
+            JSONReader jsonReader = new JSONReader();
+            await jsonReader.ReadJson();
+
             _ = DBConnectionHandler.HandleConnections();
             await BotSetup();
             await ShardedClient.StartAsync();
+            // await setupVoiceNext();
+            //await setupLavalink();
 
-            ServiceCollection services = new ServiceCollection();
-            services.AddSingleton(ShardedClient);
-
-            services.AddLavalink();
-            services.ConfigureLavalink(config =>
-            {
-                config.BaseAddress = new Uri("https://localhost:2333");
-                config.WebSocketUri = new Uri("ws://localhost:2333/v4/websocket");
-                config.ReadyTimeout = TimeSpan.FromSeconds(10);
-                config.Label = "Node 1";
-                config.Passphrase = "youshallnotpass";
-                config.HttpClientName = "LavalinkHttpClient";
-            });
-            
-
-            /*
-            await setupVoiceNext();
-            await setupLavalink();
-            */
-            Console.WriteLine("ORPHEUS ONLINE");
             RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
         }

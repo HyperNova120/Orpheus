@@ -4,14 +4,10 @@ namespace Orpheus.Database
 {
     public static class DBConnectionHandler
     {
-        private static string host = "";
-        private static string database = "";
-        private static string username = "";
-        private static string password = "";
         private static string connectionString = "";
         private static List<ConnectionInfo> ConnectionPool = new List<ConnectionInfo>();
 
-        private static int connectionLimit = 100; // max open connections
+        private static int connectionLimit = 5; // max open connections
         private static int unusedConnectionTimeLimit = 60; //seconds
 
         public static void SetConnectionStrings(
@@ -21,10 +17,6 @@ namespace Orpheus.Database
             string password
         )
         {
-            DBConnectionHandler.host = host;
-            DBConnectionHandler.database = database;
-            DBConnectionHandler.username = username;
-            DBConnectionHandler.password = password;
             connectionString =
                 $"Host={host};Username={username};Password={password};Database={database}";
             setupConnections();
@@ -94,7 +86,7 @@ namespace Orpheus.Database
                                 }
                             }
                             ConnectionPool[i].isInUse = true;
-                            Console.WriteLine("RETURN CONNECTION: " + i);
+                            //Console.WriteLine("RETURN CONNECTION: " + i);
                             ConnectionPool[i].timelastUsed = DateTime.Now;
                             return ConnectionPool[i];
                         }

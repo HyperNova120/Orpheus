@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using Orpheus.Audio_System;
 using Orpheus.JailHandling;
 
 namespace Orpheus
@@ -15,6 +14,10 @@ namespace Orpheus
 
         private static void updateRecoveryStorage()
         {
+            if (!File.Exists(FileName))
+            {
+                File.CreateText(FileName);
+            }
             while (true)
             {
                 lock (isSaving)
@@ -41,8 +44,11 @@ namespace Orpheus
 
         public static void InitiateRecovery()
         {
+                Console.WriteLine("INITIATE RECOVERY");
             if (!File.Exists(FileName))
             {
+                File.CreateText(FileName);
+                Console.WriteLine("RECOVERY STOP, NO FILE");
                 storageJson = new RecoveryStorageJson();
                 return;
             }
@@ -61,7 +67,6 @@ namespace Orpheus
                 JsonConvert.DeserializeObject<RecoveryStorageJson>(File.ReadAllText(FileName));
             storageJson = new RecoveryStorageJson();
             recoverVoteMessages(recoveredStorageJson);
-            recoverAudioActions(recoveredStorageJson);
             lock (isSaving)
             {
                 isSaving.isSavingToRecoveryTrue = false;
@@ -72,39 +77,28 @@ namespace Orpheus
         {
             if (recoveredStorageJson == null)
             {
+                Console.WriteLine("MSG RECOVERY FAIL: NO MSG TO RECOVER");
                 return;
             }
             foreach (StoredVoteMessage storedVoteMessage in recoveredStorageJson.voteMessages)
             {
                 if (storedVoteMessage.voteType.Equals("CourtVote"))
                 {
+                    Console.WriteLine("MSG RECOVERY START:\n\t"+storedVoteMessage.toString());
                     _ = JailCourtHandler.RestartJailCourtMessage(storedVoteMessage);
                 }
             }
         }
-
-        private static void recoverAudioActions(RecoveryStorageJson? recoveredStorageJson)
-        {
-            if (recoveredStorageJson == null)
-            {
-                return;
-            }
-            foreach (StoredAudioAction storedAudioAction in recoveredStorageJson.audioActions)
-            {
-                Uri uri = new Uri(storedAudioAction.Url);
-                _ = AudioHandler.PlayMusic(
-                    storedAudioAction.serverID,
-                    storedAudioAction.channelID,
-                    uri,
-                    storedAudioAction.position
-                );
-            }
-        }
-
         public static void StoreVoteMessage(StoredVoteMessage msg)
         {
             storageJson.voteMessages.Add(msg);
             updateRecoveryStorage();
+        }
+
+        public static void UpdateVoteMessage(StoredVoteMessage msg)
+        {
+            RemoveVoteMessage(msg);
+            StoreVoteMessage(msg);
         }
 
         public static void RemoveVoteMessage(StoredVoteMessage msg)
@@ -120,27 +114,7 @@ namespace Orpheus
             }
         }
 
-        public static void StoreAudioAction(StoredAudioAction audioAction)
-        {
-            //Console.WriteLine($"ADD AUDIO {audioAction.Url}");
-            RemoveAudioAction(audioAction);
-            storageJson.audioActions.Add(audioAction);
-            updateRecoveryStorage();
-        }
-
-        public static void RemoveAudioAction(StoredAudioAction audioAction)
-        {
-            //Console.WriteLine($"REMOVE AUDIO {audioAction.Url}");
-            for (int i = 0; i < storageJson.audioActions.Count; i++)
-            {
-                if (storageJson.audioActions[i].equals(audioAction))
-                {
-                    storageJson.audioActions.RemoveAt(i);
-                    updateRecoveryStorage();
-                    return;
-                }
-            }
-        }
+       
     }
 
     internal sealed class isSavingToRecovery
@@ -161,10 +135,16 @@ namespace Orpheus
         public ulong channelID;
         public ulong userID;
         public string voteType;
+        public long storedCountdownTimerSeconds;
 
         public bool equals(StoredVoteMessage other)
         {
             return other.messageID == messageID;
+        }
+
+        public string toString()
+        {
+            return $"serverID:{serverID}, messageID:{messageID}, channelID:{channelID}, userID:{userID}, voteType:{voteType}, remianingSeconds:{storedCountdownTimerSeconds}";
         }
     }
 

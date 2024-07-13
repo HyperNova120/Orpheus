@@ -5,6 +5,7 @@ using DSharpPlus.EventArgs;
 using Orpheus.Database;
 using Orpheus.JailHandling;
 using Orpheus.registerCommands;
+using Orpheus.Voting;
 
 namespace Orpheus.commands
 {
@@ -229,88 +230,6 @@ namespace Orpheus.commands
             await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
-
-        [Command("join")]
-        public async Task JoinVoiceChannel(CommandContext ctx)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.JoinVoiceChannel(ctx);
-        }
-
-        [Command("leave")]
-        public async Task LeaveVoiceChannel(CommandContext ctx)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.LeaveVoiceChannel(ctx);
-        }
-
-        [Command("play")]
-        public async Task Play(CommandContext ctx, [RemainingText] string searchText)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.PlayMusic(ctx, searchText, DSharpPlus.Lavalink.LavalinkSearchType.SoundCloud);
-        }
-
-        [Command("playYT")]
-        public async Task PlayYT(CommandContext ctx, [RemainingText] string searchText)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.PlayMusic(ctx, searchText, DSharpPlus.Lavalink.LavalinkSearchType.Youtube);
-        }
-
-        [Command("playDirect")]
-        public async Task Play(CommandContext ctx, Uri url)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.PlayMusic(ctx, url);
-        }
-
-        [Command("resume")]
-        public async Task Play(CommandContext ctx)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.ResumeMusic(ctx);
-        }
-
-        [Command("pause")]
-        public async Task Pause(CommandContext ctx)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.PauseMusic(ctx);
-        }
-
-        [Command("stop")]
-        public async Task Stop(CommandContext ctx)
-        {
-            if (isNotValidCommand(ctx) || !Convert.ToBoolean(await doesUserHavePerms(ctx)))
-            {
-                return;
-            }
-            await Audio_System.AudioHandler.StopMusic(ctx);
-        }
-
-
 
 
         public static bool isNotValidCommand(CommandContext ctx)

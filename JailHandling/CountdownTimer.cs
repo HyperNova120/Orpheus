@@ -4,11 +4,11 @@ namespace Orpheus.JailHandling
 {
     public class CountdownTimer
     {
-        private int seconds;
+        private long seconds;
         private bool isCheckTime;
         private bool end = false;
 
-        public CountdownTimer(int seconds)
+        public CountdownTimer(long seconds)
         {
             this.seconds = seconds;
             isCheckTime = false;
@@ -73,43 +73,43 @@ namespace Orpheus.JailHandling
             lowerTimeBySeconds(secondsToLowerBy);
         }
 
-        public int getSecondsRemaining()
+        public long getSecondsRemaining()
         {
-            int temp = seconds;
-            int hoursTill = temp / 3600;
+            long temp = seconds;
+            long hoursTill = temp / 3600;
             temp %= 3600;
-            int minutesTill = temp / 60;
+            long minutesTill = temp / 60;
             temp %= 60;
             return temp;
         }
 
-        public int getTotalSecondsRemaining()
+        public long getTotalSecondsRemaining()
         {
             return seconds;
         }
 
-        public int getMinutesRemaining()
+        public long getMinutesRemaining()
         {
-            int temp = seconds;
-            int hoursTill = temp / 3600;
+            long temp = seconds;
+            long hoursTill = temp / 3600;
             temp %= 3600;
-            int minutesTill = temp / 60;
+            long minutesTill = temp / 60;
             return minutesTill;
         }
 
-        public int getHoursRemaining()
+        public long getHoursRemaining()
         {
-            int temp = seconds;
-            int hoursTill = temp / 3600;
+            long temp = seconds;
+            long hoursTill = temp / 3600;
             return hoursTill;
         }
 
         public string toString()
         {
-            int temp = seconds;
-            int hoursTill = temp / 3600;
+            long temp = seconds;
+            long hoursTill = temp / 3600;
             temp %= 3600;
-            int minutesTill = temp / 60;
+            long minutesTill = temp / 60;
             temp %= 60;
 
             return $"{hoursTill}:{minutesTill}:{temp}";

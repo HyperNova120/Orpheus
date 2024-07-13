@@ -29,34 +29,19 @@ namespace Orpheus.JailHandling
             );
             DiscordEmbed discordEmbed = discordmessage.Embeds[0];
             DiscordEmbedFooter footer = discordEmbed.Footer;
+            Console.WriteLine($"\tRECIEVED DISCORD FOOTER");
             string text = footer.Text;
+            Console.WriteLine($"\tRECIEVED DISCORD FOOTER TEXT");
             if (text.Equals("This Vote Has Been Cancelled"))
             {
+                Console.WriteLine($"RESTART COURT FAILED, VOTE CANCELLED");
                 //vote already ended
                 RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
                 return;
             }
-            else
-            {
-                text = text.Split("For")[1];
-            }
-            string[] valueAmount = text.Trim().Split(" ");
-            int sec = 0;
-            int min = 0;
-            int hr = 0;
-            if (valueAmount[1].Equals("Seconds"))
-            {
-                    sec = int.Parse(valueAmount[0]);
-            }
-            else if (valueAmount[1].Equals("Minutes"))
-            {
-                    min = int.Parse(valueAmount[0]);
-            }
-            else if (valueAmount[1].Equals("Hours"))
-            {
-                    hr = int.Parse(valueAmount[0]);
-            }
-            CountdownTimer countdownTimer = new CountdownTimer(hr, min, sec);
+            Console.WriteLine($"\tVOTE ACTIVE");
+
+            CountdownTimer countdownTimer = new CountdownTimer(storedVoteMessage.storedCountdownTimerSeconds);
             Console.WriteLine($"RESTART COURT MESSAGE REMAINING TIME {countdownTimer.toQuickTime()}");
             _ = startCourtVote(discordmessage, jailedUser, countdownTimer);
         }
@@ -72,21 +57,22 @@ namespace Orpheus.JailHandling
                 "jailroleid"
             );
             DiscordRole jailRole = await OrpheusAPIHandler.GetRoleAsync(message.Channel.Guild, jailRoleID);
-            bool didVoteSucceed = await HandleVote.StartVoteFromAlreadySentMessage(
+            bool didVoteSucceed = await HandleVote.UpdateVoteAsync(
                 message,
                 countdownTimer,
+                "CourtVote",
                 $"Vote To Free {jailedUser.DisplayName} From Jail",
                 $"vote using the provided reactions to decide if {jailedUser.DisplayName} should be released from jail",
                 jailedUser.Id,
                 async () =>
                 {
                     return await checkIfVoteNeedsCancel(jailRole, jailedUser);
-                },
-                5
+                }
             );
 
             if (didVoteSucceed)
             {
+                Console.WriteLine("FREE USER");
                 await jailedUser.RevokeRoleAsync(jailRole);
                 try
                 {
@@ -123,7 +109,7 @@ namespace Orpheus.JailHandling
                 "jailroleid"
             );
             DiscordRole jailRole = await OrpheusAPIHandler.GetRoleAsync(channel.Guild, jailRoleID);
-            bool didVoteSucceed = await HandleVote.StartVote(
+            bool didVoteSucceed = await HandleVote.StartVote_V2(
                 channel,
                 countdownTimer,
                 "CourtVote",
@@ -133,8 +119,7 @@ namespace Orpheus.JailHandling
                 async () =>
                 {
                     return await checkIfVoteNeedsCancel(jailRole, jailedUser);
-                },
-                5
+                }
             );
 
             if (didVoteSucceed)
