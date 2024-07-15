@@ -52,6 +52,7 @@ namespace Orpheus.Database
         {
             if (!CanConnect)
             {
+                Console.WriteLine($"Database Connection Dead");
                 return null;
             }
             while (true)
@@ -61,8 +62,9 @@ namespace Orpheus.Database
                 {
                     lock (ConnectionPool[i])
                     {
-                        if (ConnectionPool[i].isConnectionOpen && !ConnectionPool[i].isInUse)
+                        if (!ConnectionPool[i].isInUse)
                         {
+                            ConnectionPool[i].openMe();
                             ConnectionPool[i].isInUse = true;
                             index = i;
                             break;
@@ -71,7 +73,7 @@ namespace Orpheus.Database
                 }
                 if (index != -1)
                 {
-                    ConnectionPool[index].openMe();
+                    await ConnectionPool[index].openMeAsync();
                     Console.WriteLine($"Returning Connection {index}");
                     return ConnectionPool[index];
                 }
@@ -125,6 +127,25 @@ namespace Orpheus.Database
                 catch
                 {
                     Console.WriteLine("Unable To Open Database Connection");
+                    return false;
+                }
+            }
+
+            public async Task<bool> openMeAsync()
+            {
+                if (npgsqlConnection.State == System.Data.ConnectionState.Closed)
+                {
+                    await npgsqlConnection.OpenAsync();
+                }
+
+                if (npgsqlConnection.State == System.Data.ConnectionState.Open)
+                {
+                    isConnectionOpen = true;
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Unable To Open Database Connection Async");
                     return false;
                 }
             }
