@@ -257,6 +257,30 @@ namespace Orpheus.Database
             return await DBEngine.RunExecuteNonQueryAsync(cmd);
         }
 
+        public static async Task<bool> StoreGifAsync(DGif dGif)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand(
+                           "INSERT INTO orpheusdata.gifs (gifid, serverid, gifurl) VALUES "
+                               + "(default,$1,$2)"
+                       )
+            {
+                Parameters =
+                {
+                    new NpgsqlParameter()
+                    {
+                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Numeric,
+                        Value = Convert.ToDecimal(dGif.serverID)
+                    },
+                    new NpgsqlParameter()
+                    {
+                        NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
+                        Value = dGif.gifurl
+                    },
+                }
+            };
+            return await DBEngine.RunExecuteNonQueryAsync(cmd);
+        }
+
         public static string ConvertToUFT8(string s)
         {
             return Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(s));

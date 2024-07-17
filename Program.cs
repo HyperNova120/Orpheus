@@ -49,16 +49,19 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         static async Task Main(string[] args)
         {
-            Console.WriteLine(@$" -jar {AppContext.BaseDirectory}Lavalink.jar");
+            Console.WriteLine(@$" -jar {AppContext.BaseDirectory}LavaLink4Net{Path.DirectorySeparatorChar}Lavalink.jar");
             Process myProcess = new Process();
             myProcess.StartInfo.FileName = "java";
             myProcess.StartInfo.UseShellExecute = false;
-            myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}Lavalink.jar";
+            myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}LavaLink4Net{Path.DirectorySeparatorChar}Lavalink.jar";
             myProcess.StartInfo.CreateNoWindow = true;
             myProcess.StartInfo.ErrorDialog = false;
-            myProcess.Start();
+            //myProcess.Start();
+            
 
-            int waitSec = 0;
+            LLHandler.setup();
+
+            int waitSec = 5;
 
             for (int i = 0; i < waitSec; i++)
             {
@@ -71,7 +74,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             await jsonReader.ReadJson();
             await BotSetup();
             await ShardedClient.StartAsync();
-            // await setupVoiceNext();
+            //await setupVoiceNext();
             //await setupLavalink();
 
             RecoveryStorageHandler.InitiateRecovery();

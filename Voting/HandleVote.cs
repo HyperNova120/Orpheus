@@ -27,12 +27,6 @@ namespace Orpheus.Voting
 
             //create message
             DiscordMessageBuilder messageBuilder = new DiscordMessageBuilder();
-            /*DiscordEmbedBuilder discordEmbedBuilder = new DiscordEmbedBuilder
-            {
-                Title = title,
-                Description = description,
-                Color = DiscordColor.Azure
-            };*/
 
 
             messageBuilder.AddEmbed(createActiveCountdownEmbed(countdownTimer, title, description, DiscordColor.Azure));

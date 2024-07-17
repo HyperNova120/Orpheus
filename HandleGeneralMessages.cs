@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
@@ -64,6 +65,50 @@ namespace Orpheus
                 };
                 _ = OrpheusDatabaseHandler.StoreAttachmentAsync(dAttachment);
             }
+
+            /*
+                        DiscordEmbed[] embeds = args.Message.Embeds.ToArray();
+                        foreach (DiscordEmbed emb in embeds)
+                        {
+                            Console.WriteLine($"Testing Embed URL {emb.Url.ToString().Substring(0, 23)}");
+                            if (emb.Url.ToString().Substring(0, 23).Equals("https://tenor.com/view/"))
+                            {
+                                Console.WriteLine($"STORING GIF {emb.Url.ToString()}");
+                                DGif dGif = new DGif()
+                                {
+                                    serverID = args.Guild.Id,
+                                    gifurl = emb.Url.ToString()
+                                };
+                                if (await OrpheusDatabaseHandler.StoreGifAsync(dGif))
+                                {
+                                    Console.WriteLine($"SUCCESS STORING GIF {emb.Url.ToString()}");
+                                }
+                                else{
+                                    Console.WriteLine($"FAIL STORING GIF {emb.Url.ToString()}");
+                                }
+                            }
+                        }
+            */
+            foreach (string s in args.Message.Content.Split(" "))
+            {
+                if (s.Substring(0, 23).Equals("https://tenor.com/view/"))
+                {
+                    DGif dGif = new DGif()
+                    {
+                        serverID = args.Guild.Id,
+                        gifurl = s
+                    };
+                    Console.WriteLine($"STORING GIF {s}");
+                    if (await OrpheusDatabaseHandler.StoreGifAsync(dGif))
+                    {
+                        Console.WriteLine($"SUCCESS STORING GIF {s}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"FAIL STORING GIF {s}");
+                    }
+                }
+            }
         }
 
         private static void HandleCourtMessage(MessageCreateEventArgs args)
@@ -78,8 +123,8 @@ namespace Orpheus
         private static async Task FunnyBotResponses(MessageCreateEventArgs args)
         {
             if (
-                args.Author.Id == 465663563336384512 //MAFIO
-                && args.Message.Content.Equals(
+                //args.Author.Id == 465663563336384512 //MAFIO
+                /*&&*/ args.Message.Content.Equals(
                     "https://tenor.com/view/did-you-pray-today-gif-5116018886993652813"
                 )
             )

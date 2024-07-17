@@ -18,8 +18,8 @@ namespace Orpheus
 
         public async Task ReadJson()
         {
-            Console.WriteLine($"CONFIG FOLDER LOCATION: {AppContext.BaseDirectory}config/config.json");
-            using (StreamReader sr = new StreamReader($"{AppContext.BaseDirectory}config/config.json"))
+            Console.WriteLine($"CONFIG FOLDER LOCATION: {AppContext.BaseDirectory}config{Path.DirectorySeparatorChar}config.json");
+            using (StreamReader sr = new StreamReader($"{AppContext.BaseDirectory}config{Path.DirectorySeparatorChar}config.json"))
             {
                 string json = await sr.ReadToEndAsync();
                 JSONStructure? data = JsonConvert.DeserializeObject<JSONStructure>(json);
