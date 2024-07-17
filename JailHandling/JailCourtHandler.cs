@@ -1,5 +1,6 @@
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using Lavalink4NET.Filters;
 using Newtonsoft.Json;
 using Orpheus.ApiStuff;
 using Orpheus.Database;
@@ -29,24 +30,19 @@ namespace Orpheus.JailHandling
             );
             DiscordEmbed discordEmbed = discordmessage.Embeds[0];
             DiscordEmbedFooter footer = discordEmbed.Footer;
-            Console.WriteLine($"\tRECIEVED DISCORD FOOTER");
             string text = footer.Text;
-            Console.WriteLine($"\tRECIEVED DISCORD FOOTER TEXT");
             if (text.Equals("This Vote Has Been Cancelled"))
             {
-                Console.WriteLine($"RESTART COURT FAILED, VOTE CANCELLED");
                 //vote already ended
                 RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
                 return;
             }
-            Console.WriteLine($"\tVOTE ACTIVE");
 
             CountdownTimer countdownTimer = new CountdownTimer(storedVoteMessage.storedCountdownTimerSeconds);
-            Console.WriteLine($"RESTART COURT MESSAGE REMAINING TIME {countdownTimer.toQuickTime()}");
-            _ = startCourtVote(discordmessage, jailedUser, countdownTimer);
+            _ = ContinueCourtVote(discordmessage, jailedUser, countdownTimer);
         }
 
-        private static async Task startCourtVote(
+        private static async Task ContinueCourtVote(
             DiscordMessage message,
             DiscordMember jailedUser,
             CountdownTimer countdownTimer
@@ -72,30 +68,8 @@ namespace Orpheus.JailHandling
 
             if (didVoteSucceed)
             {
-                Console.WriteLine("FREE USER");
-                await jailedUser.RevokeRoleAsync(jailRole);
-                try
-                {
-                    DiscordRole courtrole = await OrpheusAPIHandler.GetRoleAsync(
-                        message.Channel.Guild,
-                        await OrpheusDatabaseHandler.GetJailIDInfo(
-                            message.Channel.Guild.Id,
-                            "jailcourtroleid"
-                        )
-                    );
-                    await jailedUser.RevokeRoleAsync(courtrole);
-                }
-                catch
-                {
-                    Console.WriteLine("FREE ERROR, JAIL COURT ROLE DOES NOT EXIST");
-                }
+                await handleCourtVoteSuccess(jailedUser, jailRole, message.Channel);
             }
-
-            StoredVoteMessage storedVoteMessage = new StoredVoteMessage()
-            {
-                messageID = message.Id
-            };
-            RecoveryStorageHandler.RemoveVoteMessage(storedVoteMessage);
         }
 
         private static async Task startCourtVote(
@@ -124,7 +98,13 @@ namespace Orpheus.JailHandling
 
             if (didVoteSucceed)
             {
-                await jailedUser.RevokeRoleAsync(jailRole);
+                await handleCourtVoteSuccess(jailedUser, jailRole, channel);
+            }
+        }
+
+        private static async Task handleCourtVoteSuccess(DiscordMember jailedUser, DiscordRole jailRole, DiscordChannel channel)
+        {
+            await jailedUser.RevokeRoleAsync(jailRole);
                 try
                 {
                     DiscordRole courtrole = await OrpheusAPIHandler.GetRoleAsync(
@@ -140,7 +120,6 @@ namespace Orpheus.JailHandling
                 {
                     Console.WriteLine("FREE ERROR, JAIL COURT ROLE DOES NOT EXIST");
                 }
-            }
         }
 
         private static async Task<bool> checkIfVoteNeedsCancel(
@@ -161,34 +140,6 @@ namespace Orpheus.JailHandling
                 }
             }
             return returner;
-        }
-
-        private static async Task<DiscordMessage> UpdateVoteTime(
-            DiscordMessage message,
-            string remainingTime
-        )
-        {
-            DiscordEmbedBuilder messageBuilder = new DiscordEmbedBuilder
-            {
-                Title = "Vote To Free User From Jail",
-                Footer = new DiscordEmbedBuilder.EmbedFooter() { Text = "hi" },
-                Description = $"This vote will remain active for {remainingTime}",
-                Color = DiscordColor.Azure,
-            };
-
-            return await message.ModifyAsync(embed: messageBuilder.Build());
-        }
-
-        private static async Task SendUserManuallyFreed(DiscordMessage message)
-        {
-            DiscordEmbedBuilder messageBuilder = new DiscordEmbedBuilder
-            {
-                Title = "Vote To Free User From Jail",
-                Description = $"User has been manually freed",
-                Color = DiscordColor.Green,
-            };
-
-            message = await message.ModifyAsync(embed: messageBuilder.Build());
         }
     }
 }

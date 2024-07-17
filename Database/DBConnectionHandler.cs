@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using Lavalink4NET.Protocol.Payloads;
 using Npgsql;
 
 namespace Orpheus.Database
@@ -8,7 +10,8 @@ namespace Orpheus.Database
         private static List<ConnectionInfo> ConnectionPool = new List<ConnectionInfo>();
 
         private static int connectionLimit = 5; // max open connections
-        private static int unusedConnectionTimeLimit = 60; //seconds
+
+        public static bool CanConnect { get; private set; }
 
         public static void SetConnectionStrings(
             string host,
@@ -33,67 +36,52 @@ namespace Orpheus.Database
             {
                 ConnectionPool.Add(new ConnectionInfo(connectionString));
             }
-        }
-
-        public static async Task HandleConnections()
-        {
-            while (true)
+            CanConnect = ConnectionPool[0].openMe();
+            if (CanConnect)
             {
-                foreach (ConnectionInfo conn in ConnectionPool)
-                {
-                    lock (conn)
-                    {
-                        if (conn.isInUse)
-                        {
-                            continue;
-                        }
-                        if (
-                            (DateTime.Now - conn.timelastUsed).TotalSeconds
-                                >= unusedConnectionTimeLimit
-                            && conn.npgsqlConnection.State == System.Data.ConnectionState.Open
-                        )
-                        {
-                            Console.WriteLine("CLOSING CONNECTION");
-                            conn.closeMe();
-                        }
-                    }
-                }
-                await Task.Delay(1000);
+                Console.WriteLine("Database Connection Success");
+                ConnectionPool[0].closeMe();
+            }
+            else
+            {
+                Console.WriteLine("Database Connection Fail");
             }
         }
 
         public static async Task<ConnectionInfo> GetConnection()
         {
+            if (!CanConnect)
+            {
+                Console.WriteLine($"Database Connection Dead");
+                return null;
+            }
             while (true)
             {
+                int index = -1;
                 for (int i = 0; i < connectionLimit; i++)
                 {
                     lock (ConnectionPool[i])
                     {
                         if (!ConnectionPool[i].isInUse)
                         {
-                            //is free
-                            if (
-                                ConnectionPool[i].npgsqlConnection.State
-                                == System.Data.ConnectionState.Closed
-                            )
-                            {
-                                Console.WriteLine("OPEN CONNECTION: " + i);
-                                
-                                if (!ConnectionPool[i].openMe())
-                                {
-                                    continue;
-                                }
-                            }
+                            ConnectionPool[i].openMe();
                             ConnectionPool[i].isInUse = true;
-                            //Console.WriteLine("RETURN CONNECTION: " + i);
-                            ConnectionPool[i].timelastUsed = DateTime.Now;
-                            return ConnectionPool[i];
+                            index = i;
+                            break;
                         }
                     }
                 }
-                Console.WriteLine("DATABASE CONNECTION POOL FULL, WAITING");
-                await Task.Delay(10);
+                if (index != -1)
+                {
+                    await ConnectionPool[index].openMeAsync();
+                    Console.WriteLine($"Returning Connection {index}");
+                    return ConnectionPool[index];
+                }
+                else
+                {
+                    Console.WriteLine($"Connection Pool Full, Waiting");
+                }
+                await Task.Delay(5);
             }
         }
 
@@ -101,6 +89,8 @@ namespace Orpheus.Database
         {
             public NpgsqlConnection npgsqlConnection { get; private set; }
             public bool isInUse { get; set; }
+
+            public bool isConnectionOpen = false;
 
             public DateTime timelastUsed { get; set; }
 
@@ -114,6 +104,8 @@ namespace Orpheus.Database
             {
                 try
                 {
+                    isInUse = false;
+                    isConnectionOpen = false;
                     npgsqlConnection.Close();
                     return true;
                 }
@@ -129,11 +121,31 @@ namespace Orpheus.Database
                 try
                 {
                     npgsqlConnection.Open();
+                    isConnectionOpen = true;
                     return true;
                 }
                 catch
                 {
                     Console.WriteLine("Unable To Open Database Connection");
+                    return false;
+                }
+            }
+
+            public async Task<bool> openMeAsync()
+            {
+                if (npgsqlConnection.State == System.Data.ConnectionState.Closed)
+                {
+                    await npgsqlConnection.OpenAsync();
+                }
+
+                if (npgsqlConnection.State == System.Data.ConnectionState.Open)
+                {
+                    isConnectionOpen = true;
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Unable To Open Database Connection Async");
                     return false;
                 }
             }

@@ -1,15 +1,8 @@
 using Npgsql;
-
 namespace Orpheus.Database
 {
     public static class DBEngine
     {
-
-        private static async Task<DBConnectionHandler.ConnectionInfo> GetConnection()
-        {
-            return await DBConnectionHandler.GetConnection();
-        }
-
         public static void SetConnectionStrings(
             string host,
             string database,
@@ -26,7 +19,12 @@ namespace Orpheus.Database
             string testForValue
         )
         {
-            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            if (conninfo == null)
+            {
+                return false;
+            }
+
             try
             {
                 string query =
@@ -34,27 +32,32 @@ namespace Orpheus.Database
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conninfo.npgsqlConnection);
 
                 bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return temp;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return false;
             }
         }
 
-       [Obsolete("Use array param version")]
+        [Obsolete("Use array param version")]
         public static async Task<bool> DoesEntryExist(
-            string table,
-            string columnName,
-            string columnName2,
-            string testForValue,
-            string testForValue2
-        )
+             string table,
+             string columnName,
+             string columnName2,
+             string testForValue,
+             string testForValue2
+         )
         {
-            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return false;
+            }
             //Console.WriteLine("DoesEntryExist CALLED");
             try
             {
@@ -63,14 +66,14 @@ namespace Orpheus.Database
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conninfo.npgsqlConnection))
                 {
                     bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
-                    conninfo.isInUse = false;
+                    conninfo.closeMe();
                     return temp;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return false;
             }
         }
@@ -86,7 +89,12 @@ namespace Orpheus.Database
                 Console.WriteLine("[ERROR] ColumnName testForValues Length Mismatch");
                 return false;
             }
-            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return false;
+            }
             //Console.WriteLine("DoesEntryExist CALLED");
             try
             {
@@ -95,7 +103,7 @@ namespace Orpheus.Database
                 for (int i = 0; i < columnNames.Length; i++)
                 {
                     query += $" {columnNames[i]}='{testForValues[i]}'";
-                    if (i != columnNames.Length-1)
+                    if (i != columnNames.Length - 1)
                     {
                         query += " AND";
                     }
@@ -105,22 +113,30 @@ namespace Orpheus.Database
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, conninfo.npgsqlConnection))
                 {
                     bool temp = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
-                    conninfo.isInUse = false;
+                    conninfo.closeMe();
                     return temp;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return false;
             }
         }
 
         public static async Task<bool> RunExecuteNonQueryAsync(NpgsqlCommand cmd)
         {
+            
             //Console.WriteLine("RunExecuteNonQueryAsync CALLED");
-            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+
+            
+            if (conninfo == null)
+            {
+                return false;
+            }
+
             NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
@@ -129,7 +145,7 @@ namespace Orpheus.Database
                 await cmd.ExecuteNonQueryAsync();
                 transaction.Commit();
                 transaction.Dispose();
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return true;
             }
             catch (Exception e)
@@ -140,7 +156,7 @@ namespace Orpheus.Database
                 Console.WriteLine(e.ToString());
                 transaction.Rollback();
                 transaction.Dispose();
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return false;
             }
         }
@@ -148,7 +164,13 @@ namespace Orpheus.Database
         public static async Task<NpgsqlDataReader> RunExecuteReaderAsync(NpgsqlCommand cmd)
         {
             //Console.WriteLine("RunExecuteReaderAsync CALLED");
-            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return null;
+            }
+
             NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
@@ -157,7 +179,7 @@ namespace Orpheus.Database
                 NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
                 transaction.Commit();
                 transaction.Dispose();
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return reader;
             }
             catch (Exception e)
@@ -165,7 +187,7 @@ namespace Orpheus.Database
                 Console.WriteLine(e.ToString());
                 transaction.Rollback();
                 transaction.Dispose();
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return null;
             }
         }
@@ -173,7 +195,12 @@ namespace Orpheus.Database
         public static async Task<object> RunExecuteScalarAsync(NpgsqlCommand cmd)
         {
             //Console.WriteLine("RunExecuteScalarAsync CALLED");
-            DBConnectionHandler.ConnectionInfo conninfo = await GetConnection();
+            DBConnectionHandler.ConnectionInfo conninfo = await DBConnectionHandler.GetConnection();
+            
+            if (conninfo == null)
+            {
+                return null;
+            }
             NpgsqlTransaction transaction = conninfo.npgsqlConnection.BeginTransaction();
             try
             {
@@ -182,7 +209,7 @@ namespace Orpheus.Database
                 object? obj = await cmd.ExecuteScalarAsync();
                 transaction.Commit();
                 transaction.Dispose();
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return obj;
             }
             catch (Exception e)
@@ -190,7 +217,7 @@ namespace Orpheus.Database
                 Console.WriteLine(e.ToString());
                 transaction.Rollback();
                 transaction.Dispose();
-                conninfo.isInUse = false;
+                conninfo.closeMe();
                 return null;
             }
         }
