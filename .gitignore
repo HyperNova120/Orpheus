@@ -1,2 +1,7 @@
 obj/
 config/
+*.vs
+*.vscode
+*.VSCodeCounter
+*.sql
+*.sln
