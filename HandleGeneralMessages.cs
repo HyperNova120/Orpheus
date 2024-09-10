@@ -1,7 +1,9 @@
+using System.Dynamic;
 using System.Security.Cryptography;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using Newtonsoft.Json;
 using Orpheus.Database;
 using Orpheus.JailHandling;
 
@@ -14,12 +16,12 @@ namespace Orpheus
             MessageCreateEventArgs args
         )
         {
+            _ = FunnyBotResponses(args);
             if (args.Author.IsBot)
             {
                 return;
             }
             _ = StoreInDatabase(args);
-            _ = FunnyBotResponses(args);
 
             if (
                 await DBEngine.DoesEntryExist(
@@ -99,6 +101,12 @@ namespace Orpheus
                         gifurl = s
                     };
                     Console.WriteLine($"STORING GIF {s}");
+
+
+                    //serverID gif delimiter ":[]:"
+                    string[] json = { JsonConvert.SerializeObject($"{args.Guild.Id}:[]:{s}") };
+                    File.AppendAllLines("gifs.txt", json);
+
                     if (await OrpheusDatabaseHandler.StoreGifAsync(dGif))
                     {
                         Console.WriteLine($"SUCCESS STORING GIF {s}");
@@ -164,6 +172,33 @@ namespace Orpheus
                 await args.Channel.SendMessageAsync(
                     "https://tenor.com/view/luluco-judgment-gun-morphing-gun-transform-magical-girl-gif-26460149"
                 );
+            }
+
+            Random rand = new Random();
+            int ran = rand.Next(0, 100);
+            if (ran <= 10)
+            {
+                Console.WriteLine("Sending Gif");
+                //post funny bot response
+                string[] lines = File.ReadAllLines("gifs.txt");
+
+                List<string> gifs = new List<string>();
+                HashSet<string> uniqueGifs = new HashSet<string>();
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string s = lines[i].Replace("\"", "");
+
+                    if (s.Split(":[]:")[0].Equals(args.Guild.Id.ToString()))
+                    {
+                        gifs.Add(s.Split(":[]:")[1]);
+                    }
+                    uniqueGifs.Add(s);
+                }
+
+                File.WriteAllLines("gifs.txt", uniqueGifs.ToArray());
+                string responseGif = gifs.ToArray()[rand.Next(0, gifs.Count)];
+                await args.Channel.SendMessageAsync(responseGif);
             }
         }
     }
