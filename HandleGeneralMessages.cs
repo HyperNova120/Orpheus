@@ -23,25 +23,24 @@ namespace Orpheus
             }
             _ = StoreInDatabase(args);
 
-            IEnumerable<DiscordRole> userRoles = args.Guild.GetMemberAsync(args.Author.Id).Result.Roles;
-            ulong jailRoleID = DBEngine.getServerProperties(args.Guild.Id).JailRoleID;
-
-            bool found = false;
-            foreach (DiscordRole r in userRoles)
-            {
-                if (r.Id == jailRoleID)
-                {
-                    found = true;
-                }
-            }
-            if (!found)
-            {
-                return;
-            }
-
             if (DBEngine.getServerProperties(args.Guild.Id).JailCourtChannelID == args.Channel.Id)
             {
-                HandleCourtMessage(args);
+
+                IEnumerable<DiscordRole> userRoles = args.Guild.GetMemberAsync(args.Author.Id).Result.Roles;
+                ulong jailRoleID = DBEngine.getServerProperties(args.Guild.Id).JailRoleID;
+
+                bool found = false;
+                foreach (DiscordRole r in userRoles)
+                {
+                    if (r.Id == jailRoleID)
+                    {
+                        found = true;
+                    }
+                }
+                if (found)
+                {
+                    HandleCourtMessage(args);
+                }
             }
         }
 
@@ -106,7 +105,7 @@ namespace Orpheus
         private static async Task FunnyBotResponses(MessageCreateEventArgs args)
         {
             Random rand = new Random();
-            Console.WriteLine("FunnyBotResponses:"+args.Message.Content+"|");
+            Console.WriteLine("FunnyBotResponses:" + args.Message.Content + "|");
             if (args.Message.Content.Trim().ToLower().Equals("rand gif"))
             {
                 Console.WriteLine("Sending rand gif");

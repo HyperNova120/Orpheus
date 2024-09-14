@@ -38,13 +38,17 @@ public static class DBEngine
         Directory.CreateDirectory(serverDataPath + "Messages");
 
         //Admins
-        File.Create(serverDataPath + "Admins.txt");
+        FileStream fs = File.Create(serverDataPath + "Admins.txt");
+        fs.Dispose();
         //Attachments
-        File.Create(serverDataPath + "Attachments.txt");
+        fs = File.Create(serverDataPath + "Attachments.txt");
+        fs.Dispose();
         //Gifs
-        File.Create(serverDataPath + "Gifs.txt");
+        fs = File.Create(serverDataPath + "Gifs.txt");
+        fs.Dispose();
         //Server Properties
-        File.Create(serverDataPath + "ServerProperties.json");
+        fs = File.Create(serverDataPath + "ServerProperties.json");
+        fs.Dispose();
     }
 
     public static void saveMessage(ulong serverID, ulong channelID, ulong userID, string content)

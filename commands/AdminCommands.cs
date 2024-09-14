@@ -113,11 +113,11 @@ namespace Orpheus.commands
 
         public void RegisterServer(GuildCreateEventArgs args)
         {
-            DBEngine.InitServer(args.Guild.Id);
             if (DBEngine.doesServerPropertiesExist(args.Guild.Id))
             {
                 return;
             }
+            DBEngine.InitServer(args.Guild.Id);
             DBEngine.Serverproperties dServer = new DBEngine.Serverproperties()
             {
                 ServerID = args.Guild.Id,
