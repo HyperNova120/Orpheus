@@ -8,14 +8,9 @@ namespace Orpheus.JailHandling
     {
         public static async Task Jail(CommandContext ctx, DiscordMember user)
         {
-            ulong JailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailroleid"
-            );
-            ulong CourtRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailcourtroleid"
-            );
+            DBEngine.Serverproperties serverproperties = DBEngine.getServerProperties(ctx.Guild.Id);
+            ulong JailRoleID = serverproperties.JailRoleID;
+            ulong CourtRoleID = serverproperties.JailCourtRoleID;
             if (JailRoleID == 0)
             {
                 await ctx.Channel.SendMessageAsync("Send Failed; JailRole has not been registered");
@@ -52,14 +47,9 @@ namespace Orpheus.JailHandling
 
         public static async Task JailFREE(CommandContext ctx, DiscordMember user)
         {
-            ulong JailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailroleid"
-            );
-            ulong JailCourtRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                ctx.Guild.Id,
-                "jailcourtroleid"
-            );
+            DBEngine.Serverproperties serverproperties = DBEngine.getServerProperties(ctx.Guild.Id);
+            ulong JailRoleID = serverproperties.JailRoleID;
+            ulong JailCourtRoleID = serverproperties.JailCourtRoleID;
             if (JailRoleID == 0)
             {
                 await ctx.Channel.SendMessageAsync("Free Failed; JailRole has not been registered");

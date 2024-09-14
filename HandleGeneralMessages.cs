@@ -23,13 +23,23 @@ namespace Orpheus
             }
             _ = StoreInDatabase(args);
 
-            if (
-                await DBEngine.DoesEntryExist(
-                    "orpheusdata.serverinfo",
-                    "jailcourtid",
-                    args.Channel.Id.ToString()
-                )
-            )
+            IEnumerable<DiscordRole> userRoles = args.Guild.GetMemberAsync(args.Author.Id).Result.Roles;
+            ulong jailRoleID = DBEngine.getServerProperties(args.Guild.Id).JailRoleID;
+
+            bool found = false;
+            foreach (DiscordRole r in userRoles)
+            {
+                if (r.Id == jailRoleID)
+                {
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                return;
+            }
+
+            if (DBEngine.getServerProperties(args.Guild.Id).JailCourtChannelID == args.Channel.Id)
             {
                 HandleCourtMessage(args);
             }
@@ -40,16 +50,7 @@ namespace Orpheus
             //Console.WriteLine(
             //   $"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}"
             //);
-            DMsg dMsg = new DMsg()
-            {
-                serverID = args.Guild.Id,
-                channelID = args.Channel.Id,
-                userID = args.Author.Id,
-                sendingTime = DateTime.Now,
-                msgText = OrpheusDatabaseHandler.ConvertToUFT8(args.Message.Content),
-                dmsgID = args.Message.Id
-            };
-            await OrpheusDatabaseHandler.StoreMsgAsync(dMsg);
+            DBEngine.saveMessage(args.Guild.Id, args.Channel.Id, args.Author.Id, args.Message.Content);
             Console.WriteLine($"STORED FROM USER {args.Author.Username}:{args.Message.ToString()}");
 
             //attachment storage handling
@@ -57,15 +58,7 @@ namespace Orpheus
             foreach (DiscordAttachment attachment in attaches)
             {
                 Console.WriteLine($"ATTACHMENT {attachment.Url}");
-                DAttachment dAttachment = new DAttachment()
-                {
-                    channelID = args.Channel.Id,
-                    serverID = args.Guild.Id,
-                    msgID = args.Message.Id,
-                    userID = args.Author.Id,
-                    Url = OrpheusDatabaseHandler.ConvertToUFT8(attachment.Url)
-                };
-                _ = OrpheusDatabaseHandler.StoreAttachmentAsync(dAttachment);
+                DBEngine.SaveAttachment(args.Guild.Id, attachment.Url);
             }
 
             /*
@@ -95,26 +88,8 @@ namespace Orpheus
             {
                 if (s.Substring(0, 23).Equals("https://tenor.com/view/"))
                 {
-                    DGif dGif = new DGif()
-                    {
-                        serverID = args.Guild.Id,
-                        gifurl = s
-                    };
                     Console.WriteLine($"STORING GIF {s}");
-
-
-                    //serverID gif delimiter ":[]:"
-                    string[] json = { JsonConvert.SerializeObject($"{args.Guild.Id}:[]:{s}") };
-                    File.AppendAllLines("gifs.txt", json);
-
-                    if (await OrpheusDatabaseHandler.StoreGifAsync(dGif))
-                    {
-                        Console.WriteLine($"SUCCESS STORING GIF {s}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"FAIL STORING GIF {s}");
-                    }
+                    DBEngine.SaveGif(args.Guild.Id, s);
                 }
             }
         }
@@ -130,6 +105,20 @@ namespace Orpheus
 
         private static async Task FunnyBotResponses(MessageCreateEventArgs args)
         {
+            Random rand = new Random();
+            Console.WriteLine("FunnyBotResponses:"+args.Message.Content+"|");
+            if (args.Message.Content.Trim().ToLower().Equals("rand gif"))
+            {
+                Console.WriteLine("Sending rand gif");
+                //post funny bot response
+                string[] gifs = DBEngine.GetGifs(args.Guild.Id);
+                string responseGif = gifs.ToArray()[rand.Next(0, gifs.Length)];
+                await args.Channel.SendMessageAsync(responseGif);
+            }
+
+
+
+
             if (
                 //args.Author.Id == 465663563336384512 //MAFIO
                 /*&&*/ args.Message.Content.Equals(
@@ -174,30 +163,13 @@ namespace Orpheus
                 );
             }
 
-            Random rand = new Random();
             int ran = rand.Next(0, 100);
             if (ran <= 10)
             {
                 Console.WriteLine("Sending Gif");
                 //post funny bot response
-                string[] lines = File.ReadAllLines("gifs.txt");
-
-                List<string> gifs = new List<string>();
-                HashSet<string> uniqueGifs = new HashSet<string>();
-
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    string s = lines[i].Replace("\"", "");
-
-                    if (s.Split(":[]:")[0].Equals(args.Guild.Id.ToString()))
-                    {
-                        gifs.Add(s.Split(":[]:")[1]);
-                    }
-                    uniqueGifs.Add(s);
-                }
-
-                File.WriteAllLines("gifs.txt", uniqueGifs.ToArray());
-                string responseGif = gifs.ToArray()[rand.Next(0, gifs.Count)];
+                string[] gifs = DBEngine.GetGifs(args.Guild.Id);
+                string responseGif = gifs.ToArray()[rand.Next(0, gifs.Length)];
                 await args.Channel.SendMessageAsync(responseGif);
             }
         }
