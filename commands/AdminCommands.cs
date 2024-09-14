@@ -113,6 +113,7 @@ namespace Orpheus.commands
 
         public void RegisterServer(GuildCreateEventArgs args)
         {
+            DBEngine.Init(args.Guild.Id);
             if (DBEngine.doesServerPropertiesExist(args.Guild.Id))
             {
                 return;
@@ -124,8 +125,6 @@ namespace Orpheus.commands
                 JailRoleID = 0,
                 JailCourtRoleID = 0
             };
-            
-            DBEngine.Init(args.Guild.Id);
             DBEngine.setServerProperties(args.Guild.Id, dServer);
         }
 
