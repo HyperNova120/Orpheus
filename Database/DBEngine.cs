@@ -15,11 +15,18 @@ public static class DBEngine
         ServerProperties
     */
 
-    public static void Init(ulong serverID)
+    public static void InitServer(ulong serverID)
     {
         if (!Directory.Exists(dataFolderPath + serverID))
         {
             createServerDirectory(serverID);
+        }
+    }
+    public static void Init()
+    {
+        if (!Directory.Exists(dataFolderPath))
+        {
+            Directory.CreateDirectory(dataFolderPath);
         }
     }
 
