@@ -31,7 +31,8 @@ namespace Orpheus.Voting
 
             messageBuilder.AddEmbed(createActiveCountdownEmbed(countdownTimer, title, description, DiscordColor.Azure));
             DiscordMessage message = await messageBuilder.SendAsync(channel);
-            _ = message.CreateReactionAsync(thumbUp);
+            await message.CreateReactionAsync(thumbUp);
+            await Task.Delay(100);
             await message.CreateReactionAsync(thumbDown);
 
             StoredVoteMessage storedVoteMessage = new StoredVoteMessage()

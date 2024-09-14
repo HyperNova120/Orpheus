@@ -50,7 +50,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         static async Task Main(string[] args)
         {
             
-
             await LLHandler.Setup();
 
 
@@ -130,20 +129,12 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         private static async Task runRegisterServerIfNeeded(GuildCreateEventArgs args)
         {
             //register or update server
-            AdminCommands temp = new AdminCommands();
-            await temp.RegisterServer(args);
-
-            //create or update all user registry
-            foreach (KeyValuePair<ulong, DiscordMember> keyValuePair in args.Guild.Members)
+            if (DBEngine.doesServerPropertiesExist(args.Guild.Id))
             {
-                DiscordMember member = keyValuePair.Value;
-                if (member.IsBot)
-                {
-                    continue;
-                }
-                DUser dUser = new DUser() { userId = member.Id, username = member.Username, };
-                _ = OrpheusDatabaseHandler.StoreUserAsync(dUser);
+                return;
             }
+            AdminCommands temp = new AdminCommands();
+            temp.RegisterServer(args);
         }
 
         public static async Task SetDiscordStatus(
@@ -152,21 +143,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
         )
         {
             await ShardedClient.UpdateStatusAsync(discordActivity, userStatus);
-        }
-
-        private static async Task handleUserJoined(DiscordClient user, GuildMemberAddEventArgs args)
-        {
-            DUser dUser = new DUser() { userId = args.Member.Id, username = args.Member.Username, };
-
-            bool isStored = await OrpheusDatabaseHandler.StoreUserAsync(dUser);
-            if (isStored)
-            {
-                Console.WriteLine("Succesfully stored in Database");
-            }
-            else
-            {
-                Console.WriteLine("Failed to store in Database");
-            }
         }
 
         private static async Task BotSetup()
@@ -193,10 +169,6 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             ShardedClient.GuildAvailable += async (c, args) =>
             {
                 await runRegisterServerIfNeeded(args);
-            };
-            ShardedClient.GuildMemberAdded += async (user, args) =>
-            {
-                await handleUserJoined(user, args);
             };
             ShardedClient.GuildCreated += async (c, args) =>
             {

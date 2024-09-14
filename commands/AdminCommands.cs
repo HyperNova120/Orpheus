@@ -111,18 +111,22 @@ namespace Orpheus.commands
             await Registration.RegisterServer(ctx);
         }
 
-        public async Task RegisterServer(GuildCreateEventArgs args)
+        public void RegisterServer(GuildCreateEventArgs args)
         {
-            DServer dServer = new DServer()
+            if (DBEngine.doesServerPropertiesExist(args.Guild.Id))
             {
-                serverID = args.Guild.Id,
-                serverName = args.Guild.Name,
-                jailChannelID = 0,
-                JailCourtID = 0,
+                return;
+            }
+            DBEngine.Serverproperties dServer = new DBEngine.Serverproperties()
+            {
+                ServerID = args.Guild.Id,
+                JailCourtChannelID = 0,
                 JailRoleID = 0,
                 JailCourtRoleID = 0
             };
-            await Registration.RegisterServer(dServer);
+            
+            DBEngine.Init(args.Guild.Id);
+            DBEngine.setServerProperties(args.Guild.Id, dServer);
         }
 
         [Command("registerAdmin")]
@@ -131,19 +135,13 @@ namespace Orpheus.commands
             if (
                 isNotValidCommand(ctx)
                 || !Convert.ToBoolean(await doesUserHavePerms(ctx))
-                || Convert.ToBoolean(
-                    await DBEngine.DoesEntryExist(
-                        "orpheusdata.admininfo",
-                        new string[]{"userid",
-                        "serverid"},
-                        new string[]{memberToAdmin.Id.ToString(),
-                        ctx.Guild.Id.ToString()}
-                    )
-                )
+                ||  DBEngine.DoesAdminExist(ctx.Guild.Id, memberToAdmin.Id)
             )
             {
+                Console.WriteLine("Failed to add user as admin");
                 return;
             }
+            Console.WriteLine("adding user as admin");
             await Registration.RegisterAdmin(ctx, memberToAdmin);
         }
 
@@ -153,16 +151,8 @@ namespace Orpheus.commands
             if (
                 isNotValidCommand(ctx)
                 || !Convert.ToBoolean(await doesUserHavePerms(ctx))
-                || !Convert.ToBoolean(
-                    await DBEngine.DoesEntryExist(
-                        "orpheusdata.admininfo",
-                        new string[]{"userid",
-                        "serverid"},
-                        new string[]{memberToRemoveAdmin.Id.ToString(),
-                        ctx.Guild.Id.ToString()}
-                    )
+                || !DBEngine.DoesAdminExist(ctx.Guild.Id, memberToRemoveAdmin.Id)
                 )
-            )
             {
                 return;
             }
@@ -244,13 +234,7 @@ namespace Orpheus.commands
                 Console.WriteLine("VALID COMMAND, OWNER:");
                 return true;
             }
-            return await DBEngine.DoesEntryExist(
-                "orpheusdata.admininfo",
-                new string[]{"serverid",
-                "userid"},
-                new string[]{ctx.Member.Guild.Id.ToString(),
-                ctx.Member.Id.ToString()}
-            );
+            return DBEngine.DoesAdminExist(ctx.Member.Guild.Id, ctx.Member.Id);
         }
     }
 }

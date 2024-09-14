@@ -48,10 +48,8 @@ namespace Orpheus.JailHandling
             CountdownTimer countdownTimer
         )
         {
-            ulong jailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                message.Channel.Guild.Id,
-                "jailroleid"
-            );
+            DBEngine.Serverproperties serverproperties = DBEngine.getServerProperties(message.Channel.Guild.Id);
+            ulong jailRoleID = serverproperties.JailRoleID;
             DiscordRole jailRole = await OrpheusAPIHandler.GetRoleAsync(message.Channel.Guild, jailRoleID);
             bool didVoteSucceed = await HandleVote.UpdateVoteAsync(
                 message,
@@ -78,10 +76,8 @@ namespace Orpheus.JailHandling
             CountdownTimer countdownTimer
         )
         {
-            ulong jailRoleID = await OrpheusDatabaseHandler.GetJailIDInfo(
-                channel.Guild.Id,
-                "jailroleid"
-            );
+            DBEngine.Serverproperties serverproperties = DBEngine.getServerProperties(channel.Guild.Id);
+            ulong jailRoleID = serverproperties.JailRoleID;
             DiscordRole jailRole = await OrpheusAPIHandler.GetRoleAsync(channel.Guild, jailRoleID);
             bool didVoteSucceed = await HandleVote.StartVote_V2(
                 channel,
@@ -105,21 +101,20 @@ namespace Orpheus.JailHandling
         private static async Task handleCourtVoteSuccess(DiscordMember jailedUser, DiscordRole jailRole, DiscordChannel channel)
         {
             await jailedUser.RevokeRoleAsync(jailRole);
-                try
-                {
-                    DiscordRole courtrole = await OrpheusAPIHandler.GetRoleAsync(
-                        channel.Guild,
-                        await OrpheusDatabaseHandler.GetJailIDInfo(
-                            channel.Guild.Id,
-                            "jailcourtroleid"
-                        )
-                    );
-                    await jailedUser.RevokeRoleAsync(courtrole);
-                }
-                catch
-                {
-                    Console.WriteLine("FREE ERROR, JAIL COURT ROLE DOES NOT EXIST");
-                }
+            try
+            {
+
+                DBEngine.Serverproperties serverproperties = DBEngine.getServerProperties(channel.Guild.Id);
+                DiscordRole courtrole = await OrpheusAPIHandler.GetRoleAsync(
+                    channel.Guild,
+                    serverproperties.JailCourtRoleID
+                );
+                await jailedUser.RevokeRoleAsync(courtrole);
+            }
+            catch
+            {
+                Console.WriteLine("FREE ERROR, JAIL COURT ROLE DOES NOT EXIST");
+            }
         }
 
         private static async Task<bool> checkIfVoteNeedsCancel(

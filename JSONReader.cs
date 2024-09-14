@@ -32,12 +32,7 @@ namespace Orpheus
                 courtVoteTimeMinutes = data.courtVoteTimeMinutes;
                 courtVoteTimeSeconds = data.courtVoteTimeSeconds;
 
-                DBEngine.SetConnectionStrings(
-                    data.host,
-                    data.database,
-                    data.username,
-                    data.password
-                );
+                
             }
         }
 
