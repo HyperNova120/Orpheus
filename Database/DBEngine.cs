@@ -124,7 +124,7 @@ public static class DBEngine
         Console.WriteLine("DoesAdminExist: 3");
         foreach (string s in sr.ReadToEnd().Split("\n"))
         {
-            if (s.Equals(userId.ToString()))
+            if (s.Trim().Equals(userId.ToString()))
             {
                 sr.Dispose();
                 Console.WriteLine("DoesAdminExist: TRUE");
