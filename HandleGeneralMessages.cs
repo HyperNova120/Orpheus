@@ -163,7 +163,7 @@ namespace Orpheus
             }
 
             int ran = rand.Next(0, 100);
-            if (ran <= 10)
+            if (ran <= 5)
             {
                 Console.WriteLine("Sending Gif");
                 //post funny bot response
