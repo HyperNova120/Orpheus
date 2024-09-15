@@ -19,6 +19,7 @@ public static class DBEngine
     {
         if (!Directory.Exists(dataFolderPath + serverID))
         {
+            Init();
             createServerDirectory(serverID);
         }
     }
