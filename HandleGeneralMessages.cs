@@ -105,7 +105,7 @@ namespace Orpheus
         private static async Task FunnyBotResponses(MessageCreateEventArgs args)
         {
             Random rand = new Random();
-            Console.WriteLine("FunnyBotResponses:" + args.Message.Content + "|");
+            Console.WriteLine("FunnyBotResponses:|" + args.Message.Content + "|");
             if (args.Message.Content.Trim().ToLower().Equals("rand gif"))
             {
                 Console.WriteLine("Sending rand gif");
@@ -163,7 +163,7 @@ namespace Orpheus
             }
 
             int ran = rand.Next(0, 100);
-            if (ran <= 5)
+            if (ran <= 2)
             {
                 Console.WriteLine("Sending Gif");
                 //post funny bot response
