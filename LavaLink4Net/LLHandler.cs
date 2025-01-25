@@ -22,7 +22,7 @@ public static class LLHandler
         myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}LavaLink4Net{Path.DirectorySeparatorChar}Lavalink.jar";
         myProcess.StartInfo.CreateNoWindow = true;
         myProcess.StartInfo.ErrorDialog = false;
-        //myProcess.Start();
+        myProcess.Start();
 
 
         int waitSec = 5;
