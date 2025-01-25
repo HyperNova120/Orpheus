@@ -49,8 +49,20 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         static async Task Main(string[] args)
         {
-            
-            await LLHandler.Setup();
+           /*  AppDomain.CurrentDomain.ProcessExit += async (sender, e) =>
+            {
+                //on application close
+                Console.WriteLine("App Exit");
+                await LLHandler.Close();
+            };
+            Console.CancelKeyPress += async delegate (object? sender, ConsoleCancelEventArgs e)
+            {
+                e.Cancel = true;
+                Console.WriteLine("App Exit");
+                await LLHandler.Close();
+                e.Cancel = false;
+            };
+            await LLHandler.Setup(); */
 
 
             JSONReader jsonReader = new JSONReader();
@@ -62,6 +74,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
             RecoveryStorageHandler.InitiateRecovery();
             await Task.Delay(-1);
+                LLHandler.Close();
         }
 
         private static async Task setupVoiceNext()

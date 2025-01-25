@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 using System.Threading.Tasks;
 using DSharpPlus;
@@ -13,17 +14,18 @@ using Microsoft.Extensions.Logging;
 
 public static class LLHandler
 {
+    private static Process lavalinkProcess = null;
+    
     public static async Task Setup()
     {
         Console.WriteLine(@$" -jar {AppContext.BaseDirectory}LavaLink4Net{Path.DirectorySeparatorChar}Lavalink.jar");
-        Process myProcess = new Process();
-        myProcess.StartInfo.FileName = "java";
-        myProcess.StartInfo.UseShellExecute = false;
-        myProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}LavaLink4Net{Path.DirectorySeparatorChar}Lavalink.jar";
-        myProcess.StartInfo.CreateNoWindow = true;
-        myProcess.StartInfo.ErrorDialog = false;
-        myProcess.Start();
-
+        lavalinkProcess = new Process();
+        lavalinkProcess.StartInfo.FileName = "java";
+        lavalinkProcess.StartInfo.UseShellExecute = false;
+        lavalinkProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}LavaLink4Net{Path.DirectorySeparatorChar}Lavalink.jar";
+        lavalinkProcess.StartInfo.CreateNoWindow = true;
+        lavalinkProcess.StartInfo.ErrorDialog = false;
+        lavalinkProcess.Start();
 
         int waitSec = 5;
 
@@ -33,6 +35,14 @@ public static class LLHandler
             await Task.Delay(1000);
         }
         await Task.Delay(0);
+    }
+
+    public static async Task Close()
+    {
+        lavalinkProcess.Close();
+        //lavalinkProcess.CloseMainWindow();
+        lavalinkProcess.Dispose();
+        Console.WriteLine("lavalinkProcess CLOSE");
     }
 
     private static void ConfigureServices(IServiceCollection services)
