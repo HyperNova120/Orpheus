@@ -14,7 +14,7 @@
           "DSharpPlus.Rest": "5.0.0-nightly-02450",
           "DSharpPlus.SlashCommands": "5.0.0-nightly-02450",
           "DSharpPlus.VoiceNext": "5.0.0-nightly-02450",
-          "Lavalink4NET.DSharpPlus": "3.0.1",
+          "Lavalink4NET.DSharpPlus.Nightly": "4.0.25",
           "Microsoft.Extensions.DependencyInjection": "9.0.1",
           "Microsoft.Extensions.Hosting": "9.0.1",
           "Microsoft.Extensions.Logging.Console": "9.0.1",
@@ -143,26 +143,67 @@
           }
         }
       },
-      "Lavalink4NET/3.0.1": {
+      "Lavalink4NET/4.0.25": {
         "dependencies": {
-          "System.Net.Http.Json": "6.0.0"
+          "Lavalink4NET.Abstractions": "4.0.25",
+          "Lavalink4NET.Protocol": "4.0.25",
+          "Lavalink4NET.Rest": "4.0.25",
+          "Microsoft.Extensions.Caching.Memory": "9.0.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "9.0.1",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.1",
+          "Microsoft.Extensions.Options": "9.0.1",
+          "System.Net.Http.Json": "8.0.0"
         },
         "runtime": {
-          "lib/net6.0/Lavalink4NET.dll": {
-            "assemblyVersion": "3.0.1.0",
-            "fileVersion": "3.0.1.0"
+          "lib/net8.0/Lavalink4NET.dll": {
+            "assemblyVersion": "4.0.25.0",
+            "fileVersion": "4.0.25.0"
           }
         }
       },
-      "Lavalink4NET.DSharpPlus/3.0.1": {
+      "Lavalink4NET.Abstractions/4.0.25": {
+        "runtime": {
+          "lib/net8.0/Lavalink4NET.Abstractions.dll": {
+            "assemblyVersion": "4.0.25.0",
+            "fileVersion": "4.0.25.0"
+          }
+        }
+      },
+      "Lavalink4NET.DSharpPlus.Nightly/4.0.25": {
         "dependencies": {
           "DSharpPlus": "5.0.0-nightly-02450",
-          "Lavalink4NET": "3.0.1"
+          "Lavalink4NET": "4.0.25"
         },
         "runtime": {
-          "lib/net6.0/Lavalink4NET.DSharpPlus.dll": {
-            "assemblyVersion": "3.0.1.0",
-            "fileVersion": "3.0.1.0"
+          "lib/net8.0/Lavalink4NET.DSharpPlus.Nightly.dll": {
+            "assemblyVersion": "4.0.25.0",
+            "fileVersion": "4.0.25.0"
+          }
+        }
+      },
+      "Lavalink4NET.Protocol/4.0.25": {
+        "dependencies": {
+          "System.Text.Json": "8.0.4"
+        },
+        "runtime": {
+          "lib/net8.0/Lavalink4NET.Protocol.dll": {
+            "assemblyVersion": "4.0.25.0",
+            "fileVersion": "4.0.25.0"
+          }
+        }
+      },
+      "Lavalink4NET.Rest/4.0.25": {
+        "dependencies": {
+          "Lavalink4NET.Abstractions": "4.0.25",
+          "Lavalink4NET.Protocol": "4.0.25",
+          "Microsoft.Extensions.Caching.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Http": "8.0.0",
+          "System.Net.Http.Json": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Lavalink4NET.Rest.dll": {
+            "assemblyVersion": "4.0.25.0",
+            "fileVersion": "4.0.25.0"
           }
         }
       },
@@ -416,6 +457,22 @@
           }
         }
       },
+      "Microsoft.Extensions.Http/8.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.1",
+          "Microsoft.Extensions.Diagnostics": "9.0.1",
+          "Microsoft.Extensions.Logging": "9.0.1",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.1",
+          "Microsoft.Extensions.Options": "9.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Http.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
       "Microsoft.Extensions.Logging/9.0.1": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "9.0.1",
@@ -608,21 +665,15 @@
           }
         }
       },
-      "System.Net.Http.Json/6.0.0": {
+      "System.Net.Http.Json/8.0.0": {
         "dependencies": {
-          "System.Text.Json": "6.0.0"
+          "System.Text.Json": "8.0.4"
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
-      "System.Text.Encodings.Web/6.0.0": {
+      "System.Text.Encodings.Web/8.0.0": {},
+      "System.Text.Json/8.0.4": {
         "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
-        }
-      },
-      "System.Text.Json/6.0.0": {
-        "dependencies": {
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
-          "System.Text.Encodings.Web": "6.0.0"
+          "System.Text.Encodings.Web": "8.0.0"
         }
       },
       "Ulid/1.3.4": {
@@ -704,19 +755,40 @@
       "path": "dsharpplus.voicenext.natives/1.0.0",
       "hashPath": "dsharpplus.voicenext.natives.1.0.0.nupkg.sha512"
     },
-    "Lavalink4NET/3.0.1": {
+    "Lavalink4NET/4.0.25": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YmjKefY6mDjEUmbB1UMRjKHho0H45fv9vfV+J1H5sf6fSi3pIBAe4lQ5ygQaBiP7M3k9PiRiOU43G36FQbIRGw==",
-      "path": "lavalink4net/3.0.1",
-      "hashPath": "lavalink4net.3.0.1.nupkg.sha512"
+      "sha512": "sha512-iOombo4e/9dzUg/rCDdY/zjRsSfRaffNRjlj5T6RARgE9cqLoJWJqveZ/Ieil8ITrQdpThrDN1AvqpRpy3keQQ==",
+      "path": "lavalink4net/4.0.25",
+      "hashPath": "lavalink4net.4.0.25.nupkg.sha512"
     },
-    "Lavalink4NET.DSharpPlus/3.0.1": {
+    "Lavalink4NET.Abstractions/4.0.25": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KBLushVpvAYgM50cZ8pXVSl5BpQ5bmpGP4gLnIRBnggPuQTIRITLrzj18xW7+p7zA4drNCgLQp3cO+hZUrQYDg==",
-      "path": "lavalink4net.dsharpplus/3.0.1",
-      "hashPath": "lavalink4net.dsharpplus.3.0.1.nupkg.sha512"
+      "sha512": "sha512-yy8/ChKWsg9H1BgECo9LimVNBP6O36BHrQ7oV57e+Ktr19xL1u8aZArOyo10BpO8Uix2XE0IaQHrYvhNKo2DbQ==",
+      "path": "lavalink4net.abstractions/4.0.25",
+      "hashPath": "lavalink4net.abstractions.4.0.25.nupkg.sha512"
+    },
+    "Lavalink4NET.DSharpPlus.Nightly/4.0.25": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eKr4qYTJ1FnejqnUjVhcvcdLzEkyEsRTVVprYk2QaVyNtztHYQ3TAiqv8zk50DYnLWUG3GUbkHjG3e5HsjZ+sw==",
+      "path": "lavalink4net.dsharpplus.nightly/4.0.25",
+      "hashPath": "lavalink4net.dsharpplus.nightly.4.0.25.nupkg.sha512"
+    },
+    "Lavalink4NET.Protocol/4.0.25": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V09nvz7ZvZ12DdxkzqDLubRu7LoJza+x8pOOeUPTBtSEte2QuKg3V8+bFFsPeIbZZJiNXWDj8O7biGxvNrP/GA==",
+      "path": "lavalink4net.protocol/4.0.25",
+      "hashPath": "lavalink4net.protocol.4.0.25.nupkg.sha512"
+    },
+    "Lavalink4NET.Rest/4.0.25": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JwMhX6lmZTyI27/1Xvu9/HvBGiW7gHrDuwpZUf8uHkCG1mefOBlHoo5OMBAL028iuTLE0P81DoMVxhvYbFg3eQ==",
+      "path": "lavalink4net.rest/4.0.25",
+      "hashPath": "lavalink4net.rest.4.0.25.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/9.0.0": {
       "type": "package",
@@ -851,6 +923,13 @@
       "path": "microsoft.extensions.hosting.abstractions/9.0.1",
       "hashPath": "microsoft.extensions.hosting.abstractions.9.0.1.nupkg.sha512"
     },
+    "Microsoft.Extensions.Http/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cWz4caHwvx0emoYe7NkHPxII/KkTI8R/LC9qdqJqnKv2poTJ4e2qqPGQqvRoQ5kaSA4FU5IV3qFAuLuOhoqULQ==",
+      "path": "microsoft.extensions.http/8.0.0",
+      "hashPath": "microsoft.extensions.http.8.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/9.0.1": {
       "type": "package",
       "serviceable": true,
@@ -956,33 +1035,26 @@
       "path": "system.diagnostics.eventlog/9.0.1",
       "hashPath": "system.diagnostics.eventlog.9.0.1.nupkg.sha512"
     },
-    "System.Net.Http.Json/6.0.0": {
+    "System.Net.Http.Json/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GbIV4y344kGOKjshAKCIDCMUTTW/hyUC42wV0Y5SXEdIbaKBIHBUxZ2MOe4/ZiV2svUAGfQ0c8LGtUExpOI8tg==",
-      "path": "system.net.http.json/6.0.0",
-      "hashPath": "system.net.http.json.6.0.0.nupkg.sha512"
+      "sha512": "sha512-48Bxrd6zcGeQzS4GMEDVjuqCcAw/9wcEWnIu48FQJ5IzfKPiMR1nGtz9LrvGzU4+3TLbx/9FDlGmCUeLin1Eqg==",
+      "path": "system.net.http.json/8.0.0",
+      "hashPath": "system.net.http.json.8.0.0.nupkg.sha512"
     },
-    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+    "System.Text.Encodings.Web/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
-      "path": "system.runtime.compilerservices.unsafe/6.0.0",
-      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+      "sha512": "sha512-yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ==",
+      "path": "system.text.encodings.web/8.0.0",
+      "hashPath": "system.text.encodings.web.8.0.0.nupkg.sha512"
     },
-    "System.Text.Encodings.Web/6.0.0": {
+    "System.Text.Json/8.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Vg8eB5Tawm1IFqj4TVK1czJX89rhFxJo9ELqc/Eiq0eXy13RK00eubyU6TJE6y+GQXjyV5gSfiewDUZjQgSE0w==",
-      "path": "system.text.encodings.web/6.0.0",
-      "hashPath": "system.text.encodings.web.6.0.0.nupkg.sha512"
-    },
-    "System.Text.Json/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-zaJsHfESQvJ11vbXnNlkrR46IaMULk/gHxYsJphzSF+07kTjPHv+Oc14w6QEOfo3Q4hqLJgStUaYB9DBl0TmWg==",
-      "path": "system.text.json/6.0.0",
-      "hashPath": "system.text.json.6.0.0.nupkg.sha512"
+      "sha512": "sha512-bAkhgDJ88XTsqczoxEMliSrpijKZHhbJQldhAmObj/RbrN3sU5dcokuXmWJWsdQAhiMJ9bTayWsL1C9fbbCRhw==",
+      "path": "system.text.json/8.0.4",
+      "hashPath": "system.text.json.8.0.4.nupkg.sha512"
     },
     "Ulid/1.3.4": {
       "type": "package",

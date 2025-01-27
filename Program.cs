@@ -12,11 +12,15 @@ using Microsoft.Extensions.Hosting;
 using Lavalink4NET;
 using DSharpPlus.Extensions;
 using Newtonsoft.Json;
+using Orpheus;
+using Lavalink4NET.Extensions;
 //using DSharpPlus.Lavalink;
 //using DSharpPlus.Net;
-namespace Orpheus // Note: actual namespace depends on the project name.
-{
 
+
+
+namespace Orpheus
+{
 
 
 
@@ -73,6 +77,7 @@ namespace Orpheus // Note: actual namespace depends on the project name.
             {
                 Console.WriteLine("EMERGENCY CLOSE");
                 await LLHandler.Close();
+                Console.WriteLine(e.ToString());
             }
         }
 
@@ -97,7 +102,59 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
         private static async Task BotSetup()
         {
-            DiscordClientBuilder discordClientBuilder = DiscordClientBuilder.CreateDefault(JSONReader.token, DiscordIntents.All);
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddDiscordClient(JSONReader.token, DiscordIntents.All);
+            serviceCollection.ConfigureEventHandlers(
+                b => b.HandleMessageCreated(async (user, args) =>
+                {
+                    await HandleGeneralMessages.handleMessageCreated(user, args);
+                })
+                .HandleGuildAvailable(async (c, args) => { runRegisterServerIfNeeded(args); })
+                .HandleGuildCreated(async (c, args) => { runRegisterServerIfNeeded(args); })
+            );
+
+            CommandsNextConfiguration commandsConfig = new CommandsNextConfiguration()
+            {
+                StringPrefixes = new string[] { JSONReader.prefix },
+                EnableMentionPrefix = true,
+                EnableDms = true,
+                EnableDefaultHelp = false,
+            };
+            serviceCollection.AddCommandsNextExtension(commands =>
+            {
+                commands.RegisterCommands<TestCommands>();
+                commands.RegisterCommands<AdminCommands>();
+                commands.RegisterCommands<UserCommands>();
+                commands.RegisterCommands<MusicCommands>();
+            }, commandsConfig);
+            VoiceNextConfiguration voiceConfiguration = new VoiceNextConfiguration()
+            {
+                EnableIncoming = false,
+            };
+            serviceCollection.AddVoiceNextExtension(voiceConfiguration);
+            serviceCollection.AddLavalink();
+            serviceCollection.ConfigureLavalink(config =>
+            {
+                config.BaseAddress = new Uri($"http://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}");
+                config.WebSocketUri = new Uri($"ws://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}/v4/websocket");
+                config.ReadyTimeout = TimeSpan.FromSeconds(10);
+                config.ResumptionOptions = new LavalinkSessionResumptionOptions(TimeSpan.FromSeconds(60));
+                config.Label = "Node Alpha";
+                config.Passphrase = JSONReader.lavalinkConfig.password;
+                config.HttpClientName = "LavalinkHttpClient";
+            });
+
+
+            serviceCollection.AddLogging(s => s.AddConsole().SetMinimumLevel(LogLevel.Debug));
+            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
+            OrpheusClient = serviceProvider.GetRequiredService<DiscordClient>();
+            await LLHandler.Setup();
+            await OrpheusClient.ConnectAsync();
+            await MusicModule.SetUp(serviceProvider.GetRequiredService<IAudioService>());
+
+
+            /* DiscordClientBuilder discordClientBuilder = DiscordClientBuilder.CreateDefault(JSONReader.token, DiscordIntents.All);
 
             discordClientBuilder.ConfigureEventHandlers
             (
@@ -121,6 +178,8 @@ namespace Orpheus // Note: actual namespace depends on the project name.
                 Commands.RegisterCommands<TestCommands>();
                 Commands.RegisterCommands<AdminCommands>();
                 Commands.RegisterCommands<UserCommands>();
+                Commands.RegisterCommands<MusicCommands>();
+                //Commands.RegisterCommands<MusicModule>();
             }, commandsConfig);
 
 
@@ -133,19 +192,26 @@ namespace Orpheus // Note: actual namespace depends on the project name.
 
             Console.WriteLine($"LAVALINK INFO: HOST:{JSONReader.lavalinkConfig.hostName}    PORT:{JSONReader.lavalinkConfig.port}");
             await LLHandler.Setup();
-
-            LavalinkNodeOptions lavalinkNodeOptions = new LavalinkNodeOptions();
-
-
-            var serviceProvider = new ServiceCollection()
-            .AddDiscordClient(JSONReader.token, DiscordIntents.All)
-            .AddSingleton<IAudioService, LavalinkNode>()
-            .AddSingleton<IDiscordClientWrapper, DiscordClientWrapper>()
-            .AddSingleton<LavalinkNodeOptions>()
-            .BuildServiceProvider();
-
+            IServiceCollection LavalinkServices = new ServiceCollection();
+            IServiceProvider LavalinkServiceProvider = null;
+            discordClientBuilder.ConfigureServices(LavalinkServices =>
+            {
+                LavalinkServices.AddLavalink();
+                LavalinkServices.ConfigureLavalink(config =>
+                {
+                    config.BaseAddress = new Uri($"http://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}");
+                    config.WebSocketUri = new Uri($"http://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}");
+                    config.ReadyTimeout = TimeSpan.FromSeconds(10);
+                    config.ResumptionOptions = new LavalinkSessionResumptionOptions(TimeSpan.FromSeconds(60));
+                    config.Label = "Node Alpha";
+                    config.Passphrase = JSONReader.lavalinkConfig.password;
+                    config.HttpClientName = "LavalinkHttpClient";
+                });
+                LavalinkServiceProvider = LavalinkServices.BuildServiceProvider();
+            });
+            await MusicModule.SetUp(LavalinkServiceProvider.GetRequiredService<IAudioService>());
             OrpheusClient = discordClientBuilder.Build();
-            await OrpheusClient.ConnectAsync();
+            await OrpheusClient.ConnectAsync(); */
         }
     }
 }

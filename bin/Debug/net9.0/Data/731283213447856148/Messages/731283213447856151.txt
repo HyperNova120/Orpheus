@@ -3,3 +3,37 @@
 (459763067517927425):!dnd
 (459763067517927425):!on
 (459763067517927425):!idle
+(459763067517927425):!play
+(459763067517927425):!Play
+(459763067517927425):!play
+(459763067517927425):!ping
+(459763067517927425):!play test
+(459763067517927425):!play test
+(459763067517927425):!play test
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play test
+(459763067517927425):!play test
+(459763067517927425):!play test
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!join
+(459763067517927425):!join
+(459763067517927425):!join
+(459763067517927425):!join
+(459763067517927425):!join
+(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!play test
