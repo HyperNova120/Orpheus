@@ -21,7 +21,7 @@ namespace Orpheus.Voting
         public static async Task<bool> StartVote_V2(DiscordChannel channel, CountdownTimer countdownTimer, string voteType, string title, string description, ulong referencedUser, Func<Task<bool>> cancelCondition)
         {
             //create vars
-            DiscordClient client = Program.ShardedClient.GetShard((ulong)channel.GuildId);
+            DiscordClient client = Program.OrpheusClient;
             DiscordEmoji thumbUp = DiscordEmoji.FromName(client, ":thumbsup:");
             DiscordEmoji thumbDown = DiscordEmoji.FromName(client, ":thumbsdown:");
 
@@ -73,8 +73,6 @@ namespace Orpheus.Voting
                 storedCountdownTimerSeconds = countdownTimer.getTotalSecondsRemaining()
             };
 
-            DiscordClient shardClient = Program.ShardedClient.GetShard((ulong)message.Channel.GuildId);
-
             bool finished = await handleActiveVoteAsync(message, countdownTimer, voteType, title, description, referencedUser, cancelCondition, storedVoteMessage);
             if (!finished)
             {
@@ -89,8 +87,12 @@ namespace Orpheus.Voting
             }
 
             //tally votes
-            int yes = (await message.GetReactionsAsync(DiscordEmoji.FromName(shardClient, ":thumbsup:"))).Count;
-            int no = (await message.GetReactionsAsync(DiscordEmoji.FromName(shardClient, ":thumbsdown:"))).Count;
+            var tmpYes = message.GetReactionsAsync(DiscordEmoji.FromName(Program.OrpheusClient, ":thumbsup:"));
+            var tmpNo = message.GetReactionsAsync(DiscordEmoji.FromName(Program.OrpheusClient, ":thumbsdown:"));
+            int yes = await Utils.IAsyncEnumeratorCount<DiscordUser>(tmpYes.GetAsyncEnumerator());
+            int no = await Utils.IAsyncEnumeratorCount<DiscordUser>(tmpNo.GetAsyncEnumerator());
+
+            //int no = (await message.GetReactionsAsync(DiscordEmoji.FromName(shardClient, ":thumbsdown:"))).Count;
             if (yes > no)
             {
                 message = await message.ModifyAsync(
@@ -220,7 +222,7 @@ namespace Orpheus.Voting
             {
                 Console.WriteLine("STORE RECOVERY FAIL:" + e.ToString());
             }
-            DiscordClient client = Program.ShardedClient.GetShard(storedVoteMessage.serverID);
+            DiscordClient client = Program.OrpheusClient;
             await message.CreateReactionAsync(
                 DiscordEmoji.FromName(
                    client,
@@ -312,24 +314,11 @@ namespace Orpheus.Voting
                 }
             }
 
-            DiscordClient client = Program.ShardedClient.GetShard(storedVoteMessage.serverID);
-            int yesVote = message
-                .GetReactionsAsync(
-                    DiscordEmoji.FromName(
-                        client,
-                        ":thumbsup:"
-                    )
-                )
-                .Result.Count;
-            //await Task.Delay(250);
-            int noVote = message
-                .GetReactionsAsync(
-                    DiscordEmoji.FromName(
-                        client,
-                        ":thumbsdown:"
-                    )
-                )
-                .Result.Count;
+            var tmpYes = message.GetReactionsAsync(DiscordEmoji.FromName(Program.OrpheusClient, ":thumbsup:"));
+            var tmpNo = message.GetReactionsAsync(DiscordEmoji.FromName(Program.OrpheusClient, ":thumbsdown:"));
+            int yesVote = await Utils.IAsyncEnumeratorCount<DiscordUser>(tmpYes.GetAsyncEnumerator());
+            int noVote = await Utils.IAsyncEnumeratorCount<DiscordUser>(tmpNo.GetAsyncEnumerator());
+            
             if (yesVote > noVote)
             {
                 message = await message.ModifyAsync(

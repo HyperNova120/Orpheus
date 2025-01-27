@@ -1,0 +1,124 @@
+2025-01-25T09:56:45.484-08:00  INFO 45720 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 45720 (F:\coding_projects\Orpheus\bin\Debug\net8.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net8.0)
+2025-01-25T09:56:45.488-08:00  INFO 45720 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-25T09:56:46.534-08:00  INFO 45720 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.51 seconds (process running for 2.02)
+2025-01-25T09:56:46.588-08:00  INFO 45720 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-25T09:56:46.622-08:00  INFO 45720 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-25T09:56:47.172-08:00  WARN 45720 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-25T09:56:47.191-08:00  INFO 45720 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-25T09:56:47.191-08:00  INFO 45720 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 565 ms
+2025-01-25T09:56:47.304-08:00  INFO 45720 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-25T09:56:47.899-08:00  INFO 45720 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-25T09:56:47.900-08:00  INFO 45720 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-25T09:56:47.902-08:00  INFO 45720 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-25T09:56:47.916-08:00  INFO 45720 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-25T09:56:47.946-08:00  WARN 45720 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-25T09:56:48.188-08:00  INFO 45720 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-25T09:56:48.196-08:00  INFO 45720 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-25T09:56:48.203-08:00  INFO 45720 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-25T09:56:48.298-08:00  INFO 45720 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-25T09:56:48.373-08:00  INFO 45720 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-25T09:56:48.376-08:00  WARN 45720 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-25T09:56:48.377-08:00  INFO 45720 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-25T09:56:48.380-08:00 ERROR 45720 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-25T09:56:48.385-08:00  INFO 45720 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-25T09:56:48.400-08:00 ERROR 45720 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
+2025-01-25T09:56:55.168-08:00  INFO 63956 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 63956 (F:\coding_projects\Orpheus\bin\Debug\net8.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net8.0)
+2025-01-25T09:56:55.172-08:00  INFO 63956 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-25T09:56:56.194-08:00  INFO 63956 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.461 seconds (process running for 1.979)
+2025-01-25T09:56:56.258-08:00  INFO 63956 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-25T09:56:56.266-08:00  INFO 63956 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-25T09:56:56.791-08:00  WARN 63956 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-25T09:56:56.809-08:00  INFO 63956 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-25T09:56:56.824-08:00  INFO 63956 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 555 ms
+2025-01-25T09:56:56.930-08:00  INFO 63956 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-25T09:56:57.578-08:00  INFO 63956 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-25T09:56:57.578-08:00  INFO 63956 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-25T09:56:57.581-08:00  INFO 63956 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-25T09:56:57.585-08:00  INFO 63956 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-25T09:56:57.611-08:00  WARN 63956 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-25T09:56:57.863-08:00  INFO 63956 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-25T09:56:57.871-08:00  INFO 63956 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-25T09:56:57.878-08:00  INFO 63956 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-25T09:56:57.960-08:00  INFO 63956 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-25T09:56:58.027-08:00  INFO 63956 --- [Lavalink] [main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port 2333 (http) with context path '/'
+2025-01-25T09:56:58.032-08:00  INFO 63956 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.831 seconds (process running for 3.816)
+2025-01-25T09:56:58.034-08:00  INFO 63956 --- [Lavalink] [main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.

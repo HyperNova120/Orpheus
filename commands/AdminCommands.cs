@@ -111,7 +111,7 @@ namespace Orpheus.commands
             await Registration.RegisterServer(ctx);
         }
 
-        public void RegisterServer(GuildCreateEventArgs args)
+        public void RegisterServer(GuildCreatedEventArgs args)
         {
             if (DBEngine.doesServerPropertiesExist(args.Guild.Id))
             {
@@ -185,7 +185,7 @@ namespace Orpheus.commands
             {
                 return;
             }
-            await Program.SetDiscordStatus(new DiscordActivity("In Testing on"), UserStatus.Online);
+            await Program.SetDiscordStatus(new DiscordActivity("In Testing on"), DiscordUserStatus.Online);
             await Task.Delay(250);
             await ctx.Message.DeleteAsync();
         }
@@ -199,7 +199,7 @@ namespace Orpheus.commands
             }
             await Program.SetDiscordStatus(
                 new DiscordActivity("In Testing off"),
-                UserStatus.Offline
+                DiscordUserStatus.Offline
             );
             await Task.Delay(250);
             await ctx.Message.DeleteAsync();
@@ -214,7 +214,7 @@ namespace Orpheus.commands
             }
             await Program.SetDiscordStatus(
                 new DiscordActivity("In Testing dnd"),
-                UserStatus.DoNotDisturb
+                DiscordUserStatus.DoNotDisturb
             );
             await Task.Delay(250);
             await ctx.Message.DeleteAsync();

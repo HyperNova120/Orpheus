@@ -13,7 +13,7 @@ namespace Orpheus
     {
         public static async Task handleMessageCreated(
             DiscordClient sender,
-            MessageCreateEventArgs args
+            MessageCreatedEventArgs args
         )
         {
             _ = FunnyBotResponses(args);
@@ -44,7 +44,7 @@ namespace Orpheus
             }
         }
 
-        private static async Task StoreInDatabase(MessageCreateEventArgs args)
+        private static async Task StoreInDatabase(MessageCreatedEventArgs args)
         {
             //Console.WriteLine(
             //   $"STORING:{args.Message.ToString()} MESSAGEID:{Convert.ToDecimal(args.Message.Id)}"
@@ -93,16 +93,16 @@ namespace Orpheus
             }
         }
 
-        private static void HandleCourtMessage(MessageCreateEventArgs args)
+        private static void HandleCourtMessage(MessageCreatedEventArgs args)
         {
-            if (args.Message.MessageType == MessageType.ChannelPinnedMessage)
+            if (args.Message.MessageType == DiscordMessageType.ChannelPinnedMessage)
             {
                 return;
             }
             _ = JailCourtHandler.HandleJailCourtMessage(args);
         }
 
-        private static async Task FunnyBotResponses(MessageCreateEventArgs args)
+        private static async Task FunnyBotResponses(MessageCreatedEventArgs args)
         {
             Random rand = new Random();
             Console.WriteLine("FunnyBotResponses:|" + args.Message.Content + "|");
