@@ -22,4 +22,11 @@ public static class Utils
         }
         return tmp.ToArray();
     }
+
+    public static void PrintToConsoleWithColor(string text, ConsoleColor color)
+    {
+        Console.ForegroundColor = color;
+        Console.WriteLine(text);
+        Console.ForegroundColor = ConsoleColor.White;
+    }
 }

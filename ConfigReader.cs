@@ -5,7 +5,7 @@ using Orpheus.Database;
 
 namespace Orpheus
 {
-    public class JSONReader
+    public class ConfigReader
     {
         public static string token { get; private set; }
         public static string prefix { get; private set; }
@@ -16,7 +16,7 @@ namespace Orpheus
         public static int courtVoteTimeMinutes {get; private set;}
         public static int courtVoteTimeSeconds {get; private set;}
 
-        public static async Task ReadJson()
+        public static async Task ReadConfig()
         {
             Console.WriteLine($"CONFIG FOLDER LOCATION: {AppContext.BaseDirectory}config{Path.DirectorySeparatorChar}config.json");
             using (StreamReader sr = new StreamReader($"{AppContext.BaseDirectory}config{Path.DirectorySeparatorChar}config.json"))

@@ -11,7 +11,7 @@ public static class LLHandler
         lavalinkProcess = new Process();
         lavalinkProcess.StartInfo.WorkingDirectory = $"{AppContext.BaseDirectory}LavaLink4Net";
         lavalinkProcess.StartInfo.FileName = "java";
-        lavalinkProcess.StartInfo.UseShellExecute = true;
+        lavalinkProcess.StartInfo.UseShellExecute = false;
         lavalinkProcess.StartInfo.Arguments = $" -jar {AppContext.BaseDirectory}LavaLink4Net{Path.DirectorySeparatorChar}Lavalink.jar";
         lavalinkProcess.StartInfo.CreateNoWindow = true;
         lavalinkProcess.StartInfo.ErrorDialog = true;
@@ -21,7 +21,7 @@ public static class LLHandler
 
         for (int i = 0; i < waitSec; i++)
         {
-            Console.WriteLine("STARTING IN " + (waitSec - i));
+            Utils.PrintToConsoleWithColor("STARTING IN " + (waitSec - i), ConsoleColor.DarkYellow);
             await Task.Delay(1000);
         }
         await Task.Delay(0);
@@ -32,6 +32,7 @@ public static class LLHandler
 
     public static async Task Close()
     {
+        await MusicModule.Stop();
         lavalinkProcess.Kill();
         lavalinkProcess.CloseMainWindow();
         Console.WriteLine("lavalinkProcess CLOSE");

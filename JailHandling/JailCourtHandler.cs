@@ -12,7 +12,7 @@ namespace Orpheus.JailHandling
     {
         public static async Task HandleJailCourtMessage(MessageCreatedEventArgs args)
         {
-            CountdownTimer countdownTimer = new CountdownTimer(JSONReader.courtVoteTimeHours, JSONReader.courtVoteTimeMinutes, JSONReader.courtVoteTimeSeconds);
+            CountdownTimer countdownTimer = new CountdownTimer(ConfigReader.courtVoteTimeHours, ConfigReader.courtVoteTimeMinutes, ConfigReader.courtVoteTimeSeconds);
             DiscordMember jailedUser = await OrpheusAPIHandler.GetMemberAsync(
                 args.Guild,
                 args.Author.Id

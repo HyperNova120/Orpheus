@@ -21,13 +21,6 @@ using Lavalink4NET.Extensions;
 
 namespace Orpheus
 {
-
-
-
-
-
-
-
     internal class Program
     {
         /*
@@ -45,14 +38,11 @@ namespace Orpheus
         [x]-!off
         [x]-!dnd
         */
-
-
-
         public static DiscordClient OrpheusClient { get; private set; }
 
         static async Task Main(string[] args)
         {
-            AppDomain.CurrentDomain.ProcessExit += async (object sender, EventArgs e) =>
+            AppDomain.CurrentDomain.ProcessExit += async (object? sender, EventArgs e) =>
             {
                 //on application close
                 Console.WriteLine("App Exit ProcessExit");
@@ -68,7 +58,7 @@ namespace Orpheus
 
             try
             {
-                await JSONReader.ReadJson();
+                await ConfigReader.ReadConfig();
                 await BotSetup();
                 RecoveryStorageHandler.InitiateRecovery();
                 await Task.Delay(-1);
@@ -103,7 +93,7 @@ namespace Orpheus
         private static async Task BotSetup()
         {
             IServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.AddDiscordClient(JSONReader.token, DiscordIntents.All);
+            serviceCollection.AddDiscordClient(ConfigReader.token, DiscordIntents.All);
             serviceCollection.ConfigureEventHandlers(
                 b => b.HandleMessageCreated(async (user, args) =>
                 {
@@ -111,11 +101,12 @@ namespace Orpheus
                 })
                 .HandleGuildAvailable(async (c, args) => { runRegisterServerIfNeeded(args); })
                 .HandleGuildCreated(async (c, args) => { runRegisterServerIfNeeded(args); })
+                .HandleComponentInteractionCreated(async (client, args) => { await HandleButtonInteractions.ButtonInteractionSwitch(args); })
             );
 
             CommandsNextConfiguration commandsConfig = new CommandsNextConfiguration()
             {
-                StringPrefixes = new string[] { JSONReader.prefix },
+                StringPrefixes = new string[] { ConfigReader.prefix },
                 EnableMentionPrefix = true,
                 EnableDms = true,
                 EnableDefaultHelp = false,
@@ -135,83 +126,24 @@ namespace Orpheus
             serviceCollection.AddLavalink();
             serviceCollection.ConfigureLavalink(config =>
             {
-                config.BaseAddress = new Uri($"http://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}");
-                config.WebSocketUri = new Uri($"ws://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}/v4/websocket");
+                config.BaseAddress = new Uri($"http://{ConfigReader.lavalinkConfig.hostName}:{ConfigReader.lavalinkConfig.port}");
+                config.WebSocketUri = new Uri($"ws://{ConfigReader.lavalinkConfig.hostName}:{ConfigReader.lavalinkConfig.port}/v4/websocket");
                 config.ReadyTimeout = TimeSpan.FromSeconds(10);
                 config.ResumptionOptions = new LavalinkSessionResumptionOptions(TimeSpan.FromSeconds(60));
                 config.Label = "Node Alpha";
-                config.Passphrase = JSONReader.lavalinkConfig.password;
+                config.Passphrase = ConfigReader.lavalinkConfig.password;
                 config.HttpClientName = "LavalinkHttpClient";
             });
 
 
-            serviceCollection.AddLogging(s => s.AddConsole().SetMinimumLevel(LogLevel.Debug));
+            serviceCollection.AddLogging(s => s.AddConsole().SetMinimumLevel(LogLevel.Information));
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+
 
             OrpheusClient = serviceProvider.GetRequiredService<DiscordClient>();
             await LLHandler.Setup();
             await OrpheusClient.ConnectAsync();
             await MusicModule.SetUp(serviceProvider.GetRequiredService<IAudioService>());
-
-
-            /* DiscordClientBuilder discordClientBuilder = DiscordClientBuilder.CreateDefault(JSONReader.token, DiscordIntents.All);
-
-            discordClientBuilder.ConfigureEventHandlers
-            (
-                b => b.HandleMessageCreated(async (user, args) =>
-                {
-                    await HandleGeneralMessages.handleMessageCreated(user, args);
-                })
-                .HandleGuildAvailable(async (c, args) => { runRegisterServerIfNeeded(args); })
-                .HandleGuildCreated(async (c, args) => { runRegisterServerIfNeeded(args); })
-            );
-
-            CommandsNextConfiguration commandsConfig = new CommandsNextConfiguration()
-            {
-                StringPrefixes = new string[] { JSONReader.prefix },
-                EnableMentionPrefix = true,
-                EnableDms = true,
-                EnableDefaultHelp = false,
-            };
-            discordClientBuilder.UseCommandsNext(Commands =>
-            {
-                Commands.RegisterCommands<TestCommands>();
-                Commands.RegisterCommands<AdminCommands>();
-                Commands.RegisterCommands<UserCommands>();
-                Commands.RegisterCommands<MusicCommands>();
-                //Commands.RegisterCommands<MusicModule>();
-            }, commandsConfig);
-
-
-
-            VoiceNextConfiguration voiceConfiguration = new VoiceNextConfiguration()
-            {
-                EnableIncoming = false,
-            };
-            discordClientBuilder.UseVoiceNext(voiceConfiguration);
-
-            Console.WriteLine($"LAVALINK INFO: HOST:{JSONReader.lavalinkConfig.hostName}    PORT:{JSONReader.lavalinkConfig.port}");
-            await LLHandler.Setup();
-            IServiceCollection LavalinkServices = new ServiceCollection();
-            IServiceProvider LavalinkServiceProvider = null;
-            discordClientBuilder.ConfigureServices(LavalinkServices =>
-            {
-                LavalinkServices.AddLavalink();
-                LavalinkServices.ConfigureLavalink(config =>
-                {
-                    config.BaseAddress = new Uri($"http://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}");
-                    config.WebSocketUri = new Uri($"http://{JSONReader.lavalinkConfig.hostName}:{JSONReader.lavalinkConfig.port}");
-                    config.ReadyTimeout = TimeSpan.FromSeconds(10);
-                    config.ResumptionOptions = new LavalinkSessionResumptionOptions(TimeSpan.FromSeconds(60));
-                    config.Label = "Node Alpha";
-                    config.Passphrase = JSONReader.lavalinkConfig.password;
-                    config.HttpClientName = "LavalinkHttpClient";
-                });
-                LavalinkServiceProvider = LavalinkServices.BuildServiceProvider();
-            });
-            await MusicModule.SetUp(LavalinkServiceProvider.GetRequiredService<IAudioService>());
-            OrpheusClient = discordClientBuilder.Build();
-            await OrpheusClient.ConnectAsync(); */
         }
     }
 }

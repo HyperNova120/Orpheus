@@ -1,39 +1,107 @@
+(459763067517927425):!registerAdmin <@459763067517927425>
+(459763067517927425):!registerJailRole <@&1197450637407948930>
+(459763067517927425):!registerJailCourtRole <@&1261222953924821073>
+(459763067517927425):!registerJailCourt <#1197450790869151794>
 (459763067517927425):!ping
-(459763067517927425):!off
-(459763067517927425):!dnd
-(459763067517927425):!on
-(459763067517927425):!idle
-(459763067517927425):!play
-(459763067517927425):!Play
-(459763067517927425):!play
-(459763067517927425):!ping
-(459763067517927425):!play test
-(459763067517927425):!play test
-(459763067517927425):!play test
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
-(459763067517927425):!play test
-(459763067517927425):!play test
-(459763067517927425):!play test
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
+(459763067517927425):!join\
 (459763067517927425):!join
-(459763067517927425):!join
-(459763067517927425):!join
-(459763067517927425):!join
-(459763067517927425):!join
-(459763067517927425):!play Hollow Knight - Speedrunner vs. 4 Hunters for TRUE ENDING
-(459763067517927425):!play https://www.youtube.com/watch?v=XUHhRYDXhj4
+(459763067517927425):!jail <@459763067517927425>
+(459763067517927425):!jail <@459763067517927425>
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=7xkM8mWC4Kk&list=PLQPTrDfRij5EUCQuqshUmCnfvCCGp17GK
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!musicplayer
+(459763067517927425):!play <https://www.youtube.com/watch?v=gzbLODUb1sA>
+(459763067517927425):!play <https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm>
+(459763067517927425):!musicplayer
+(459763067517927425):hi
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=7xkM8mWC4Kk&list=PLQPTrDfRij5EUCQuqshUmCnfvCCGp17GK
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=7xkM8mWC4Kk&list=PLQPTrDfRij5EUCQuqshUmCnfvCCGp17GK
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=7xkM8mWC4Kk&list=PLQPTrDfRij5EUCQuqshUmCnfvCCGp17GK
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=7xkM8mWC4Kk&list=PLQPTrDfRij5EUCQuqshUmCnfvCCGp17GK
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=BnnbP7pCIvQ&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=7xkM8mWC4Kk&list=PLQPTrDfRij5EUCQuqshUmCnfvCCGp17GK
+(459763067517927425):!musicPlayer
+(459763067517927425):!musicplayer
+(459763067517927425):https://www.youtube.com/watch?v=43d0Jq1XKXI&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=43d0Jq1XKXI&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play !play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=43d0Jq1XKXI&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=43d0Jq1XKXI&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
 (459763067517927425):!play test
+(459763067517927425):!play https://www.youtube.com/watch?v=43d0Jq1XKXI&list=PLDuhRYqIcAl2vYLY04gJrLkB5N6jFnVKm
+(459763067517927425):!play https://www.youtube.com/watch?v=mH2wmyeiIpA
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=mH2wmyeiIpA
+(459763067517927425):!play https://www.youtube.com/watch?v=mH2wmyeiIpA
+(459763067517927425):!musicplayer
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=mH2wmyeiIpA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
+(459763067517927425):!play https://www.youtube.com/watch?v=mH2wmyeiIpA
+(459763067517927425):!musicplayer
+(459763067517927425):!play https://www.youtube.com/watch?v=gzbLODUb1sA
