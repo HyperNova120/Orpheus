@@ -55,24 +55,29 @@ public static class MusicModule
         {
             try
             {
-                DiscordMessage msg;
-                CommandContext ctx;
-                PlayerControllerByServer.TryGetValue(key, out msg);
-                PlayerControllerContextByServer.TryGetValue(key, out ctx);
-                QueuedLavalinkPlayer player = await GetPlayerAsync(ctx);
-                if (player == null)
-                {
-                    continue;
-                }
-                await player.StopAsync();
-                await player.DisconnectAsync();
-                await msg.DeleteAsync();
-                PlayerControllerByServer.Remove(ctx.Guild.Id);
-                PlayerControllerContextByServer.Remove(ctx.Guild.Id);
+                await StopSpecificPlayer(key);
             }
             catch (Exception e) { }
         }
         await _audioService.StopAsync();
+    }
+
+    private static async Task StopSpecificPlayer(ulong guildID)
+    {
+        DiscordMessage msg;
+        CommandContext ctx;
+        PlayerControllerByServer.TryGetValue(guildID, out msg);
+        PlayerControllerContextByServer.TryGetValue(guildID, out ctx);
+        QueuedLavalinkPlayer player = await GetPlayerAsync(ctx);
+        if (player == null)
+        {
+            return;
+        }
+        await player.StopAsync();
+        await player.DisconnectAsync();
+        await msg.DeleteAsync();
+        PlayerControllerByServer.Remove(ctx.Guild.Id);
+        PlayerControllerContextByServer.Remove(ctx.Guild.Id);
     }
 
     private static async Task updatePlayers()
@@ -154,8 +159,8 @@ public static class MusicModule
         {
 
             DiscordEmbedBuilder embedBuilder1 = new DiscordEmbedBuilder();
-            string autoplayIndicator = (player.AutoPlay)? "On" : "Off";
-            embedBuilder1.Title = "Audio Player Controller";
+            string autoplayIndicator = (player.AutoPlay) ? "On" : "Off";
+            embedBuilder1.Title = "|\t\t\t\t\t\t\t\t\t\tAudio Player Controller\t\t\t\t\t\t\t\t\t\t|";
             embedBuilder1.AddField("Autoplay", $"{autoplayIndicator}", true);
             embedBuilder1.AddField("Position", $"{currentTrackPosition}", true);
             embedBuilder1.AddField("Current Track", $"{currentTrackTitle}", false);
@@ -169,6 +174,7 @@ public static class MusicModule
             DiscordButtonComponent Resume = new DiscordButtonComponent(DiscordButtonStyle.Primary, "TestPlayerEmbed_Resume", "Resume");
             DiscordButtonComponent ToggleAutoPlay = new DiscordButtonComponent(DiscordButtonStyle.Primary, "TestPlayerEmbed_ToggleAutoPlay", "Toggle Autoplay");
             DiscordButtonComponent NextTrack = new DiscordButtonComponent(DiscordButtonStyle.Primary, "TestPlayerEmbed_Next-Track", "Next Track");
+            DiscordButtonComponent Leave = new DiscordButtonComponent(DiscordButtonStyle.Primary, "TestPlayerEmbed_Leave", "Leave");
             DiscordSelectComponent VolumeSelect = new DiscordSelectComponent("TestPlayerEmbed_VolumeSelect", "Volume Select",
             [
                 new DiscordSelectComponentOption("0.5x", "TestPlayerEmbed_0.5x"),
@@ -179,7 +185,7 @@ public static class MusicModule
 
             DiscordTextInputComponent TrackRequest = new DiscordTextInputComponent("Track Request", "TestPlayerEmbed_TrackRequest", "Requested Track URL", null, false, DiscordTextInputStyle.Short, max_length: 100);
 
-            DiscordActionRowComponent discordActionRowComponent = new DiscordActionRowComponent([Pause, Resume, NextTrack, ToggleAutoPlay]);
+            DiscordActionRowComponent discordActionRowComponent = new DiscordActionRowComponent([Pause, Resume, NextTrack, ToggleAutoPlay, Leave]);
             //discordMessageBuilder.AddComponents([VolumeSelect]);
             discordMessageBuilder.AddComponents(discordActionRowComponent.Components);
             return discordMessageBuilder;
@@ -342,5 +348,10 @@ public static class MusicModule
             return;
         }
         queuedLavalinkPlayer.AutoPlay = !queuedLavalinkPlayer.AutoPlay;
+    }
+
+    internal static async Task Leave(ulong guildId)
+    {
+        await StopSpecificPlayer(guildId);
     }
 }

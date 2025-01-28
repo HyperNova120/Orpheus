@@ -37,20 +37,24 @@ public static class HandleButtonInteractions
         switch (args.Id.Split("_")[1])
         {
             case "Pause":
-                await MusicModule.PauseTrack(args.Guild.Id);
                 await args.Interaction.CreateResponseAsync(DiscordInteractionResponseType.UpdateMessage);
+                await MusicModule.PauseTrack(args.Guild.Id);
                 break;
             case "Resume":
-                await MusicModule.ResumeTrack(args.Guild.Id);
                 await args.Interaction.CreateResponseAsync(DiscordInteractionResponseType.UpdateMessage);
+                await MusicModule.ResumeTrack(args.Guild.Id);
                 break;
             case "Next-Track":
-                await MusicModule.NextTrack(args.Guild.Id);
                 await args.Interaction.CreateResponseAsync(DiscordInteractionResponseType.UpdateMessage);
+                await MusicModule.NextTrack(args.Guild.Id);
                 break;
                 case "ToggleAutoPlay":
-                await MusicModule.ToggleAutoplay(args.Guild.Id);
                 await args.Interaction.CreateResponseAsync(DiscordInteractionResponseType.UpdateMessage);
+                await MusicModule.ToggleAutoplay(args.Guild.Id);
+                break;
+                case "Leave":
+                await args.Interaction.CreateResponseAsync(DiscordInteractionResponseType.UpdateMessage);
+                await MusicModule.Leave(args.Guild.Id);
                 break;
             default:
                 Console.WriteLine($"UNKNOWN INTERACTION: {args.Id}");
