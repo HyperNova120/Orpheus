@@ -99,7 +99,7 @@ public static class MusicModule
                 }
                 catch (Exception e) { }
             }
-            await Task.Delay(1000);
+            await Task.Delay(950);
         }
     }
 
@@ -148,7 +148,7 @@ public static class MusicModule
         int numQueuedTracks = (tracks != null) ? tracks.Count : 0;
         foreach (ITrackQueueItem track in tracks)
         {
-            queuedTracks += $"-{track.Track.Title}\n";
+            queuedTracks += $"-{track.Track.Title} By: {track.Track.Author}\n";
         }
         try
         {
@@ -160,6 +160,7 @@ public static class MusicModule
             embedBuilder1.AddField("Position", $"{currentTrackPosition}", true);
             embedBuilder1.AddField("Current Track", $"{currentTrackTitle}", false);
             embedBuilder1.AddField("Queued Tracks", queuedTracks.Trim(), false);
+            embedBuilder1.Color = DiscordColor.Gold;
 
             DiscordMessageBuilder discordMessageBuilder = new DiscordMessageBuilder();
             discordMessageBuilder.AddEmbed(embedBuilder1);
@@ -220,9 +221,7 @@ public static class MusicModule
                     PlayerRetrieveStatus.BotNotConnected => "The bot is currently not connected.",
                     _ => "Unknown Error.",
                 };
-
-                var errorResponse = new DiscordFollowupMessageBuilder().WithContent(errorMessage).AsEphemeral();
-                await context.Message.RespondAsync(errorResponse.Content).ConfigureAwait(false);
+                await context.Message.RespondAsync(errorMessage).ConfigureAwait(false);
                 return null;
             }
 

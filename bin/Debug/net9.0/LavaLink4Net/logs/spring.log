@@ -1421,3 +1421,760 @@ Action:
 
 Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
 
+2025-01-28T01:45:33.714-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:50452
+2025-01-28T01:45:33.715-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T01:45:33.716-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.25.0
+2025-01-28T01:45:35.826-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qy5o5ss9ht8qxmm9, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-28T01:45:41.491-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qy5o5ss9ht8qxmm9/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"755a71b718783177","endpoint":"seattle4972.discord.media:443","sessionId":"0376cfc491d298d024f4e56912941aa1"}}
+2025-01-28T01:45:41.500-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qy5o5ss9ht8qxmm9/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"755a71b718783177","endpoint":"seattle4972.discord.media:443","sessionId":"0376cfc491d298d024f4e56912941aa1"}}
+2025-01-28T01:45:41.509-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qy5o5ss9ht8qxmm9/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"755a71b718783177","endpoint":"seattle4972.discord.media:443","sessionId":"0376cfc491d298d024f4e56912941aa1"}}
+2025-01-28T01:45:41.518-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "https://www.youtube.com/watch?v=mH2wmyeiIpA"
+2025-01-28T01:45:41.626-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded track Cyberpunk: Edgerunners | This Fffire by Franz Ferdinand | Music Video
+2025-01-28T01:45:41.627-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=https%3a%2f%2fwww.youtube.com%2fwatch%3fv%3dmH2wmyeiIpA, client=127.0.0.1
+2025-01-28T01:45:41.642-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qy5o5ss9ht8qxmm9/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAA5QMARUN5YmVycHVuazogRWRnZXJ1bm5lcnMgfCBUaGlzIEZmZmlyZSBieSBGcmFueiBGZXJkaW5hbmQgfCBNdXNpYyBWaWRlbwAOQ3liZXJwdW5rIDIwNzcAAAAAAAM8IAALbUgyd215ZWlJcEEAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1tSDJ3bXllaUlwQQEANGh0dHBzOi8vaS55dGltZy5jb20vdmkvbUgyd215ZWlJcEEvbWF4cmVzZGVmYXVsdC5qcGcAAAd5b3V0dWJlAAAAAAAAAAA="}
+2025-01-28T01:46:09.736-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "https://www.youtube.com/watch?v=gzbLODUb1sA"
+2025-01-28T01:46:09.858-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded track CYBERPUNK 2077 SOUNDTRACK - I REALLY WANT TO STAY AT YOUR HOUSE by Rosa Walton & Hallie Coggins
+2025-01-28T01:46:09.858-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=https%3a%2f%2fwww.youtube.com%2fwatch%3fv%3dgzbLODUb1sA, client=127.0.0.1
+2025-01-28T01:46:19.979-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qy5o5ss9ht8qxmm9/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAABaQMAX0NZQkVSUFVOSyAyMDc3IFNPVU5EVFJBQ0sgLSBJIFJFQUxMWSBXQU5UIFRPIFNUQVkgQVQgWU9VUiBIT1VTRSBieSBSb3NhIFdhbHRvbiAmIEhhbGxpZSBDb2dnaW5zABFMYWtlc2hvcmUgUmVjb3JkcwAAAAAAA8TYAAtnemJMT0RVYjFzQQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PWd6YkxPRFViMXNBAQCbaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9nemJMT0RVYjFzQS9tYXhyZXNkZWZhdWx0LmpwZz9zcXA9LW9heW13RW1DSUFLRU5BRjhxdUtxUU1hOEFFQi1BSC1DWUFDMEFXS0Fnd0lBQkFCR0dVZ1RDaENNQTg9JnJzPUFPbjRDTEFhTXVpbGVDM3RadkJKTnlpTGF4SDE0bWdzcFEAAAd5b3V0dWJlAAAAAAAAAAA="}
+2025-01-28T01:46:29.164-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qy5o5ss9ht8qxmm9/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T01:46:29.171-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/qy5o5ss9ht8qxmm9/players/731283213447856148, client=127.0.0.1
+2025-01-28T01:46:29.456-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:50452 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id qy5o5ss9ht8qxmm9
+2025-01-28T01:46:29.456-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:50457
+2025-01-28T01:46:29.457-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T01:46:29.457-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketContext         : Replaying 0 events
+2025-01-28T01:46:29.458-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Resumed session with id qy5o5ss9ht8qxmm9
+2025-01-28T01:46:29.458-08:00 ERROR 73064 --- [Lavalink] [XNIO-1 I/O-19] lavalink.server.io.SocketContext         : Error
+
+java.nio.channels.ClosedChannelException: null
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel.flush(AbstractFramedStreamSinkChannel.java:372) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:413) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:409) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel$1.run(AbstractFramedStreamSinkChannel.java:259) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$1.run(AbstractFramedChannel.java:146) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.nio.WorkerThread.safeRun(WorkerThread.java:612) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:479) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+
+2025-01-28T01:46:29.459-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-19] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:50457 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id qy5o5ss9ht8qxmm9
+2025-01-28T10:59:46.137-08:00  INFO 94344 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 94344 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-28T10:59:46.141-08:00  INFO 94344 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T10:59:47.071-08:00  INFO 94344 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-28T10:59:47.087-08:00  INFO 94344 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-28T10:59:47.275-08:00  INFO 94344 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.599 seconds (process running for 2.133)
+2025-01-28T10:59:47.336-08:00  INFO 94344 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-28T10:59:47.348-08:00  INFO 94344 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T10:59:47.946-08:00  WARN 94344 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-28T10:59:47.962-08:00  INFO 94344 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-28T10:59:47.963-08:00  INFO 94344 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 611 ms
+2025-01-28T10:59:48.826-08:00  INFO 94344 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-28T10:59:49.096-08:00  INFO 94344 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-28T10:59:49.238-08:00  INFO 94344 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-28T10:59:49.238-08:00  INFO 94344 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-28T10:59:49.241-08:00  INFO 94344 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-28T10:59:49.255-08:00  INFO 94344 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-28T10:59:49.279-08:00  WARN 94344 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-28T10:59:49.533-08:00  INFO 94344 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-28T10:59:49.543-08:00  INFO 94344 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-28T10:59:49.551-08:00  INFO 94344 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-28T10:59:49.642-08:00  INFO 94344 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-28T10:59:49.707-08:00  INFO 94344 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-28T10:59:49.709-08:00  WARN 94344 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-28T10:59:49.710-08:00  INFO 94344 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-28T10:59:49.712-08:00 ERROR 94344 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-28T10:59:49.716-08:00  INFO 94344 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-28T10:59:49.738-08:00 ERROR 94344 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
+2025-01-28T10:59:53.801-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:57658
+2025-01-28T10:59:53.806-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T10:59:53.812-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.25.0
+2025-01-28T10:59:56.005-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ng1xkg9p17d96jen, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-28T11:01:10.798-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ng1xkg9p17d96jen/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"ccbbf627f6877176","endpoint":"seattle1986.discord.media:443","sessionId":"af0e635bc4206e78c8e28d33af2e719b"}}
+2025-01-28T11:01:10.809-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ng1xkg9p17d96jen/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"ccbbf627f6877176","endpoint":"seattle1986.discord.media:443","sessionId":"af0e635bc4206e78c8e28d33af2e719b"}}
+2025-01-28T11:01:10.819-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ng1xkg9p17d96jen/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"ccbbf627f6877176","endpoint":"seattle1986.discord.media:443","sessionId":"af0e635bc4206e78c8e28d33af2e719b"}}
+2025-01-28T11:01:10.835-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "https://www.youtube.com/watch?v=mH2wmyeiIpA"
+2025-01-28T11:01:11.008-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded track Cyberpunk: Edgerunners | This Fffire by Franz Ferdinand | Music Video
+2025-01-28T11:01:11.011-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=https%3a%2f%2fwww.youtube.com%2fwatch%3fv%3dmH2wmyeiIpA, client=127.0.0.1
+2025-01-28T11:01:11.031-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ng1xkg9p17d96jen/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAA5QMARUN5YmVycHVuazogRWRnZXJ1bm5lcnMgfCBUaGlzIEZmZmlyZSBieSBGcmFueiBGZXJkaW5hbmQgfCBNdXNpYyBWaWRlbwAOQ3liZXJwdW5rIDIwNzcAAAAAAAM8IAALbUgyd215ZWlJcEEAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1tSDJ3bXllaUlwQQEANGh0dHBzOi8vaS55dGltZy5jb20vdmkvbUgyd215ZWlJcEEvbWF4cmVzZGVmYXVsdC5qcGcAAAd5b3V0dWJlAAAAAAAAAAA="}
+2025-01-28T11:04:45.164-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ng1xkg9p17d96jen/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:04:48.845-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/ng1xkg9p17d96jen/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:04:48.852-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/ng1xkg9p17d96jen/players/731283213447856148, client=127.0.0.1
+2025-01-28T11:04:49.115-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:57658 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id ng1xkg9p17d96jen
+2025-01-28T11:04:49.116-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:57864
+2025-01-28T11:04:49.117-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:04:49.119-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketContext         : Replaying 0 events
+2025-01-28T11:04:49.120-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Resumed session with id ng1xkg9p17d96jen
+2025-01-28T11:04:49.120-08:00 ERROR 73064 --- [Lavalink] [XNIO-1 I/O-14] lavalink.server.io.SocketContext         : Error
+
+java.nio.channels.ClosedChannelException: null
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel.flush(AbstractFramedStreamSinkChannel.java:372) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:413) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:409) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel$1.run(AbstractFramedStreamSinkChannel.java:259) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$1.run(AbstractFramedChannel.java:146) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.nio.WorkerThread.safeRun(WorkerThread.java:612) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:479) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+
+2025-01-28T11:04:49.120-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-14] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:57864 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id ng1xkg9p17d96jen
+2025-01-28T11:05:31.716-08:00  INFO 106188 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 106188 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-28T11:05:31.720-08:00  INFO 106188 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:05:32.783-08:00  INFO 106188 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-28T11:05:32.799-08:00  INFO 106188 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-28T11:05:32.962-08:00  INFO 106188 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.726 seconds (process running for 2.316)
+2025-01-28T11:05:33.028-08:00  INFO 106188 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-28T11:05:33.040-08:00  INFO 106188 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:05:33.660-08:00  WARN 106188 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-28T11:05:33.679-08:00  INFO 106188 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-28T11:05:33.680-08:00  INFO 106188 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 635 ms
+2025-01-28T11:05:34.457-08:00  INFO 106188 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-28T11:05:34.724-08:00  INFO 106188 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-28T11:05:34.883-08:00  INFO 106188 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-28T11:05:34.884-08:00  INFO 106188 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-28T11:05:34.887-08:00  INFO 106188 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-28T11:05:34.892-08:00  INFO 106188 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-28T11:05:34.918-08:00  WARN 106188 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-28T11:05:35.190-08:00  INFO 106188 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-28T11:05:35.198-08:00  INFO 106188 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-28T11:05:35.205-08:00  INFO 106188 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-28T11:05:35.303-08:00  INFO 106188 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-28T11:05:35.381-08:00  INFO 106188 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-28T11:05:35.383-08:00  WARN 106188 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-28T11:05:35.384-08:00  INFO 106188 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-28T11:05:35.388-08:00 ERROR 106188 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-28T11:05:35.393-08:00  INFO 106188 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-28T11:05:35.409-08:00 ERROR 106188 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
+2025-01-28T11:05:39.319-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:57974
+2025-01-28T11:05:39.320-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:05:39.321-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.25.0
+2025-01-28T11:05:41.431-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-28T11:06:00.307-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"83dc9ea217322c91","endpoint":"seattle1986.discord.media:443","sessionId":"7896b60f0b4502a9dce2e3d1057bccad"}}
+2025-01-28T11:06:00.316-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"83dc9ea217322c91","endpoint":"seattle1986.discord.media:443","sessionId":"7896b60f0b4502a9dce2e3d1057bccad"}}
+2025-01-28T11:06:00.326-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"83dc9ea217322c91","endpoint":"seattle1986.discord.media:443","sessionId":"7896b60f0b4502a9dce2e3d1057bccad"}}
+2025-01-28T11:06:00.337-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "https://www.youtube.com/watch?v=4shDL3VfPfI&list=PLRFAOvDITgP8WEBHjuI-j9NTiDzIJlucz"
+2025-01-28T11:06:00.780-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist #Cyberpunk2077 Soundtrack Songs (Official) | Lakeshore Records
+2025-01-28T11:06:00.793-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=https%3a%2f%2fwww.youtube.com%2fwatch%3fv%3d4shDL3VfPfI%26list%3dPLRFAOvDITgP8WEBHjuI-j9NTiDzIJlucz, client=127.0.0.1
+2025-01-28T11:06:00.818-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAA7wMAUENZQkVSUFVOSyAyMDc3IFNPVU5EVFJBQ0sgLSBEQVJLUkVUUk8gYnkgQ291bnQgJiBEdWtlcyBvZiBBenVyZSAoT2ZmaWNpYWwgVmlkZW8pABFMYWtlc2hvcmUgUmVjb3JkcwAAAAAABGjoAAs0c2hETDNWZlBmSQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PTRzaERMM1ZmUGZJAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS80c2hETDNWZlBmSS9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T11:06:32.778-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"paused":true}
+2025-01-28T11:07:18.132-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"paused":false}
+2025-01-28T11:08:05.809-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:08:21.076-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:hot to go"
+2025-01-28T11:08:21.614-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: hot to go
+2025-01-28T11:08:21.625-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3ahot+to+go, client=127.0.0.1
+2025-01-28T11:08:21.632-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAzAMAMUNoYXBwZWxsIFJvYW4gLSBIT1QgVE8gR08hIChPZmZpY2lhbCBNdXNpYyBWaWRlbykADUNoYXBwZWxsIFJvYW4AAAAAAAM8IAALeGFQTlItX0NmbjAAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj14YVBOUi1fQ2ZuMAEAMGh0dHBzOi8vaS55dGltZy5jb20vdmkveGFQTlItX0NmbjAvbXFkZWZhdWx0LmpwZwAAB3lvdXR1YmUAAAAAAAAAAA=="}
+2025-01-28T11:09:44.223-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:creature of the night by air traffic controller"
+2025-01-28T11:09:44.669-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: creature of the night by air traffic controller
+2025-01-28T11:09:44.671-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3acreature+of+the+night+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T11:11:55.300-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAuQMAFUNyZWF0dXJlIE9mIFRoZSBOaWdodAAWQWlyIFRyYWZmaWMgQ29udHJvbGxlcgAAAAAAAwlYAAtJVk5lNUJkNk9tOAABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PUlWTmU1QmQ2T204AQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9JVk5lNUJkNk9tOC9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T11:15:15.749-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:16:38.820-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:16:38.824-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:16:38.825-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/0sa18fashct8mqfv/players/731283213447856148, client=127.0.0.1
+2025-01-28T11:16:39.024-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:57974 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id 0sa18fashct8mqfv
+2025-01-28T11:16:39.029-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58578
+2025-01-28T11:16:39.036-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:16:39.038-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketContext         : Replaying 0 events
+2025-01-28T11:16:39.038-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Resumed session with id 0sa18fashct8mqfv
+2025-01-28T11:16:39.038-08:00 ERROR 73064 --- [Lavalink] [XNIO-1 I/O-9] lavalink.server.io.SocketContext         : Error
+
+java.nio.channels.ClosedChannelException: null
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel.flush(AbstractFramedStreamSinkChannel.java:372) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:413) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:409) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel$1.run(AbstractFramedStreamSinkChannel.java:259) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$1.run(AbstractFramedChannel.java:146) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.nio.WorkerThread.safeRun(WorkerThread.java:612) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:479) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+
+2025-01-28T11:16:39.039-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-9] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58578 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id 0sa18fashct8mqfv
+2025-01-28T11:16:48.630-08:00  INFO 107672 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 107672 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-28T11:16:48.634-08:00  INFO 107672 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:16:49.591-08:00  INFO 107672 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-28T11:16:49.610-08:00  INFO 107672 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-28T11:16:49.797-08:00  INFO 107672 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.603 seconds (process running for 2.123)
+2025-01-28T11:16:49.868-08:00  INFO 107672 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-28T11:16:49.879-08:00  INFO 107672 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:16:50.435-08:00  WARN 107672 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-28T11:16:50.450-08:00  INFO 107672 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-28T11:16:50.451-08:00  INFO 107672 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 568 ms
+2025-01-28T11:16:51.284-08:00  INFO 107672 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-28T11:16:51.550-08:00  INFO 107672 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-28T11:16:51.686-08:00  INFO 107672 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-28T11:16:51.687-08:00  INFO 107672 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-28T11:16:51.690-08:00  INFO 107672 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-28T11:16:51.694-08:00  INFO 107672 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-28T11:16:51.720-08:00  WARN 107672 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-28T11:16:51.960-08:00  INFO 107672 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-28T11:16:51.970-08:00  INFO 107672 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-28T11:16:51.977-08:00  INFO 107672 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-28T11:16:52.063-08:00  INFO 107672 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-28T11:16:52.125-08:00  INFO 107672 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-28T11:16:52.127-08:00  WARN 107672 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-28T11:16:52.128-08:00  INFO 107672 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-28T11:16:52.131-08:00 ERROR 107672 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-28T11:16:52.135-08:00  INFO 107672 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-28T11:16:52.148-08:00 ERROR 107672 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
+2025-01-28T11:16:56.212-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58601
+2025-01-28T11:16:56.214-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:16:56.215-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.25.0
+2025-01-28T11:16:58.325-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/n8wrjqxek7ognckx, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-28T11:17:11.867-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/n8wrjqxek7ognckx/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"24cfc74b2f3212e1","endpoint":"seattle1986.discord.media:443","sessionId":"250b069b299f2eca73682431b79231bc"}}
+2025-01-28T11:17:11.876-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/n8wrjqxek7ognckx/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"24cfc74b2f3212e1","endpoint":"seattle1986.discord.media:443","sessionId":"250b069b299f2eca73682431b79231bc"}}
+2025-01-28T11:17:11.886-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/n8wrjqxek7ognckx/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"24cfc74b2f3212e1","endpoint":"seattle1986.discord.media:443","sessionId":"250b069b299f2eca73682431b79231bc"}}
+2025-01-28T11:17:11.894-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:if you build it by air traffic controller"
+2025-01-28T11:17:12.490-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: if you build it by air traffic controller
+2025-01-28T11:17:12.491-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3aif+you+build+it+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T11:17:12.510-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/n8wrjqxek7ognckx/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAswMAD0lmIFlvdSBCdWlsZCBJdAAWQWlyIFRyYWZmaWMgQ29udHJvbGxlcgAAAAAAAxj4AAtLZHAzRDBEU3BWUQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PUtkcDNEMERTcFZRAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9LZHAzRDBEU3BWUS9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T11:20:37.483-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/n8wrjqxek7ognckx/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:20:51.823-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-17] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58601 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id n8wrjqxek7ognckx
+2025-01-28T11:20:51.824-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58764
+2025-01-28T11:20:51.825-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:20:51.825-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketContext         : Replaying 0 events
+2025-01-28T11:20:51.825-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Resumed session with id n8wrjqxek7ognckx
+2025-01-28T11:20:51.825-08:00 ERROR 73064 --- [Lavalink] [XNIO-1 I/O-20] lavalink.server.io.SocketContext         : Error
+
+java.nio.channels.ClosedChannelException: null
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel.flush(AbstractFramedStreamSinkChannel.java:372) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:413) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:409) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel$1.run(AbstractFramedStreamSinkChannel.java:259) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$1.run(AbstractFramedChannel.java:146) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.nio.WorkerThread.safeRun(WorkerThread.java:612) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:479) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+
+2025-01-28T11:20:51.826-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-20] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58764 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id n8wrjqxek7ognckx
+2025-01-28T11:21:00.511-08:00  INFO 95144 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 95144 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-28T11:21:00.515-08:00  INFO 95144 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:21:01.503-08:00  INFO 95144 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-28T11:21:01.521-08:00  INFO 95144 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-28T11:21:01.702-08:00  INFO 95144 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.689 seconds (process running for 2.24)
+2025-01-28T11:21:01.783-08:00  INFO 95144 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-28T11:21:01.794-08:00  INFO 95144 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:21:02.365-08:00  WARN 95144 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-28T11:21:02.383-08:00  INFO 95144 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-28T11:21:02.384-08:00  INFO 95144 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 586 ms
+2025-01-28T11:21:03.278-08:00  INFO 95144 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-28T11:21:03.590-08:00  INFO 95144 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-28T11:21:03.724-08:00  INFO 95144 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-28T11:21:03.725-08:00  INFO 95144 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-28T11:21:03.727-08:00  INFO 95144 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-28T11:21:03.731-08:00  INFO 95144 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-28T11:21:03.756-08:00  WARN 95144 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-28T11:21:04.012-08:00  INFO 95144 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-28T11:21:04.025-08:00  INFO 95144 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-28T11:21:04.032-08:00  INFO 95144 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-28T11:21:04.140-08:00  INFO 95144 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-28T11:21:04.215-08:00  INFO 95144 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-28T11:21:04.217-08:00  WARN 95144 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-28T11:21:04.218-08:00  INFO 95144 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-28T11:21:04.222-08:00 ERROR 95144 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-28T11:21:04.227-08:00  INFO 95144 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-28T11:21:04.243-08:00 ERROR 95144 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
+2025-01-28T11:21:08.097-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58795
+2025-01-28T11:21:08.098-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:21:08.099-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.25.0
+2025-01-28T11:21:10.207-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qudz2bwhbac3s4ka, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-28T11:21:18.607-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qudz2bwhbac3s4ka/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"24cfc74b2f3212e1","endpoint":"seattle1986.discord.media:443","sessionId":"250b069b299f2eca73682431b79231bc"}}
+2025-01-28T11:21:18.616-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qudz2bwhbac3s4ka/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"24cfc74b2f3212e1","endpoint":"seattle1986.discord.media:443","sessionId":"250b069b299f2eca73682431b79231bc"}}
+2025-01-28T11:21:18.625-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qudz2bwhbac3s4ka/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"24cfc74b2f3212e1","endpoint":"seattle1986.discord.media:443","sessionId":"250b069b299f2eca73682431b79231bc"}}
+2025-01-28T11:21:18.634-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:the work by air traffic controller"
+2025-01-28T11:21:19.319-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: the work by air traffic controller
+2025-01-28T11:21:19.320-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3athe+work+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T11:21:19.337-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/qudz2bwhbac3s4ka/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAxgMAMEluc2lkZSBsb29rIGF0IEZBQSdzIGFpciB0cmFmZmljIGNvbnRyb2wgYWNhZGVteQAITkJDIE5ld3MAAAAAAAIygAALSjhENGJMeHpGVzAAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1KOEQ0Ykx4ekZXMAEAMGh0dHBzOi8vaS55dGltZy5jb20vdmkvSjhENGJMeHpGVzAvbXFkZWZhdWx0LmpwZwAAB3lvdXR1YmUAAAAAAAAAAA=="}
+2025-01-28T11:22:02.172-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-20] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58795 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id qudz2bwhbac3s4ka
+2025-01-28T11:22:02.174-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58797
+2025-01-28T11:22:02.175-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:22:02.175-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketContext         : Replaying 0 events
+2025-01-28T11:22:02.175-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Resumed session with id qudz2bwhbac3s4ka
+2025-01-28T11:22:02.176-08:00 ERROR 73064 --- [Lavalink] [XNIO-1 I/O-20] lavalink.server.io.SocketContext         : Error
+
+java.nio.channels.ClosedChannelException: null
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel.flush(AbstractFramedStreamSinkChannel.java:372) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:413) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:409) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel$1.run(AbstractFramedStreamSinkChannel.java:259) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$1.run(AbstractFramedChannel.java:146) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.nio.WorkerThread.safeRun(WorkerThread.java:612) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:479) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+
+2025-01-28T11:22:02.176-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-20] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58797 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id qudz2bwhbac3s4ka
+2025-01-28T11:31:21.473-08:00  INFO 98520 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 98520 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-28T11:31:21.477-08:00  INFO 98520 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:31:22.372-08:00  INFO 98520 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-28T11:31:22.390-08:00  INFO 98520 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-28T11:31:22.572-08:00  INFO 98520 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.523 seconds (process running for 2.033)
+2025-01-28T11:31:22.633-08:00  INFO 98520 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-28T11:31:22.643-08:00  INFO 98520 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:31:23.201-08:00  WARN 98520 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-28T11:31:23.220-08:00  INFO 98520 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-28T11:31:23.220-08:00  INFO 98520 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 573 ms
+2025-01-28T11:31:24.058-08:00  INFO 98520 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-28T11:31:24.334-08:00  INFO 98520 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-28T11:31:24.477-08:00  INFO 98520 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-28T11:31:24.477-08:00  INFO 98520 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-28T11:31:24.481-08:00  INFO 98520 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-28T11:31:24.486-08:00  INFO 98520 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-28T11:31:24.509-08:00  WARN 98520 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-28T11:31:24.757-08:00  INFO 98520 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-28T11:31:24.768-08:00  INFO 98520 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-28T11:31:24.781-08:00  INFO 98520 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-28T11:31:24.867-08:00  INFO 98520 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-28T11:31:24.934-08:00  INFO 98520 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-28T11:31:24.935-08:00  WARN 98520 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-28T11:31:24.936-08:00  INFO 98520 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-28T11:31:24.939-08:00 ERROR 98520 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-28T11:31:24.943-08:00  INFO 98520 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-28T11:31:24.956-08:00 ERROR 98520 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
+2025-01-28T11:31:29.119-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:59232
+2025-01-28T11:31:29.121-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:31:29.123-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.25.0
+2025-01-28T11:31:31.239-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-28T11:31:56.224-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"3b8b30974c685184","endpoint":"seattle1986.discord.media:443","sessionId":"6735f54e1bf5bab68b3163279cd1c145"}}
+2025-01-28T11:31:56.235-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"3b8b30974c685184","endpoint":"seattle1986.discord.media:443","sessionId":"6735f54e1bf5bab68b3163279cd1c145"}}
+2025-01-28T11:31:56.243-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"3b8b30974c685184","endpoint":"seattle1986.discord.media:443","sessionId":"6735f54e1bf5bab68b3163279cd1c145"}}
+2025-01-28T11:31:56.252-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:red wine super nova by chappel roan"
+2025-01-28T11:31:56.839-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: red wine super nova by chappel roan
+2025-01-28T11:31:56.840-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3ared+wine+super+nova+by+chappel+roan, client=127.0.0.1
+2025-01-28T11:31:56.859-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAzgMAM0NoYXBwZWxsIFJvYW4gLSBSZWQgV2luZSBTdXBlcm5vdmEgKE1hZ2ljaWFuJ3MgQ3V0KQANQ2hhcHBlbGwgUm9hbgAAAAAAAzg4AAtWUzZpeG4yYmVyawABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PVZTNml4bjJiZXJrAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9WUzZpeG4yYmVyay9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T11:32:22.110-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:hurry hurry by air traffic controller"
+2025-01-28T11:32:22.587-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: hurry hurry by air traffic controller
+2025-01-28T11:32:22.588-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3ahurry+hurry+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T11:32:53.048-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:breathe by dom fera"
+2025-01-28T11:32:53.517-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: breathe by dom fera
+2025-01-28T11:32:53.518-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3abreathe+by+dom+fera, client=127.0.0.1
+2025-01-28T11:33:07.837-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"paused":true}
+2025-01-28T11:33:36.139-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"paused":false}
+2025-01-28T11:33:48.196-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAA1wMAM0FpciBUcmFmZmljIENvbnRyb2xsZXIgLSBIdXJyeSBIdXJyeSBbTHlyaWNzIHZpZGVvXQAWQWlyIFRyYWZmaWMgQ29udHJvbGxlcgAAAAAAAxj4AAthN0V0cjRNQklCcwABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PWE3RXRyNE1CSUJzAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9hN0V0cjRNQklCcy9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T11:33:56.879-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAtgMAIEJyZWF0aGUgKE11c2ljIFZpZGVvKSAtIERvbSBGZXJhAAhEb20gRmVyYQAAAAAAAxEoAAtGNTBfWnJGWHp3UQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PUY1MF9ackZYendRAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9GNTBfWnJGWHp3US9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T11:34:15.685-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:love me dead by ludo"
+2025-01-28T11:34:16.189-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: love me dead by ludo
+2025-01-28T11:34:16.190-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3alove+me+dead+by+ludo, client=127.0.0.1
+2025-01-28T11:35:23.435-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:the reckoning by dom fera"
+2025-01-28T11:35:23.865-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: the reckoning by dom fera
+2025-01-28T11:35:23.866-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3athe+reckoning+by+dom+fera, client=127.0.0.1
+2025-01-28T11:35:28.472-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T11:35:28.476-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/dnitntd2plpdky81/players/731283213447856148, client=127.0.0.1
+2025-01-28T11:35:28.648-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-14] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:59232 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id dnitntd2plpdky81
+2025-01-28T11:35:28.649-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:59397
+2025-01-28T11:35:28.650-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T11:35:28.651-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketContext         : Replaying 0 events
+2025-01-28T11:35:28.651-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Resumed session with id dnitntd2plpdky81
+2025-01-28T11:35:28.651-08:00 ERROR 73064 --- [Lavalink] [XNIO-1 I/O-1] lavalink.server.io.SocketContext         : Error
+
+java.nio.channels.ClosedChannelException: null
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel.flush(AbstractFramedStreamSinkChannel.java:372) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:413) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:409) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel$1.run(AbstractFramedStreamSinkChannel.java:259) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$1.run(AbstractFramedChannel.java:146) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.nio.WorkerThread.safeRun(WorkerThread.java:612) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:479) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+
+2025-01-28T11:35:28.652-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:59397 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id dnitntd2plpdky81
+2025-01-28T11:35:37.822-08:00  INFO 12460 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 12460 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-28T11:35:37.826-08:00  INFO 12460 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:35:38.713-08:00  INFO 12460 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-28T11:35:38.734-08:00  INFO 12460 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-28T11:35:38.905-08:00  INFO 12460 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.515 seconds (process running for 2.022)
+2025-01-28T11:35:38.970-08:00  INFO 12460 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-28T11:35:38.982-08:00  INFO 12460 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T11:35:39.550-08:00  WARN 12460 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-28T11:35:39.568-08:00  INFO 12460 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-28T11:35:39.569-08:00  INFO 12460 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 583 ms
+2025-01-28T11:35:40.423-08:00  INFO 12460 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-28T11:35:40.720-08:00  INFO 12460 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-28T11:35:40.867-08:00  INFO 12460 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-28T11:35:40.867-08:00  INFO 12460 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-28T11:35:40.870-08:00  INFO 12460 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-28T11:35:40.882-08:00  INFO 12460 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-28T11:35:40.904-08:00  WARN 12460 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-28T11:35:41.161-08:00  INFO 12460 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-28T11:35:41.172-08:00  INFO 12460 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-28T11:35:41.179-08:00  INFO 12460 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-28T11:35:41.258-08:00  INFO 12460 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-28T11:35:41.324-08:00  INFO 12460 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-28T11:35:41.325-08:00  WARN 12460 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-28T11:35:41.326-08:00  INFO 12460 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-28T11:35:41.329-08:00 ERROR 12460 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-28T11:35:41.333-08:00  INFO 12460 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-28T11:35:41.345-08:00 ERROR 12460 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
