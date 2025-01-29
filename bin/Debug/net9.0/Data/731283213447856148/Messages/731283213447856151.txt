@@ -178,3 +178,19 @@
 (459763067517927425):sdfg
 (459763067517927425):sdfg
 (459763067517927425):!musicplayer
+(459763067517927425):!play hurry hurry by air traffic controller
+(459763067517927425):!play hurry hurry by air traffic controller
+(459763067517927425):!musicplayer
+(459763067517927425):!play could have been me by the struts
+(459763067517927425):!play could have been me
+(459763067517927425):!play could have been me music by the struts
+(459763067517927425):!musicplayer
+(459763067517927425):!play blame by air traffic controller
+(459763067517927425):!play if you build it by air traffic controler
+(459763067517927425):!play the work by air traffic controller
+(459763067517927425):!play magic by air traffic controller
+(459763067517927425):!musicplayuer
+(459763067517927425):!musicplayer
+(459763067517927425):!play the work music by air traffic controller
+(459763067517927425):!play <@459763067517927425> magic by air traffic controller
+(459763067517927425):!play magic by air traffic controller

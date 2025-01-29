@@ -17,6 +17,18 @@ namespace Orpheus.commands
             await MusicModule.PlayTrack(ctx, query);
             await ctx.Message.DeleteAsync();
         }
+        
+        [Command("play")]
+        public async Task Play(CommandContext ctx, DiscordMember member, [RemainingText] string query)
+        {
+            if (ctx.Member == null || ctx.User.IsBot)
+            {
+                return;
+            }
+            Console.WriteLine($"Attempting to play audio:{query}");
+            await MusicModule.PlayTrack(ctx, query, member);
+            await ctx.Message.DeleteAsync();
+        }
 
         [Command("stop")]
         public async Task Stop(CommandContext ctx)

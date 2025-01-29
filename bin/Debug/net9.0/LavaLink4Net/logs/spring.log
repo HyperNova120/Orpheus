@@ -3046,3 +3046,144 @@ Identify and stop the process that's listening on port 2333 or configure this ap
 2025-01-28T18:19:30.971-08:00  INFO 73064 --- [Lavalink] [pool-2-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
 2025-01-28T18:24:43.547-08:00  INFO 73064 --- [Lavalink] [pool-3-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
 2025-01-28T18:26:31.084-08:00  INFO 73064 --- [Lavalink] [pool-4-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2025-01-28T18:39:37.902-08:00  INFO 110132 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 110132 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-28T18:39:37.907-08:00  INFO 110132 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T18:39:38.823-08:00  INFO 110132 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-28T18:39:38.841-08:00  INFO 110132 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-28T18:39:39.007-08:00  INFO 110132 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.608 seconds (process running for 2.154)
+2025-01-28T18:39:39.075-08:00  INFO 110132 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-28T18:39:39.088-08:00  INFO 110132 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T18:39:39.691-08:00  WARN 110132 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-28T18:39:39.709-08:00  INFO 110132 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-28T18:39:39.710-08:00  INFO 110132 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 618 ms
+2025-01-28T18:39:40.512-08:00  INFO 110132 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-28T18:39:40.798-08:00  INFO 110132 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-28T18:39:40.951-08:00  INFO 110132 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-28T18:39:40.951-08:00  INFO 110132 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-28T18:39:40.955-08:00  INFO 110132 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-28T18:39:40.960-08:00  INFO 110132 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-28T18:39:40.981-08:00  WARN 110132 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-28T18:39:41.253-08:00  INFO 110132 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-28T18:39:41.261-08:00  INFO 110132 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-28T18:39:41.276-08:00  INFO 110132 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-28T18:39:41.362-08:00  INFO 110132 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-28T18:39:41.430-08:00  INFO 110132 --- [Lavalink] [main] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2025-01-28T18:39:41.433-08:00  WARN 110132 --- [Lavalink] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-01-28T18:39:41.434-08:00  INFO 110132 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2025-01-28T18:39:41.437-08:00 ERROR 110132 --- [Lavalink] [main] lavalink.server.Launcher                 : Application failed
+
+org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:469) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:981) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.1.9.jar!/:6.1.9]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:149) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at lavalink.server.Launcher.launchMain(Launcher.kt:164) ~[classes!/:4.0.8]
+	at lavalink.server.Launcher.main(Launcher.kt:126) ~[classes!/:4.0.8]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:95) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:58) ~[lavalink.jar:4.0.8]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:65) ~[lavalink.jar:4.0.8]
+Caused by: org.springframework.boot.web.server.PortInUseException: Port 2333 is already in use
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.lambda$start$0(UndertowWebServer.java:129) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.lambda$ifPortBindingException$1(PortInUseException.java:85) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifCausedBy(PortInUseException.java:103) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.server.PortInUseException.ifPortBindingException(PortInUseException.java:82) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.embedded.undertow.UndertowWebServer.start(UndertowWebServer.java:125) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.boot.web.servlet.context.WebServerStartStopLifecycle.start(WebServerStartStopLifecycle.java:44) ~[spring-boot-3.3.0.jar!/:3.3.0]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285) ~[spring-context-6.1.9.jar!/:6.1.9]
+	... 19 common frames omitted
+
+2025-01-28T18:39:41.441-08:00  INFO 110132 --- [Lavalink] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-01-28T18:39:41.457-08:00 ERROR 110132 --- [Lavalink] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 2333 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 2333 or configure this application to listen on another port.
+
+2025-01-28T18:39:45.724-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:62378
+2025-01-28T18:39:45.725-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-28T18:39:45.727-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.25.0
+2025-01-28T18:39:47.834-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-28T18:40:28.131-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"9888a7d78742294d","endpoint":"seattle2275.discord.media:443","sessionId":"017f5050a42cfa5ce9022486c02072b8"}}
+2025-01-28T18:40:28.142-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"9888a7d78742294d","endpoint":"seattle2275.discord.media:443","sessionId":"017f5050a42cfa5ce9022486c02072b8"}}
+2025-01-28T18:40:28.151-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"9888a7d78742294d","endpoint":"seattle2275.discord.media:443","sessionId":"017f5050a42cfa5ce9022486c02072b8"}}
+2025-01-28T18:40:28.161-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:hurry hurry by air traffic controller"
+2025-01-28T18:40:28.711-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: hurry hurry by air traffic controller
+2025-01-28T18:40:28.711-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3ahurry+hurry+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T18:40:28.728-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAA1wMAM0FpciBUcmFmZmljIENvbnRyb2xsZXIgLSBIdXJyeSBIdXJyeSBbTHlyaWNzIHZpZGVvXQAWQWlyIFRyYWZmaWMgQ29udHJvbGxlcgAAAAAAAxj4AAthN0V0cjRNQklCcwABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PWE3RXRyNE1CSUJzAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9hN0V0cjRNQklCcy9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T18:40:57.549-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"paused":true}
+2025-01-28T18:41:01.746-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"paused":false}
+2025-01-28T18:42:26.399-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:could have been me by the struts"
+2025-01-28T18:42:27.132-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: could have been me by the struts
+2025-01-28T18:42:27.133-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3acould+have+been+me+by+the+struts, client=127.0.0.1
+2025-01-28T18:43:56.984-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAzgMANlRoZSBTdHJ1dHMgLSBDb3VsZCBIYXZlIEJlZW4gTWUgKE9mZmljaWFsIE11c2ljIFZpZGVvKQAKVGhlIFN0cnV0cwAAAAAABB6wAAtBUmhrOUtfbXZpRQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PUFSaGs5S19tdmlFAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9BUmhrOUtfbXZpRS9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T18:45:00.085-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:could have been me"
+2025-01-28T18:45:00.651-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: could have been me
+2025-01-28T18:45:00.652-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3acould+have+been+me, client=127.0.0.1
+2025-01-28T18:45:20.244-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:could have been me music by the struts"
+2025-01-28T18:45:20.919-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: could have been me music by the struts
+2025-01-28T18:45:20.919-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3acould+have+been+me+music+by+the+struts, client=127.0.0.1
+2025-01-28T18:48:24.038-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAzQMANVNpbmcgMiAoMjAyMSkgLSBDb3VsZCBIYXZlIEJlZW4gTWUgU2NlbmUgfCBNb3ZpZWNsaXBzAApNb3ZpZWNsaXBzAAAAAAACXXgAC2NOMkl1aGhYaXRBAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9Y04ySXVoaFhpdEEBADBodHRwczovL2kueXRpbWcuY29tL3ZpL2NOMkl1aGhYaXRBL21xZGVmYXVsdC5qcGcAAAd5b3V0dWJlAAAAAAAAAAA="}
+2025-01-28T18:48:24.389-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAzgMANlRoZSBTdHJ1dHMgLSBDb3VsZCBIYXZlIEJlZW4gTWUgKE9mZmljaWFsIE11c2ljIFZpZGVvKQAKVGhlIFN0cnV0cwAAAAAABB6wAAtBUmhrOUtfbXZpRQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PUFSaGs5S19tdmlFAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9BUmhrOUtfbXZpRS9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T18:48:27.415-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T18:48:35.376-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:blame by air traffic controller"
+2025-01-28T18:48:35.903-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: blame by air traffic controller
+2025-01-28T18:48:35.904-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3ablame+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T18:48:35.907-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAqQMABUJsYW1lABZBaXIgVHJhZmZpYyBDb250cm9sbGVyAAAAAAAEKmgAC3FWOWVWV1BaNGFFAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cVY5ZVZXUFo0YUUBADBodHRwczovL2kueXRpbWcuY29tL3ZpL3FWOWVWV1BaNGFFL21xZGVmYXVsdC5qcGcAAAd5b3V0dWJlAAAAAAAAAAA="}
+2025-01-28T18:48:45.267-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:if you build it by air traffic controler"
+2025-01-28T18:48:45.752-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: if you build it by air traffic controler
+2025-01-28T18:48:45.753-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3aif+you+build+it+by+air+traffic+controler, client=127.0.0.1
+2025-01-28T18:48:53.933-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:the work by air traffic controller"
+2025-01-28T18:48:54.568-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: the work by air traffic controller
+2025-01-28T18:48:54.568-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3athe+work+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T18:49:01.346-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:magic by air traffic controller"
+2025-01-28T18:49:01.844-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: magic by air traffic controller
+2025-01-28T18:49:01.845-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3amagic+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T18:50:15.817-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"paused":true}
+2025-01-28T19:22:54.620-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"paused":true}
+2025-01-28T19:22:54.622-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"paused":false}
+2025-01-28T19:25:48.850-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAswMAD0lmIFlvdSBCdWlsZCBJdAAWQWlyIFRyYWZmaWMgQ29udHJvbGxlcgAAAAAAAxj4AAtLZHAzRDBEU3BWUQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PUtkcDNEMERTcFZRAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9LZHAzRDBEU3BWUS9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T19:29:13.854-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAxgMAMEluc2lkZSBsb29rIGF0IEZBQSdzIGFpciB0cmFmZmljIGNvbnRyb2wgYWNhZGVteQAITkJDIE5ld3MAAAAAAAIygAALSjhENGJMeHpGVzAAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1KOEQ0Ykx4ekZXMAEAMGh0dHBzOi8vaS55dGltZy5jb20vdmkvSjhENGJMeHpGVzAvbXFkZWZhdWx0LmpwZwAAB3lvdXR1YmUAAAAAAAAAAA=="}
+2025-01-28T19:29:19.473-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAqQMABU1hZ2ljABZBaXIgVHJhZmZpYyBDb250cm9sbGVyAAAAAAAC3mAAC2NjcmpWOExiNVpvAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9Y2NyalY4TGI1Wm8BADBodHRwczovL2kueXRpbWcuY29tL3ZpL2NjcmpWOExiNVpvL21xZGVmYXVsdC5qcGcAAAd5b3V0dWJlAAAAAAAAAAA="}
+2025-01-28T19:29:37.392-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:the work music by air traffic controller"
+2025-01-28T19:29:37.936-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: the work music by air traffic controller
+2025-01-28T19:29:37.937-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3athe+work+music+by+air+traffic+controller, client=127.0.0.1
+2025-01-28T19:32:29.049-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAAxQMAIVRoZSBXb3JrIC0gQWlyIFRyYWZmaWMgQ29udHJvbGxlcgAWQWlyIFRyYWZmaWMgQ29udHJvbGxlcgAAAAAAAuJIAAtwRHY2eURJanNqVQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXBEdjZ5RElqc2pVAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS9wRHY2eURJanNqVS9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-28T19:35:39.895-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/v6stkffs85omvl3e/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-28T19:36:49.641-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-16] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:62378 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id v6stkffs85omvl3e

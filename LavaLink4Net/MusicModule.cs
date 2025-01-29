@@ -15,24 +15,11 @@ using Lavalink4NET.Tracks;
 
 public static class MusicModule
 {
-    internal sealed class IsSafeToUpdate
-    {
-        public bool isSafeToUpdate { get; set; }
-    }
-    private static IsSafeToUpdate isSafeToUpdate = new IsSafeToUpdate()
-    {
-        isSafeToUpdate = true
-    };
     private static bool stop = false;
 
     private static IAudioService _audioService = null;
     private static Dictionary<ulong, DiscordMessage> PlayerControllerByServer = new Dictionary<ulong, DiscordMessage>();
     private static Dictionary<ulong, CommandContext> PlayerControllerContextByServer = new Dictionary<ulong, CommandContext>();
-
-    /* public MusicModule(IAudioService audioService)
-    {
-        SetUp(audioService);
-    } */
 
     public static async Task SetUp(IAudioService audioService)
     {
@@ -159,7 +146,7 @@ public static class MusicModule
         {
 
             DiscordEmbedBuilder embedBuilder1 = new DiscordEmbedBuilder();
-            string autoplayIndicator = (player.AutoPlay) ? "On" : "Off";
+            string autoplayIndicator = (player != null && player.AutoPlay) ? "On" : "Off";
             embedBuilder1.Title = "|\t\t\t\t\t\t\t\t\t\tAudio Player Controller\t\t\t\t\t\t\t\t\t\t|";
             embedBuilder1.AddField("Autoplay", $"{autoplayIndicator}", true);
             embedBuilder1.AddField("Position", $"{currentTrackPosition}", true);
@@ -175,18 +162,10 @@ public static class MusicModule
             DiscordButtonComponent ToggleAutoPlay = new DiscordButtonComponent(DiscordButtonStyle.Primary, "TestPlayerEmbed_ToggleAutoPlay", "Toggle Autoplay");
             DiscordButtonComponent NextTrack = new DiscordButtonComponent(DiscordButtonStyle.Primary, "TestPlayerEmbed_Next-Track", "Next Track");
             DiscordButtonComponent Leave = new DiscordButtonComponent(DiscordButtonStyle.Primary, "TestPlayerEmbed_Leave", "Leave");
-            DiscordSelectComponent VolumeSelect = new DiscordSelectComponent("TestPlayerEmbed_VolumeSelect", "Volume Select",
-            [
-                new DiscordSelectComponentOption("0.5x", "TestPlayerEmbed_0.5x"),
-                new DiscordSelectComponentOption("1x", "TestPlayerEmbed_1x", isDefault: true),
-                new DiscordSelectComponentOption("1.5x", "TestPlayerEmbed_1.5x"),
-                new DiscordSelectComponentOption("2x", "TestPlayerEmbed_2x")
-            ]);
 
             DiscordTextInputComponent TrackRequest = new DiscordTextInputComponent("Track Request", "TestPlayerEmbed_TrackRequest", "Requested Track URL", null, false, DiscordTextInputStyle.Short, max_length: 100);
 
             DiscordActionRowComponent discordActionRowComponent = new DiscordActionRowComponent([Pause, Resume, NextTrack, ToggleAutoPlay, Leave]);
-            //discordMessageBuilder.AddComponents([VolumeSelect]);
             discordMessageBuilder.AddComponents(discordActionRowComponent.Components);
             return discordMessageBuilder;
         }
@@ -201,7 +180,7 @@ public static class MusicModule
 
 
 
-    private static async ValueTask<QueuedLavalinkPlayer> GetPlayerAsync(CommandContext context, bool connectToVoiceChannel = true)
+    private static async ValueTask<QueuedLavalinkPlayer> GetPlayerAsync(CommandContext context, bool connectToVoiceChannel = true, DiscordMember memberToJoinTo = null)
     {
         PlayerChannelBehavior channelBehavior = connectToVoiceChannel ? PlayerChannelBehavior.Join : PlayerChannelBehavior.None;
         PlayerRetrieveOptions playerRetrieveOptions = new PlayerRetrieveOptions(ChannelBehavior: channelBehavior);
@@ -217,6 +196,7 @@ public static class MusicModule
         try
         {
             ulong? channelToJoin = context.Member?.VoiceState?.Channel?.Id ?? null;
+            channelToJoin = (memberToJoinTo != null) ? memberToJoinTo.VoiceState?.Channel?.Id ?? null : channelToJoin;
             var result = await _audioService.Players.RetrieveAsync(context.Guild!.Id, channelToJoin, playerFactory: PlayerFactory.Queued, Options.Create(playerOptions), playerRetrieveOptions).ConfigureAwait(false);
 
             if (!result.IsSuccess)
@@ -261,10 +241,10 @@ public static class MusicModule
         return null;
     }
 
-    public static async Task PlayTrack(CommandContext ctx, string query)
+    public static async Task PlayTrack(CommandContext ctx, string query, DiscordMember discordMemberToJoinTo = null)
     {
         Console.WriteLine("PlayTrack start");
-        QueuedLavalinkPlayer queuedLavalinkPlayer = await GetPlayerAsync(ctx);
+        QueuedLavalinkPlayer queuedLavalinkPlayer = await GetPlayerAsync(ctx, memberToJoinTo: (discordMemberToJoinTo == null) ? null : discordMemberToJoinTo);
         if (queuedLavalinkPlayer == null)
         {
             Console.WriteLine("GetPlayerAsync FAILED");

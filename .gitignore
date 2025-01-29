@@ -1,8 +1,10 @@
 obj/
 config/
+logs/
+LavaLink4Net/logs/
 *.vs
 *.vscode
 *.VSCodeCounter
 *.sql
 *.sln
-spring.log
+*.log
