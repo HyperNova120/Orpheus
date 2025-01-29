@@ -10,9 +10,9 @@ namespace Orpheus.JailHandling
 {
     public static class JailCourtHandler
     {
-        public static async Task HandleJailCourtMessage(MessageCreateEventArgs args)
+        public static async Task HandleJailCourtMessage(MessageCreatedEventArgs args)
         {
-            CountdownTimer countdownTimer = new CountdownTimer(JSONReader.courtVoteTimeHours, JSONReader.courtVoteTimeMinutes, JSONReader.courtVoteTimeSeconds);
+            CountdownTimer countdownTimer = new CountdownTimer(ConfigReader.courtVoteTimeHours, ConfigReader.courtVoteTimeMinutes, ConfigReader.courtVoteTimeSeconds);
             DiscordMember jailedUser = await OrpheusAPIHandler.GetMemberAsync(
                 args.Guild,
                 args.Author.Id
@@ -22,8 +22,8 @@ namespace Orpheus.JailHandling
 
         public static async Task RestartJailCourtMessage(StoredVoteMessage storedVoteMessage)
         {
-            DiscordGuild server = await Program.ShardedClient.GetShard(storedVoteMessage.serverID).GetGuildAsync(storedVoteMessage.serverID);
-            DiscordChannel channel = server.GetChannel(storedVoteMessage.channelID);
+            DiscordGuild server = await Program.OrpheusClient.GetGuildAsync(storedVoteMessage.serverID);
+            DiscordChannel channel = await server.GetChannelAsync(storedVoteMessage.channelID);
             DiscordMember jailedUser = await server.GetMemberAsync(storedVoteMessage.userID);
             DiscordMessage discordmessage = await channel.GetMessageAsync(
                 storedVoteMessage.messageID

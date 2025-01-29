@@ -5,3 +5,4 @@ config/
 *.VSCodeCounter
 *.sql
 *.sln
+spring.log

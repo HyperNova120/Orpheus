@@ -5,18 +5,18 @@ using Orpheus.Database;
 
 namespace Orpheus
 {
-    public class JSONReader
+    public class ConfigReader
     {
-        public string token { get; set; }
-        public string prefix { get; set; }
-        public DiscordUser registeredAdmin { get; private set; }
-        public LavalinkConfig lavalinkConfig { get; private set; }
+        public static string token { get; private set; }
+        public static string prefix { get; private set; }
+        public static DiscordUser registeredAdmin { get; private set; }
+        public static LavalinkConfig lavalinkConfig { get; private set; }
 
         public static int courtVoteTimeHours {get; private set;}
         public static int courtVoteTimeMinutes {get; private set;}
         public static int courtVoteTimeSeconds {get; private set;}
 
-        public async Task ReadJson()
+        public static async Task ReadConfig()
         {
             Console.WriteLine($"CONFIG FOLDER LOCATION: {AppContext.BaseDirectory}config{Path.DirectorySeparatorChar}config.json");
             using (StreamReader sr = new StreamReader($"{AppContext.BaseDirectory}config{Path.DirectorySeparatorChar}config.json"))
@@ -25,8 +25,8 @@ namespace Orpheus
                 JSONStructure? data = JsonConvert.DeserializeObject<JSONStructure>(json);
 
 
-                this.token = data.token;
-                this.prefix = data.prefix;
+                token = data.token;
+                prefix = data.prefix;
                 lavalinkConfig = data.lavalinkConfig;
                 courtVoteTimeHours = data.courtVoteTimeHours;
                 courtVoteTimeMinutes = data.courtVoteTimeMinutes;

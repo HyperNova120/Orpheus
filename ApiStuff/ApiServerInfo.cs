@@ -12,7 +12,8 @@ namespace Orpheus.ApiStuff
         public async Task StartTrack(DiscordGuild discordGuild)
         {
             trackedServer = discordGuild;
-            Members = (await trackedServer.GetAllMembersAsync()).ToArray();
+
+            Members = await Utils.IAsyncEnumeratorToArray<DiscordMember>(trackedServer.GetAllMembersAsync().GetAsyncEnumerator());
             Roles = trackedServer.Roles.Values.ToArray();
             _ = UpdateTrackedData();
         }
@@ -31,7 +32,7 @@ namespace Orpheus.ApiStuff
 
         private async Task callUpdate()
         {
-            Members = (await trackedServer.GetAllMembersAsync()).ToArray();
+            Members = await Utils.IAsyncEnumeratorToArray<DiscordMember>(trackedServer.GetAllMembersAsync().GetAsyncEnumerator());
             Roles = trackedServer.Roles.Values.ToArray();
             isStale = false;
         }
