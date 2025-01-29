@@ -3042,3 +3042,7 @@ Identify and stop the process that's listening on port 2333 or configure this ap
 2025-01-28T12:46:18.764-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/4hhmfadnt7tbdkmx/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
 2025-01-28T12:46:18.768-08:00  INFO 73064 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/4hhmfadnt7tbdkmx/players/731283213447856148, client=127.0.0.1
 2025-01-28T12:49:55.080-08:00  INFO 73064 --- [Lavalink] [XNIO-1 I/O-13] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:62777 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id 4hhmfadnt7tbdkmx
+2025-01-28T18:19:30.957-08:00  INFO 73064 --- [Lavalink] [pool-2-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2025-01-28T18:19:30.971-08:00  INFO 73064 --- [Lavalink] [pool-2-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2025-01-28T18:24:43.547-08:00  INFO 73064 --- [Lavalink] [pool-3-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2025-01-28T18:26:31.084-08:00  INFO 73064 --- [Lavalink] [pool-4-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
