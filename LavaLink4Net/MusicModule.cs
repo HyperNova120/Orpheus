@@ -87,7 +87,7 @@ public static class MusicModule
                     CommandContext ctx;
                     PlayerControllerByServer.TryGetValue(key, out msg);
                     PlayerControllerContextByServer.TryGetValue(key, out ctx);
-                    await msg.ModifyAsync(await createMusicPlayer(ctx));
+                    await msg.ModifyAsync(await createMusicPlayer(ctx, false));
                 }
                 catch (Exception e) { }
             }
@@ -119,9 +119,9 @@ public static class MusicModule
         PlayerControllerContextByServer.Add(ctx.Guild.Id, ctx);
     }
 
-    private static async Task<DiscordMessageBuilder> createMusicPlayer(CommandContext ctx)
+    private static async Task<DiscordMessageBuilder> createMusicPlayer(CommandContext ctx, bool sendErrorMessages = true)
     {
-        QueuedLavalinkPlayer player = await GetPlayerAsync(ctx, false);
+        QueuedLavalinkPlayer player = await GetPlayerAsync(ctx, false, sendErrorMessages: sendErrorMessages);
 
         LavalinkTrack? currentTrack = null;
         TrackPosition? trackPosition = new TrackPosition();
@@ -180,7 +180,7 @@ public static class MusicModule
 
 
 
-    private static async ValueTask<QueuedLavalinkPlayer> GetPlayerAsync(CommandContext context, bool connectToVoiceChannel = true, DiscordMember memberToJoinTo = null)
+    private static async ValueTask<QueuedLavalinkPlayer> GetPlayerAsync(CommandContext context, bool connectToVoiceChannel = true, DiscordMember memberToJoinTo = null, bool sendErrorMessages = true)
     {
         PlayerChannelBehavior channelBehavior = connectToVoiceChannel ? PlayerChannelBehavior.Join : PlayerChannelBehavior.None;
         PlayerRetrieveOptions playerRetrieveOptions = new PlayerRetrieveOptions(ChannelBehavior: channelBehavior);
@@ -207,7 +207,7 @@ public static class MusicModule
                     PlayerRetrieveStatus.BotNotConnected => "The bot is currently not connected.",
                     _ => "Unknown Error.",
                 };
-                await context.Message.RespondAsync(errorMessage).ConfigureAwait(false);
+                if (sendErrorMessages) { await context.Message.RespondAsync(errorMessage).ConfigureAwait(false); } else {Utils.PrintToConsoleWithColor($"ERROR:{errorMessage}", ConsoleColor.Red);}
                 return null;
             }
 
@@ -244,7 +244,7 @@ public static class MusicModule
     public static async Task PlayTrack(CommandContext ctx, string query, DiscordMember discordMemberToJoinTo = null)
     {
         Console.WriteLine("PlayTrack start");
-        QueuedLavalinkPlayer queuedLavalinkPlayer = await GetPlayerAsync(ctx, memberToJoinTo: (discordMemberToJoinTo == null) ? null : discordMemberToJoinTo);
+        QueuedLavalinkPlayer queuedLavalinkPlayer = await GetPlayerAsync(ctx, memberToJoinTo: discordMemberToJoinTo ?? null);
         if (queuedLavalinkPlayer == null)
         {
             Console.WriteLine("GetPlayerAsync FAILED");
@@ -257,6 +257,7 @@ public static class MusicModule
         Lavalink4NET.Tracks.LavalinkTrack? track = await GetTrackAsync(query);
         if (track == null)
         {
+            Console.WriteLine($"No Track Results For:{query}");
             await ctx.Message.RespondAsync(new DiscordMessageBuilder().WithContent($"No Results"));
             return;
         }

@@ -1,6 +1,7 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
+using Orpheus.ApiStuff;
 
 namespace Orpheus.commands
 {
@@ -17,9 +18,9 @@ namespace Orpheus.commands
             await MusicModule.PlayTrack(ctx, query);
             await ctx.Message.DeleteAsync();
         }
-        
-        [Command("play")]
-        public async Task Play(CommandContext ctx, DiscordMember member, [RemainingText] string query)
+
+        [Command("playfor")]
+        public async Task PlayFor(CommandContext ctx, DiscordMember member, [RemainingText] string query)
         {
             if (ctx.Member == null || ctx.User.IsBot)
             {
@@ -40,7 +41,7 @@ namespace Orpheus.commands
             await MusicModule.StopTrack(ctx);
             await ctx.Message.DeleteAsync();
         }
-        
+
 
         [Command("musicplayer")]
         public async Task MusicPlayer(CommandContext ctx)
