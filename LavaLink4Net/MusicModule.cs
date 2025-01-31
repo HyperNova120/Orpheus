@@ -119,7 +119,7 @@ public static class MusicModule
         PlayerControllerContextByServer.Add(ctx.Guild.Id, ctx);
     }
 
-    private static async Task<DiscordMessageBuilder> createMusicPlayer(CommandContext ctx, bool sendErrorMessages = true)
+    private static async Task<DiscordMessageBuilder>  createMusicPlayer(CommandContext ctx, bool sendErrorMessages = true)
     {
         QueuedLavalinkPlayer player = await GetPlayerAsync(ctx, false, sendErrorMessages: sendErrorMessages);
 

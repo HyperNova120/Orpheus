@@ -136,7 +136,7 @@ namespace Orpheus
             });
 
 
-            serviceCollection.AddLogging(s => s.AddConsole().SetMinimumLevel(LogLevel.Information));
+            serviceCollection.AddLogging(s => s.AddConsole().SetMinimumLevel(LogLevel.Debug));
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
 
