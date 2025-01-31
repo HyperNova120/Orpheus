@@ -253,3 +253,7 @@
 (459763067517927425):!play hurry hurry
 (459763067517927425):!play https://www.youtube.com/watch?v=y9Wxl9Q9lUQ
 (459763067517927425):!play https://www.youtube.com/watch?v=y9Wxl9Q9lUQ
+(459763067517927425):!musicplayer
+(459763067517927425):!play red wine supernova
+(459763067517927425):!play hot to go
+(459763067517927425):!play breathe

@@ -36,7 +36,7 @@ public static class LLHandler
         {
             await MusicModule.Stop();
             lavalinkProcess.Close();
-            lavalinkProcess.Kill();
+            //lavalinkProcess.Kill();
             Console.WriteLine("lavalinkProcess CLOSE");
         }
         catch (Exception e)

@@ -1091,3 +1091,83 @@ Caused by: java.lang.RuntimeException: Not success status code: 403
   client.options: ClientOptions{playback=true, playlistLoading=true, videoLoading=true, searching=true}
 
 2025-01-30T18:45:49.517-08:00  INFO 117924 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/s3b7t282kogqtp0t/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-30T19:19:10.439-08:00  INFO 122580 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 23.0.1 with PID 122580 (F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net\lavalink.jar started by amess in F:\coding_projects\Orpheus\bin\Debug\net9.0\LavaLink4Net)
+2025-01-30T19:19:10.444-08:00  INFO 122580 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-30T19:19:11.379-08:00  INFO 122580 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.11.3
+2025-01-30T19:19:11.396-08:00  INFO 122580 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.11.3.jar (16 classes)
+2025-01-30T19:19:11.579-08:00  INFO 122580 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 1.575 seconds (process running for 2.129)
+2025-01-30T19:19:11.666-08:00  INFO 122580 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.8
+	Build time:     20.09.2024 20:20:10 UTC
+	Branch          HEAD
+	Commit:         2946608
+	Commit time:    20.09.2024 20:17:58 UTC
+	JVM:            23.0.1
+	Lavaplayer      2.2.2
+
+2025-01-30T19:19:11.682-08:00  INFO 122580 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-01-30T19:19:12.268-08:00  WARN 122580 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-01-30T19:19:12.285-08:00  INFO 122580 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-01-30T19:19:12.285-08:00  INFO 122580 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 599 ms
+2025-01-30T19:19:13.194-08:00  INFO 122580 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-01-30T19:19:13.496-08:00  INFO 122580 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, WEB_EMBEDDED_PLAYER 
+2025-01-30T19:19:13.646-08:00  INFO 122580 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-01-30T19:19:13.647-08:00  INFO 122580 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-01-30T19:19:13.649-08:00  INFO 122580 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-01-30T19:19:13.664-08:00  INFO 122580 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-01-30T19:19:13.689-08:00  WARN 122580 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-01-30T19:19:13.944-08:00  INFO 122580 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2025-01-30T19:19:13.952-08:00  INFO 122580 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-01-30T19:19:13.966-08:00  INFO 122580 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-01-30T19:19:14.064-08:00  INFO 122580 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-01-30T19:19:14.133-08:00  INFO 122580 --- [Lavalink] [main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port 2333 (http) with context path '/'
+2025-01-30T19:19:14.142-08:00  INFO 122580 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 2.551 seconds (process running for 4.693)
+2025-01-30T19:19:14.143-08:00  INFO 122580 --- [Lavalink] [main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.
+2025-01-30T19:19:18.021-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-30T19:19:18.021-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-30T19:19:18.023-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-01-30T19:19:18.040-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58500
+2025-01-30T19:19:18.059-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-30T19:19:18.099-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Connection successfully established from Lavalink4NET/4.0.26.0
+2025-01-30T19:19:20.269-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/6xbx07uns3dnqc80, client=127.0.0.1, payload={"resuming":true,"timeout":60000}
+2025-01-30T19:20:00.279-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/6xbx07uns3dnqc80/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"01ff85cdda82da15","endpoint":"seattle6012.discord.media:443","sessionId":"638ac2a7cda1f0448d5646ddbb429286"}}
+2025-01-30T19:20:00.290-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/6xbx07uns3dnqc80/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"01ff85cdda82da15","endpoint":"seattle6012.discord.media:443","sessionId":"638ac2a7cda1f0448d5646ddbb429286"}}
+2025-01-30T19:20:00.301-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/6xbx07uns3dnqc80/players/731283213447856148, client=127.0.0.1, payload={"voice":{"token":"01ff85cdda82da15","endpoint":"seattle6012.discord.media:443","sessionId":"638ac2a7cda1f0448d5646ddbb429286"}}
+2025-01-30T19:20:00.316-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:red wine supernova"
+2025-01-30T19:20:01.217-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: red wine supernova
+2025-01-30T19:20:01.230-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3ared+wine+supernova, client=127.0.0.1
+2025-01-30T19:20:01.251-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/6xbx07uns3dnqc80/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":"QAAArQMAElJlZCBXaW5lIFN1cGVybm92YQANQ2hhcHBlbGwgUm9hbgAAAAAAAvHoAAt5OVd4bDlROWxVUQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PXk5V3hsOVE5bFVRAQAwaHR0cHM6Ly9pLnl0aW1nLmNvbS92aS95OVd4bDlROWxVUS9tcWRlZmF1bHQuanBnAAAHeW91dHViZQAAAAAAAAAA"}
+2025-01-30T19:20:23.235-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:hot to go"
+2025-01-30T19:20:23.766-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: hot to go
+2025-01-30T19:20:23.769-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3ahot+to+go, client=127.0.0.1
+2025-01-30T19:20:43.963-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:breathe"
+2025-01-30T19:20:44.435-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Loaded playlist Search results for: breathe
+2025-01-30T19:20:44.437-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/loadtracks?identifier=ytsearch%3abreathe, client=127.0.0.1
+2025-01-30T19:21:05.853-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : PATCH /v4/sessions/6xbx07uns3dnqc80/players/731283213447856148, client=127.0.0.1, payload={"encodedTrack":null}
+2025-01-30T19:21:05.863-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/6xbx07uns3dnqc80/players/731283213447856148, client=127.0.0.1
+2025-01-30T19:21:08.799-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58501
+2025-01-30T19:21:08.800-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : GET /v4/websocket, client=127.0.0.1
+2025-01-30T19:21:08.803-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketContext         : Replaying 0 events
+2025-01-30T19:21:08.804-08:00  INFO 122580 --- [Lavalink] [XNIO-1 task-2] lavalink.server.io.SocketServer          : Resumed session with id 6xbx07uns3dnqc80
+2025-01-30T19:21:08.807-08:00  INFO 122580 --- [Lavalink] [XNIO-1 I/O-17] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58500 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id 6xbx07uns3dnqc80
+2025-01-30T19:21:08.812-08:00 ERROR 122580 --- [Lavalink] [XNIO-1 I/O-6] lavalink.server.io.SocketContext         : Error
+
+java.nio.channels.ClosedChannelException: null
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel.flush(AbstractFramedStreamSinkChannel.java:372) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:413) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners$14.handleEvent(ChannelListeners.java:409) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.ChannelListeners.invokeChannelListener(ChannelListeners.java:92) ~[xnio-api-3.8.8.Final.jar!/:3.8.8.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedStreamSinkChannel$1.run(AbstractFramedStreamSinkChannel.java:259) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at io.undertow.server.protocol.framed.AbstractFramedChannel$1.run(AbstractFramedChannel.java:146) ~[undertow-core-2.3.13.Final.jar!/:2.3.13.Final]
+	at org.xnio.nio.WorkerThread.safeRun(WorkerThread.java:612) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+	at org.xnio.nio.WorkerThread.run(WorkerThread.java:479) ~[xnio-nio-3.8.8.Final.jar!/:3.8.8.Final]
+
+2025-01-30T19:21:08.816-08:00  INFO 122580 --- [Lavalink] [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58501 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60000 seconds with id 6xbx07uns3dnqc80
